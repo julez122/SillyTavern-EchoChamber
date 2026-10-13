@@ -4659,8 +4659,8 @@
 }
 
 @media screen and (max-width: 1000px) {
-  #discordBar.ec_left .ec_reply_container,
-  #discordBar.ec_right .ec_reply_container {
-    transform: translateY(-55px);
-  }
+#discordBar.ec_left .ec_reply_container,
+#discordBar.ec_right .ec_reply_container {
+    margin-bottom: 55px; /* Adjust this value as needed */
+}
 }
