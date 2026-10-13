@@ -2,75 +2,77 @@
 
 /* --- Variables & Theme --- */
 :root {
-    --ec-bg: var(--SmartThemeBlurTintColor, rgba(20, 20, 25, 0.85));
-    --ec-border: var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.15));
-    --ec-text: var(--SmartThemeBodyColor, #dcddde);
-    --ec-accent: var(--SmartThemeQuoteColor, #43b581);
-    --ec-hover: rgba(255, 255, 255, 0.1);
-    --ec-radius: 8px;
-    --ec-header-height: 40px;
-    --ec-selection-bg: rgba(255, 255, 255, 0.15);
-    /* Dialogs sit above the panel's existing popup-menu layers. */
-    --ec-settings-layer: 300500;
-    --ec-editor-layer: 300510;
-    --ec-creator-layer: 300520;
-    --ec-confirm-layer: 300530;
+  --ec-bg: var(--SmartThemeBlurTintColor, rgba(20, 20, 25, 0.85));
+  --ec-border: var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.15));
+  --ec-text: var(--SmartThemeBodyColor, #dcddde);
+  --ec-accent: var(--SmartThemeQuoteColor, #43b581);
+  --ec-hover: rgba(255, 255, 255, 0.1);
+  --ec-radius: 8px;
+  --ec-header-height: 40px;
+  --ec-selection-bg: rgba(255, 255, 255, 0.15);
+  /* Dialogs sit above the panel's existing popup-menu layers. */
+  --ec-settings-layer: 300500;
+  --ec-editor-layer: 300510;
+  --ec-creator-layer: 300520;
+  --ec-confirm-layer: 300530;
 }
 
 /* --- Livestream Animation --- */
 @keyframes slideInMessage {
-    from {
-        opacity: 0;
-        transform: translateY(-10px);
-        max-height: 0;
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+    max-height: 0;
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        max-height: 200px;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
 }
 
 /* Oldest-first mode: new messages slide in from the bottom */
 @keyframes slideInMessageBottom {
-    from {
-        opacity: 0;
-        transform: translateY(10px);
-        max-height: 0;
-    }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+    max-height: 0;
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-        max-height: 200px;
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 200px;
+  }
 }
 
 .ec_livestream_message {
-    animation: slideInMessage 0.3s ease-out forwards;
-    overflow: hidden;
+  animation: slideInMessage 0.3s ease-out forwards;
+  overflow: hidden;
 }
 
 .ec_livestream_message_bottom {
-    animation: slideInMessageBottom 0.3s ease-out forwards;
-    overflow: hidden;
+  animation: slideInMessageBottom 0.3s ease-out forwards;
+  overflow: hidden;
 }
 
 /* --- Main Container --- */
 #discordBar {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--ec-border);
-    overflow: visible;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    /* z-index must be higher than Pathweaver bar (200000) so that popup menus
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--ec-border);
+  overflow: visible;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  /* z-index must be higher than Pathweaver bar (200000) so that popup menus
        inside this stacking context appear above the Pathweaver bar */
-    z-index: 200001;
-    transition: width 0.1s, height 0.1s;
-    border-radius: var(--ec-radius);
-    /* Default background - will be overwritten by JS when opacity is applied */
-    background: rgba(20, 20, 25, 0.85);
+  z-index: 200001;
+  transition:
+    width 0.1s,
+    height 0.1s;
+  border-radius: var(--ec-radius);
+  /* Default background - will be overwritten by JS when opacity is applied */
+  background: rgba(20, 20, 25, 0.85);
 }
 
 /* ========================================= */
@@ -79,63 +81,63 @@
 
 /* Position: BOTTOM (Default) - Flows with send_form */
 #discordBar.ec_bottom {
-    position: relative;
-    width: 100%;
-    margin-top: 10px;
-    flex-shrink: 0;
-    border-top-left-radius: var(--ec-radius);
-    border-top-right-radius: var(--ec-radius);
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
+  position: relative;
+  width: 100%;
+  margin-top: 10px;
+  flex-shrink: 0;
+  border-top-left-radius: var(--ec-radius);
+  border-top-right-radius: var(--ec-radius);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /* Position: TOP - Fixed at top of viewport */
 #discordBar.ec_top {
-    position: fixed;
-    top: 38px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: var(--sheld-width, var(--sheldWidth, 95%));
-    max-width: 1200px;
-    z-index: 2000;
-    border-bottom-left-radius: var(--ec-radius);
-    border-bottom-right-radius: var(--ec-radius);
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+  position: fixed;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: var(--sheld-width, var(--sheldWidth, 95%));
+  max-width: 1200px;
+  z-index: 2000;
+  border-bottom-left-radius: var(--ec-radius);
+  border-bottom-right-radius: var(--ec-radius);
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 /* Position: LEFT - Fixed on left side */
 #discordBar.ec_left {
-    position: fixed;
-    top: var(--topBarBlockSize);
-    bottom: 0;
-    left: 0;
-    width: calc(50vw - var(--sheldWidth, var(--sheld-width, 1200px)) / 2);
-    min-width: 200px;
-    max-width: 600px;
-    height: calc(100vh - var(--topBarBlockSize)) !important;
-    border-right: 1px solid var(--ec-border);
-    border-top: none;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: var(--topBarBlockSize);
+  bottom: 0;
+  left: 0;
+  width: calc(50vw - var(--sheldWidth, var(--sheld-width, 1200px)) / 2);
+  min-width: 200px;
+  max-width: 600px;
+  height: calc(100vh - var(--topBarBlockSize)) !important;
+  border-right: 1px solid var(--ec-border);
+  border-top: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Position: RIGHT - Fixed on right side */
 #discordBar.ec_right {
-    position: fixed;
-    top: var(--topBarBlockSize);
-    bottom: 0;
-    right: 0;
-    width: calc(50vw - var(--sheldWidth, var(--sheld-width, 1200px)) / 2);
-    min-width: 200px;
-    max-width: 600px;
-    height: calc(100vh - var(--topBarBlockSize)) !important;
-    border-left: 1px solid var(--ec-border);
-    border-top: none;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
+  position: fixed;
+  top: var(--topBarBlockSize);
+  bottom: 0;
+  right: 0;
+  width: calc(50vw - var(--sheldWidth, var(--sheld-width, 1200px)) / 2);
+  min-width: 200px;
+  max-width: 600px;
+  height: calc(100vh - var(--topBarBlockSize)) !important;
+  border-left: 1px solid var(--ec-border);
+  border-top: none;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Collapsed State */
@@ -144,35 +146,35 @@
 #discordBar.ec_collapsed .ec_style_indicator,
 #discordBar.ec_collapsed .ec_status_overlay,
 #discordBar.ec_collapsed .ec_reply_container {
-    display: none !important;
+  display: none !important;
 }
 
 #discordBar.ec_collapsed {
-    height: auto !important;
-    bottom: auto !important;
-    min-height: 0 !important;
-    max-height: none !important;
+  height: auto !important;
+  bottom: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
 }
 
 #discordBar.ec_collapsed #discordQuickSettings {
-    height: 32px !important;
-    min-height: 32px !important;
-    padding: 0 4px !important;
+  height: 32px !important;
+  min-height: 32px !important;
+  padding: 0 4px !important;
 }
 
 /* --- Header & Controls --- */
 #discordQuickSettings {
-    height: var(--ec-header-height);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 8px;
-    border-bottom: 1px solid var(--ec-border);
-    flex-shrink: 0;
-    position: relative;
-    z-index: 200005;
-    /* Default background - will be overwritten by JS when opacity is applied */
-    background: rgba(0, 0, 0, 0.25);
+  height: var(--ec-header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  border-bottom: 1px solid var(--ec-border);
+  flex-shrink: 0;
+  position: relative;
+  z-index: 200005;
+  /* Default background - will be overwritten by JS when opacity is applied */
+  background: rgba(0, 0, 0, 0.25);
 }
 
 /* ========================================= */
@@ -180,429 +182,432 @@
 /* ========================================= */
 
 .ec_popout_body {
-    margin: 0;
-    padding: 0;
-    height: 100vh;
-    overflow: hidden;
-    background: var(--SmartThemeBodyBackground, #1a1a2e);
-    color: var(--SmartThemeBodyColor, #e0e0e0);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--SmartThemeBodyBackground, #1a1a2e);
+  color: var(--SmartThemeBodyColor, #e0e0e0);
 }
 
 #discordBar.ec_popout {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 #discordBar.ec_popout #discordQuickSettings {
-    background: var(--SmartThemeBlurTintColor, rgba(0, 0, 0, 0.25));
+  background: var(--SmartThemeBlurTintColor, rgba(0, 0, 0, 0.25));
 }
 
 #discordBar.ec_popout #discordContent {
-    flex: 1;
-    min-height: 0;
-    height: auto !important;
-    overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  height: auto !important;
+  overflow-y: auto;
 }
 
 #discordBar.ec_popout .discord_message {
-    display: block;
-    overflow: hidden;
-    padding: 8px 10px;
+  display: block;
+  overflow: hidden;
+  padding: 8px 10px;
 }
 
 #discordBar.ec_popout .discord_avatar {
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 2px;
+  float: left;
+  margin-right: 8px;
+  margin-bottom: 2px;
 }
 
 #discordBar.ec_popout .discord_body {
-    display: block;
-    overflow: visible;
+  display: block;
+  overflow: visible;
 }
 
 #discordBar.ec_popout .discord_header {
-    display: inline-block;
-    margin-bottom: 2px;
+  display: inline-block;
+  margin-bottom: 2px;
 }
 
 #discordBar.ec_popout .discord_content {
-    display: block;
-    margin-top: 0;
+  display: block;
+  margin-top: 0;
 }
 
 #discordBar.ec_popout .discord_timestamp {
-    display: none;
+  display: none;
 }
 
 .ec_header_left {
-    display: flex;
-    align-items: center;
-    gap: 3px;
-    flex-shrink: 0;
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+  min-width: 0;
 }
 
 .ec_header_right {
-    display: flex;
-    align-items: center;
-    gap: 2px;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
 }
 
 /* Power Button (Enable/Disable Extension) */
 .ec_power_btn {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--ec-accent);
-    transition: all 0.2s;
-    flex-shrink: 0;
-    border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ec-accent);
+  transition: all 0.2s;
+  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 .ec_power_btn:hover,
 .ec_power_btn:focus-visible,
 .ec_power_btn:active {
-    background: transparent;
+  background: transparent;
 }
 
 .ec_power_btn > i {
-font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 /* Collapse Button (Expand/Collapse Panel) */
 .ec_collapse_btn {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--ec-text);
-    transition: all 0.2s, color 0.2s, transform 0.15s;
-    flex-shrink: 0;
-    border-radius: 4px;
-    font-size: 0.8em;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ec-text);
+  transition:
+    all 0.2s,
+    color 0.2s,
+    transform 0.15s;
+  flex-shrink: 0;
+  border-radius: 4px;
+  font-size: 0.8em;
 }
 
 .ec_collapse_btn:hover {
-    background: rgba(238, 83, 150, 0.05);
-    color: var(--ec-accent);
-    transform: scale(1.15);
+  background: rgba(238, 83, 150, 0.05);
+  color: var(--ec-accent);
+  transform: scale(1.15);
 }
 
 /* When collapsed, make the expand arrow more visible */
 #discordBar.ec_collapsed .ec_collapse_btn {
-    color: var(--ec-accent);
-    opacity: 1 !important;
-    background: rgba(67, 181, 129, 0.12);
-    border-radius: 4px;
-    width: 25px;
-    height: 25px;
-    font-size: 0.90em;
-    background-color: rgba(238, 83, 150,0.05) !important;
+  color: var(--ec-accent);
+  opacity: 1 !important;
+  background: rgba(67, 181, 129, 0.12);
+  border-radius: 4px;
+  width: 25px;
+  height: 25px;
+  font-size: 0.9em;
+  background-color: rgba(238, 83, 150, 0.05) !important;
 }
 
 /* Legacy toggle button - kept for compatibility */
 .ec_toggle_btn {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: var(--ec-accent);
-    transition: opacity 0.2s;
-    flex-shrink: 0;
-    border-radius: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--ec-accent);
+  transition: opacity 0.2s;
+  flex-shrink: 0;
+  border-radius: 4px;
 }
 
 .ec_toggle_btn:hover {
-    background: var(--ec-hover);
+  background: var(--ec-hover);
 }
 
 /* Live Indicator */
 .ec_live_indicator {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 0.7em;
-    font-weight: bold;
-    letter-spacing: 0.5px;
-    padding: 2px 6px;
-    border-radius: 3px;
-    margin-left: 4px;
-    transition: all 0.3s ease;
-    flex-shrink: 1;
-    min-width: 0;
-    overflow: hidden;
-    white-space: nowrap;
-    cursor: pointer;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.7em;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 3px;
+  margin-left: 4px;
+  transition: all 0.3s ease;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  user-select: none;
 }
 
 .ec_live_indicator:hover {
-    filter: brightness(1.25);
+  filter: brightness(1.25);
 }
 
 /* Hide LIVE text when space is tight, show only icon */
 @media (max-width: 500px) {
-    .ec_live_indicator {
-        padding: 2px 4px;
-        font-size: 0;
-        gap: 0;
-    }
+  .ec_live_indicator {
+    padding: 2px 4px;
+    font-size: 0;
+    gap: 0;
+  }
 
-    .ec_live_indicator i {
-        font-size: 10px;
-    }
+  .ec_live_indicator i {
+    font-size: 10px;
+  }
 
-    /* Restore full label when actively live — text must be visible */
-    .ec_live_indicator.ec_live_on {
-        font-size: 0.7em;
-        gap: 4px;
-        padding: 2px 6px;
-    }
+  /* Restore full label when actively live — text must be visible */
+  .ec_live_indicator.ec_live_on {
+    font-size: 0.7em;
+    gap: 4px;
+    padding: 2px 6px;
+  }
 
-    .ec_live_indicator.ec_live_on i {
-        font-size: 0.6em;
-    }
+  .ec_live_indicator.ec_live_on i {
+    font-size: 0.6em;
+  }
 
-    /* Restore full label + icon when disabled (off) — still a toggle button */
-    .ec_live_indicator.ec_live_off {
-        font-size: 0.7em;
-        gap: 4px;
-        padding: 2px 6px;
-    }
+  /* Restore full label + icon when disabled (off) — still a toggle button */
+  .ec_live_indicator.ec_live_off {
+    font-size: 0.7em;
+    gap: 4px;
+    padding: 2px 6px;
+  }
 
-    .ec_live_indicator.ec_live_off i {
-        font-size: 0.6em;
-    }
+  .ec_live_indicator.ec_live_off i {
+    font-size: 0.6em;
+  }
 
-    /* Restore full label + icon when processing (loading) — shows orange pulsing animation */
-    .ec_live_indicator.ec_live_loading {
-        font-size: 0.7em;
-        gap: 4px;
-        padding: 2px 6px;
-    }
+  /* Restore full label + icon when processing (loading) — shows orange pulsing animation */
+  .ec_live_indicator.ec_live_loading {
+    font-size: 0.7em;
+    gap: 4px;
+    padding: 2px 6px;
+  }
 
-    .ec_live_indicator.ec_live_loading i {
-        font-size: 0.6em;
-    }
+  .ec_live_indicator.ec_live_loading i {
+    font-size: 0.6em;
+  }
 }
 
 .ec_live_indicator i {
-    font-size: 0.6em;
+  font-size: 0.6em;
 }
 
 /* Collapsed state - hide live indicator */
 #discordBar.ec_collapsed .ec_live_indicator {
-    display: none;
+  display: none;
 }
 
 /* Off state - greyed out */
 .ec_live_indicator.ec_live_off {
-    color: rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .ec_live_indicator.ec_live_off i {
-    color: rgba(150, 150, 150, 0.5);
+  color: rgba(150, 150, 150, 0.5);
 }
 
 /* On state - red with subtle pulse */
 .ec_live_indicator.ec_live_on {
-    color: #ff4444;
-    background: rgba(255, 68, 68, 0.1);
+  color: #ff4444;
+  background: rgba(255, 68, 68, 0.1);
 }
 
 .ec_live_indicator.ec_live_on i {
-    color: #ff4444;
-    animation: livePulse 2s ease-in-out infinite;
+  color: #ff4444;
+  animation: livePulse 2s ease-in-out infinite;
 }
 
 @keyframes livePulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
 
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* Loading state - amber/orange, fast pulse while processing. Clickable to cancel. */
 .ec_live_indicator.ec_live_loading {
-    color: #f0a500;
-    background: rgba(240, 165, 0, 0.15);
-    outline: 1px solid rgba(240, 165, 0, 0.4);
-    animation: liveLoadingGlow 1s ease-in-out infinite;
+  color: #f0a500;
+  background: rgba(240, 165, 0, 0.15);
+  outline: 1px solid rgba(240, 165, 0, 0.4);
+  animation: liveLoadingGlow 1s ease-in-out infinite;
 }
 
 .ec_live_indicator.ec_live_loading i {
-    color: #f0a500;
-    animation: liveSpin 1s linear infinite;
+  color: #f0a500;
+  animation: liveSpin 1s linear infinite;
 }
 
 @keyframes liveLoadingGlow {
+  0%,
+  100% {
+    outline-color: rgba(240, 165, 0, 0.3);
+    background: rgba(240, 165, 0, 0.12);
+  }
 
-    0%,
-    100% {
-        outline-color: rgba(240, 165, 0, 0.3);
-        background: rgba(240, 165, 0, 0.12);
-    }
-
-    50% {
-        outline-color: rgba(240, 165, 0, 0.7);
-        background: rgba(240, 165, 0, 0.22);
-    }
+  50% {
+    outline-color: rgba(240, 165, 0, 0.7);
+    background: rgba(240, 165, 0, 0.22);
+  }
 }
 
 @keyframes liveSpin {
-    from {
-        transform: rotate(0deg);
-    }
+  from {
+    transform: rotate(0deg);
+  }
 
-    to {
-        transform: rotate(360deg);
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Disabled state (paused) */
 #discordBar.ec_disabled .ec_chat_container,
 #discordBar.ec_disabled .ec_message,
 #discordBar.ec_disabled .ec_typing_indicator {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 #discordBar.ec_disabled .ec_live_indicator {
-    display: none;
+  display: none;
 }
 
 /* Icon Buttons (all same style) */
 .ec_btn {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    cursor: pointer;
-    color: var(--ec-accent);
-    opacity: 0.7;
-    transition: background 0.2s, opacity 0.2s;
-    font-size: 0.9em;
-    position: relative;
-    z-index: 200002;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--ec-accent);
+  opacity: 0.7;
+  transition:
+    background 0.2s,
+    opacity 0.2s;
+  font-size: 0.9em;
+  position: relative;
+  z-index: 200002;
 }
 
 .ec_btn:hover,
 .ec_btn.active {
-    background: var(--ec-hover);
-    opacity: 1;
+  background: var(--ec-hover);
+  opacity: 1;
 }
 
 /* --- Content Area --- */
 #discordContent {
-    /* flex: 1 removed to prevent auto-expansion */
-    flex-grow: 0;
-    flex-shrink: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    padding: 4px 0;
-    min-height: 60px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+  /* flex: 1 removed to prevent auto-expansion */
+  flex-grow: 0;
+  flex-shrink: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  padding: 4px 0;
+  min-height: 60px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
 }
 
 #discordContent::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 #discordContent::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
 }
 
 /* Side Panel Content - fills available height and scrolls */
 #discordBar.ec_left #discordContent,
 #discordBar.ec_right #discordContent {
-    flex: 1;
-    min-height: 0;
-    height: auto !important;
-    overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  height: auto !important;
+  overflow-y: auto;
 }
 
 /* --- Reply Input Area --- */
 .ec_reply_container {
-    padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid var(--ec-border);
-    display: flex;
-    gap: 8px;
-    align-items: center;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--ec-border);
+  display: flex;
+  gap: 8px;
+  align-items: center;
 }
 
 .ec_reply_input {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid var(--ec-border);
-    border-radius: 4px;
-    padding: 6px 10px;
-    color: var(--ec-text);
-    font-size: 0.9em;
-    outline: none;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--ec-border);
+  border-radius: 4px;
+  padding: 6px 10px;
+  color: var(--ec-text);
+  font-size: 0.9em;
+  outline: none;
 }
 
 .ec_reply_input:focus {
-    border-color: var(--ec-accent);
+  border-color: var(--ec-accent);
 }
 
 .ec_reply_send {
-    color: var(--ec-accent);
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s;
+  color: var(--ec-accent);
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
 }
 
 .ec_reply_send:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Ensure reply container stays visible and is not clipped in bottom/top layouts */
 #discordBar.ec_bottom .ec_reply_container,
 #discordBar.ec_top .ec_reply_container {
-    flex-shrink: 0;
-    position: relative;
-    z-index: 1;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
 /* Clickable Usernames */
 .discord_username {
-    cursor: pointer !important;
+  cursor: pointer !important;
 }
 
 .discord_username:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* ========================================= */
@@ -610,383 +615,386 @@ font-size: 0.9em;
 /* ========================================= */
 
 .discord_message {
-    display: flex;
-    gap: 10px;
-    padding: 6px 12px;
-    position: relative;
+  display: flex;
+  gap: 10px;
+  padding: 6px 12px;
+  position: relative;
 }
 
 .discord_avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 600;
-    font-size: 14px;
-    color: #fff;
-    flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
 }
 
 .discord_body {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .discord_header {
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .discord_username {
-    font-weight: 600;
-    font-size: 0.95em;
+  font-weight: 600;
+  font-size: 0.95em;
 }
 
 .discord_timestamp {
-    font-size: 0.75em;
-    color: rgba(255, 255, 255, 0.4);
-    white-space: nowrap;
+  font-size: 0.75em;
+  color: rgba(255, 255, 255, 0.4);
+  white-space: nowrap;
 }
 
 .discord_content {
-    margin-top: 2px;
-    line-height: 1.4;
-    word-wrap: break-word;
+  margin-top: 2px;
+  line-height: 1.4;
+  word-wrap: break-word;
 }
 
 /* Side Panel Message Adjustments - Float Layout */
 #discordBar.ec_left .discord_message,
 #discordBar.ec_right .discord_message {
-    display: block;
-    overflow: hidden;
-    /* Clearfix for floats */
-    padding: 8px 10px;
+  display: block;
+  overflow: hidden;
+  /* Clearfix for floats */
+  padding: 8px 10px;
 }
 
 #discordBar.ec_left .discord_avatar,
 #discordBar.ec_right .discord_avatar {
-    float: left;
-    margin-right: 8px;
-    margin-bottom: 2px;
+  float: left;
+  margin-right: 8px;
+  margin-bottom: 2px;
 }
 
 #discordBar.ec_left .discord_body,
 #discordBar.ec_right .discord_body {
-    display: block;
-    overflow: hidden;
-    /* Clear floats containment if needed, or let text wrap */
-    /* To let text wrap UNDER avatar, we must NOT establish a new block formatting context (so no overflow hidden) */
-    overflow: visible;
+  display: block;
+  overflow: hidden;
+  /* Clear floats containment if needed, or let text wrap */
+  /* To let text wrap UNDER avatar, we must NOT establish a new block formatting context (so no overflow hidden) */
+  overflow: visible;
 }
 
 #discordBar.ec_left .discord_header,
 #discordBar.ec_right .discord_header {
-    display: inline-block;
-    margin-bottom: 2px;
+  display: inline-block;
+  margin-bottom: 2px;
 }
 
 #discordBar.ec_left .discord_content,
 #discordBar.ec_right .discord_content {
-    display: block;
-    margin-top: 0;
+  display: block;
+  margin-top: 0;
 }
 
 /* Hide timestamps in side panels */
 #discordBar.ec_left .discord_timestamp,
 #discordBar.ec_right .discord_timestamp {
-    display: none;
+  display: none;
 }
 
 /* Status Overlay - Floats over content */
 .ec_status_overlay {
-    position: absolute;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.95);
-    border: 1px solid var(--ec-border);
-    padding: 6px 16px;
-    border-radius: 20px;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    z-index: 100;
-    font-size: 0.85em;
-    white-space: nowrap;
-    width: fit-content;
-    max-width: 90%;
+  position: absolute;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid var(--ec-border);
+  padding: 6px 16px;
+  border-radius: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 100;
+  font-size: 0.85em;
+  white-space: nowrap;
+  width: fit-content;
+  max-width: 90%;
 }
 
 .ec_status_overlay.active {
-    display: flex;
+  display: flex;
 }
 
 /* Style Indicator Bar */
 .ec_style_indicator {
-    background: rgba(0, 0, 0, 0.3);
-    border-bottom: 1px solid var(--ec-border);
-    padding: 4px 12px;
-    font-size: 0.75em;
-    color: var(--ec-text);
-    opacity: 1;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
-    position: relative;
-    overflow: visible;
-    /* For dropdown positioning */
-    z-index: 200003;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--ec-border);
+  padding: 4px 12px;
+  font-size: 0.75em;
+  color: var(--ec-text);
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: visible;
+  /* For dropdown positioning */
+  z-index: 200003;
 }
 
 /* Make style indicator clickable when it's a dropdown trigger */
 .ec_style_dropdown_trigger {
-    cursor: pointer;
-    transition: opacity 0.2s, background 0.2s;
-    position: relative;
-    z-index: 200002;
+  cursor: pointer;
+  transition:
+    opacity 0.2s,
+    background 0.2s;
+  position: relative;
+  z-index: 200002;
 }
 
 .ec_style_indicator .ec_dropdown_arrow,
 .ec_style_indicator span,
 .ec_style_indicator i {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .ec_style_dropdown_trigger:hover {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.4);
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .ec_style_dropdown_trigger.active {
-    opacity: 1;
-    background: rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .ec_dropdown_arrow {
-    margin-left: auto;
-    font-size: 0.9em;
-    opacity: 0.7;
-    transition: transform 0.2s;
+  margin-left: auto;
+  font-size: 0.9em;
+  opacity: 0.7;
+  transition: transform 0.2s;
 }
 
 .ec_style_dropdown_trigger.active .ec_dropdown_arrow {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .ec_style_indicator i:first-child {
-    color: var(--SmartThemeQuoteColor, #4a9);
+  color: var(--SmartThemeQuoteColor, #4a9);
 }
 
 /* Position the indicator menu - now appended to body with fixed positioning */
 .ec_indicator_menu,
 #ec_style_menu_body {
-    position: fixed;
-    max-height: 300px;
-    overflow-y: auto;
-    border-radius: 0 0 8px 8px;
-    z-index: 300000 !important;
-    display: none;
-    background: var(--SmartThemeBlurTintColor, #1a1b1e);
-    border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    pointer-events: auto;
-    /* Finger swipes scroll the options without moving the surrounding chat. */
-    touch-action: pan-y;
-    overscroll-behavior: contain;
-    overflow-x: hidden;
-    scrollbar-width: thin;
+  position: fixed;
+  max-height: 300px;
+  overflow-y: auto;
+  border-radius: 0 0 8px 8px;
+  z-index: 300000 !important;
+  display: none;
+  background: var(--SmartThemeBlurTintColor, #1a1b1e);
+  border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  pointer-events: auto;
+  /* Finger swipes scroll the options without moving the surrounding chat. */
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
 /* Cancel button with subtle glow animation */
 .ec_status_btn {
-    background: rgba(240, 71, 71, 0.2);
-    color: #ff5555;
-    border: 1px solid rgba(240, 71, 71, 0.4);
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 0.8em;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    transition: background 0.2s, box-shadow 0.3s;
-    animation: glow-pulse 1.5s ease-in-out infinite;
+  background: rgba(240, 71, 71, 0.2);
+  color: #ff5555;
+  border: 1px solid rgba(240, 71, 71, 0.4);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.8em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition:
+    background 0.2s,
+    box-shadow 0.3s;
+  animation: glow-pulse 1.5s ease-in-out infinite;
 }
 
 @keyframes glow-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 4px 1px rgba(255, 85, 85, 0.2);
+  }
 
-    0%,
-    100% {
-        box-shadow: 0 0 4px 1px rgba(255, 85, 85, 0.2);
-    }
-
-    50% {
-        box-shadow: 0 0 12px 3px rgba(255, 85, 85, 0.5);
-    }
+  50% {
+    box-shadow: 0 0 12px 3px rgba(255, 85, 85, 0.5);
+  }
 }
 
 .ec_status_btn:hover {
-    background: rgba(240, 71, 71, 0.35);
-    animation: none;
-    box-shadow: 0 0 8px 2px rgba(255, 85, 85, 0.4);
+  background: rgba(240, 71, 71, 0.35);
+  animation: none;
+  box-shadow: 0 0 8px 2px rgba(255, 85, 85, 0.4);
 }
 
 /* --- Resize Handle --- */
 .ec_resize_handle {
-    flex-shrink: 0;
-    z-index: 2001;
-    transition: background 0.2s;
-    position: relative;
-    user-select: none;
-    touch-action: none;
+  flex-shrink: 0;
+  z-index: 2001;
+  transition: background 0.2s;
+  position: relative;
+  user-select: none;
+  touch-action: none;
 }
 
 /* Visual grab indicator - centered dots/line */
 .ec_resize_handle::before {
-    content: '';
-    position: absolute;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 2px;
-    transition: background 0.2s;
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 2px;
+  transition: background 0.2s;
 }
 
 .ec_resize_handle:hover::before,
 .ec_resize_handle.resizing::before {
-    background: var(--ec-accent);
+  background: var(--ec-accent);
 }
 
 /* Specific Handle Positions */
 /* Bottom Layout: Handle at TOP of bar (absolute positioned) */
 #discordBar.ec_bottom .ec_resize_handle {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 12px;
-    cursor: ns-resize;
-    background: linear-gradient(to bottom, rgba(128, 128, 128, 0.3), transparent);
-    border-radius: var(--ec-radius) var(--ec-radius) 0 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  cursor: ns-resize;
+  background: linear-gradient(to bottom, rgba(128, 128, 128, 0.3), transparent);
+  border-radius: var(--ec-radius) var(--ec-radius) 0 0;
 }
 
 #discordBar.ec_bottom .ec_resize_handle::before {
-    width: 40px;
-    height: 4px;
-    left: 50%;
-    top: 4px;
-    transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  left: 50%;
+  top: 4px;
+  transform: translateX(-50%);
 }
 
 /* Top Layout: Handle at BOTTOM of bar (absolute positioned) */
 #discordBar.ec_top .ec_resize_handle {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 12px;
-    cursor: ns-resize;
-    background: linear-gradient(to top, rgba(128, 128, 128, 0.3), transparent);
-    border-radius: 0 0 var(--ec-radius) var(--ec-radius);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 12px;
+  cursor: ns-resize;
+  background: linear-gradient(to top, rgba(128, 128, 128, 0.3), transparent);
+  border-radius: 0 0 var(--ec-radius) var(--ec-radius);
 }
 
 #discordBar.ec_top .ec_resize_handle::before {
-    width: 40px;
-    height: 4px;
-    left: 50%;
-    bottom: 4px;
-    transform: translateX(-50%);
+  width: 40px;
+  height: 4px;
+  left: 50%;
+  bottom: 4px;
+  transform: translateX(-50%);
 }
 
 /* Left Layout: Handle at Right */
 #discordBar.ec_left .ec_resize_handle {
-    height: 100%;
-    width: 10px;
-    cursor: ew-resize;
-    position: absolute;
-    right: 0;
-    top: 0;
-    background: linear-gradient(to right, transparent, rgba(128, 128, 128, 0.3));
+  height: 100%;
+  width: 10px;
+  cursor: ew-resize;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: linear-gradient(to right, transparent, rgba(128, 128, 128, 0.3));
 }
 
 #discordBar.ec_left .ec_resize_handle::before {
-    width: 4px;
-    height: 40px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  width: 4px;
+  height: 40px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Right Layout: Handle at Left */
 #discordBar.ec_right .ec_resize_handle {
-    height: 100%;
-    width: 10px;
-    cursor: ew-resize;
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: linear-gradient(to left, transparent, rgba(128, 128, 128, 0.3));
+  height: 100%;
+  width: 10px;
+  cursor: ew-resize;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: linear-gradient(to left, transparent, rgba(128, 128, 128, 0.3));
 }
 
 #discordBar.ec_right .ec_resize_handle::before {
-    width: 4px;
-    height: 40px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+  width: 4px;
+  height: 40px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 /* Add padding to accommodate absolute resize handle */
 #discordBar.ec_bottom {
-    padding-top: 12px;
+  padding-top: 12px;
 }
 
 #discordBar.ec_top {
-    padding-bottom: 12px;
+  padding-bottom: 12px;
 }
 
 /* --- Menus (User Count / Font / Position / Style) --- */
 .ec_popup_menu {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    min-width: 180px;
-    background: rgba(10, 14, 24, 0.98) !important;
-    border: 1px solid var(--ec-border);
-    border-radius: 6px;
-    padding: 5px;
-    display: none;
-    z-index: 200001;
-    margin-top: 5px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    opacity: 1;
-    isolation: isolate;
-    background-image: none !important;
-    mix-blend-mode: normal;
-    color: rgba(255, 255, 255, 0.96);
+  position: absolute;
+  top: 100%;
+  right: 0;
+  min-width: 180px;
+  background: rgba(10, 14, 24, 0.98) !important;
+  border: 1px solid var(--ec-border);
+  border-radius: 6px;
+  padding: 5px;
+  display: none;
+  z-index: 200001;
+  margin-top: 5px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  opacity: 1;
+  isolation: isolate;
+  background-image: none !important;
+  mix-blend-mode: normal;
+  color: rgba(255, 255, 255, 0.96);
 }
 
 /* Ensure menus have high z-index to appear above ST UI and other extensions (including Pathweaver) */
 .ec_popup_menu,
 .ec_indicator_menu {
-    z-index: 300000 !important;
+  z-index: 300000 !important;
 }
 
 .ec_btn {
-    z-index: 200002;
-    overflow: visible;
+  z-index: 200002;
+  overflow: visible;
 }
 
 .ec_btn.open {
-    z-index: 300200 !important;
+  z-index: 300200 !important;
 }
 
 .ec_style_dropdown_trigger.active {
-    z-index: 300050 !important;
+  z-index: 300050 !important;
 }
 
 .ec_btn.open .ec_popup_menu,
@@ -994,96 +1002,98 @@ font-size: 0.9em;
 .ec_user_menu,
 .ec_font_menu,
 #ec_overflow_menu_body {
-    z-index: 300201 !important;
+  z-index: 300201 !important;
 }
 
 #discordQuickSettings {
-    overflow: visible;
+  overflow: visible;
 }
 
 #discordBar {
-    overflow: visible;
+  overflow: visible;
 }
 
 .ec_layout_menu,
 .ec_user_menu,
 .ec_font_menu {
-    background: rgba(10, 14, 24, 0.98) !important;
-    opacity: 1;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+  background: rgba(10, 14, 24, 0.98) !important;
+  opacity: 1;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 /* User count and font size menus — cap height and add scrollbar */
 .ec_user_menu,
 .ec_font_menu {
-    max-height: 220px;
-    overflow-y: auto;
+  max-height: 220px;
+  overflow-y: auto;
 }
 
 .ec_btn.open .ec_popup_menu {
-    display: block;
+  display: block;
 }
 
 /* Menu opens upward when panel is at bottom */
 #discordBar.ec_bottom .ec_popup_menu {
-    top: auto;
-    bottom: 100%;
-    margin-bottom: 4px;
-    margin-top: 0;
+  top: auto;
+  bottom: 100%;
+  margin-bottom: 4px;
+  margin-top: 0;
 }
 
 .ec_menu_item {
-    appearance: none;
-    -webkit-appearance: none;
-    background: transparent;
-    border: 0;
-    width: 100%;
-    text-align: left;
-    padding: 6px 12px;
-    cursor: pointer;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: rgba(255, 255, 255, 0.96);
-    font-size: 0.75em;
-    white-space: nowrap;
-    transition: background 0.15s, color 0.15s;
-    opacity: 1;
-    text-shadow: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 10px 0px 10px 10px;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 0;
+  width: 100%;
+  text-align: left;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 0.75em;
+  white-space: nowrap;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  opacity: 1;
+  text-shadow: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 10px 0px 10px 10px;
 }
 
 /* Only apply hover highlight on devices that support true hover (mouse/trackpad).
    On touch-only devices (hover: none) this prevents items from lighting up
    while the user scrolls through the menu. */
 @media (hover: hover) {
-    .ec_menu_item:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: #fff;
-    }
+  .ec_menu_item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
 }
 
 /* Better selection highlight - subtle and readable */
 .ec_menu_item.selected {
-    background: var(--ec-selection-bg);
-    color: #fff;
-    font-weight: 600;
-    position: relative;
+  background: var(--ec-selection-bg);
+  color: #fff;
+  font-weight: 600;
+  position: relative;
 }
 
 /* Left accent bar on selected item */
 .ec_menu_item.selected::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 4px;
-    bottom: 4px;
-    width: 3px;
-    background: var(--ec-accent);
-    border-radius: 2px;
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--ec-accent);
+  border-radius: 2px;
 }
 
 /* ========================================= */
@@ -1092,144 +1102,150 @@ font-size: 0.9em;
 
 /* In compact mode: hide all normal buttons, show overflow button */
 #discordQuickSettings.ec_compact .ec_btn:not(.ec_overflow_btn) {
-    display: none;
+  display: none;
 }
 
 /* Always hide overflow button by default... */
 .ec_overflow_btn {
-    display: none;
+  display: none;
 }
 
 /* ...show it only in compact mode */
 #discordQuickSettings.ec_compact .ec_overflow_btn {
-    display: flex;
+  display: flex;
 }
 
 /* Overflow popup - body-level fixed, wider, scrollable */
 .ec_overflow_menu {
-    min-width: 230px;
-    max-width: 290px;
-    width: max-content;
-    padding: 4px;
-    overflow-y: auto;
-    max-height: 75vh;
-    /* position/top/left set by JS at open time */
+  min-width: 230px;
+  max-width: 290px;
+  width: max-content;
+  padding: 4px;
+  overflow-y: auto;
+  max-height: 75vh;
+  /* position/top/left set by JS at open time */
 }
 
 /* Thin separator line */
 .ec_of_divider_line {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.08);
-    margin: 4px 6px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 4px 6px;
 }
 
 /* Direct action rows (Regenerate, Clear, Settings) */
 .ec_of_item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.82);
-    font-size: 0.9em;
-    transition: background 0.15s, color 0.15s;
-    min-height: 40px;
-    -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 0.9em;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  min-height: 40px;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ec_of_item:hover,
 .ec_of_item:active {
-    background: rgba(255, 255, 255, 0.1);
-    color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .ec_of_item i {
-    width: 16px;
-    text-align: center;
-    opacity: 0.8;
-    flex-shrink: 0;
+  width: 16px;
+  text-align: center;
+  opacity: 0.8;
+  flex-shrink: 0;
 }
 
 .ec_of_danger {
-    color: rgba(240, 95, 95, 0.9);
+  color: rgba(240, 95, 95, 0.9);
 }
 
 .ec_of_danger:hover,
 .ec_of_danger:active {
-    background: rgba(240, 100, 100, 0.1);
-    color: rgba(255, 110, 110, 1);
+  background: rgba(240, 100, 100, 0.1);
+  color: rgba(255, 110, 110, 1);
 }
 
 /* ---- Accordion: header row ---- */
 .ec_of_accordion {
-    border-radius: 5px;
-    overflow: hidden;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .ec_of_acc_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 8px 12px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.75);
-    font-size: 0.82em;
-    font-weight: 600;
-    letter-spacing: 0.3px;
-    border-radius: 5px;
-    transition: background 0.15s, color 0.15s;
-    min-height: 38px;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  border-radius: 5px;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  min-height: 38px;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .ec_of_acc_header span {
-    display: flex;
-    align-items: center;
-    gap: 7px;
+  display: flex;
+  align-items: center;
+  gap: 7px;
 }
 
 .ec_of_acc_header span i {
-    opacity: 0.8;
-    width: 14px;
-    text-align: center;
+  opacity: 0.8;
+  width: 14px;
+  text-align: center;
 }
 
 .ec_of_acc_header:hover {
-    background: rgba(255, 255, 255, 0.07);
-    color: #fff;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
 }
 
 /* Chevron rotates 90° when open */
 .ec_of_chevron {
-    font-size: 0.7em;
-    opacity: 0.5;
-    transition: transform 0.2s ease;
-    flex-shrink: 0;
+  font-size: 0.7em;
+  opacity: 0.5;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
 }
 
 .ec_of_chevron.ec_of_rotated {
-    transform: rotate(90deg);
-    opacity: 0.9;
+  transform: rotate(90deg);
+  opacity: 0.9;
 }
 
 /* ---- Accordion: body (collapse/expand) ---- */
 .ec_of_acc_body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.22s ease, padding 0.22s ease;
-    padding: 0 6px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    /* children fill full width */
+  max-height: 0;
+  overflow: hidden;
+  transition:
+    max-height 0.22s ease,
+    padding 0.22s ease;
+  padding: 0 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* children fill full width */
 }
 
 .ec_of_acc_body.ec_of_open {
-    max-height: 240px;
-    /* enough for any section */
-    padding: 0 6px 6px;
+  max-height: 240px;
+  /* enough for any section */
+  padding: 0 6px 6px;
 }
 
 /* ---- Position chips: full-width stack ---- */
@@ -1237,203 +1253,207 @@ font-size: 0.9em;
 
 /* ---- Number chip wrap (users / font) ---- */
 .ec_of_chip_wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 
 /* Individual number chip */
 .ec_of_chip {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 5px;
-    min-width: 40px;
-    padding: 5px 8px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 0.82em;
-    color: rgba(255, 255, 255, 0.65);
-    background: rgba(255, 255, 255, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: background 0.15s, color 0.15s, border-color 0.15s;
-    white-space: nowrap;
-    min-height: 30px;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-width: 40px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.82em;
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition:
+    background 0.15s,
+    color 0.15s,
+    border-color 0.15s;
+  white-space: nowrap;
+  min-height: 30px;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .ec_of_chip:hover,
 .ec_of_chip:active {
-    background: rgba(255, 255, 255, 0.12);
-    color: #fff;
-    border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .ec_of_chip.ec_of_selected {
-    background: rgba(67, 181, 129, 0.15);
-    border-color: var(--ec-accent, #43b581);
-    color: var(--ec-accent, #43b581);
-    font-weight: 600;
+  background: rgba(67, 181, 129, 0.15);
+  border-color: var(--ec-accent, #43b581);
+  color: var(--ec-accent, #43b581);
+  font-weight: 600;
 }
 
 /* Numeric chips can be a bit slimmer */
 .ec_of_num {
-    min-width: 38px;
+  min-width: 38px;
 }
-
 
 /* --- Message Styling --- */
 .discord_message {
-    display: flex;
-    align-items: flex-start;
-    padding: 4px 16px;
-    margin-top: 2px;
-    line-height: 1.375rem;
+  display: flex;
+  align-items: flex-start;
+  padding: 4px 16px;
+  margin-top: 2px;
+  line-height: 1.375rem;
 }
 
 /* User's own message — subtle background highlight */
 .discord_message.ec_user_message {
-    background: rgba(255, 255, 255, 0.04);
-    border-left: 2px solid var(--ec-user-avatar-color, #3b82f6);
-    border-radius: 0 4px 4px 0;
-    padding-left: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 2px solid var(--ec-user-avatar-color, #3b82f6);
+  border-radius: 0 4px 4px 0;
+  padding-left: 14px;
 }
 
 .discord_avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 16px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-weight: 500;
-    font-size: 18px;
-    cursor: default;
-    user-select: none;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 16px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 500;
+  font-size: 18px;
+  cursor: default;
+  user-select: none;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
 }
 
 /* User's avatar — subtle ring border */
 .discord_message.ec_user_message .discord_avatar {
-    box-shadow: 0 0 0 2px var(--ec-user-avatar-color, #3b82f6), 0 0 0 3px rgba(0, 0, 0, 0.4);
+  box-shadow:
+    0 0 0 2px var(--ec-user-avatar-color, #3b82f6),
+    0 0 0 3px rgba(0, 0, 0, 0.4);
 }
 
 /* Smaller avatars for side panels */
 #discordBar.ec_left .discord_avatar,
 #discordBar.ec_right .discord_avatar {
-    width: 32px;
-    height: 32px;
-    margin-right: 10px;
-    font-size: 14px;
+  width: 32px;
+  height: 32px;
+  margin-right: 10px;
+  font-size: 14px;
 }
 
 .discord_body {
-    flex-grow: 1;
-    min-width: 0;
+  flex-grow: 1;
+  min-width: 0;
 }
 
 .discord_header {
-    display: flex;
-    align-items: baseline;
-    gap: 5px;
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
 }
 
 .discord_username {
-    font-weight: 600;
-    font-size: 1rem;
-    cursor: default;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: default;
 }
 
 .discord_timestamp {
-    display: none;
+  display: none;
 }
 
 .discord_content {
-    color: var(--SmartThemeBodyColor, #dcddde);
-    opacity: 0.95;
-    font-size: 0.95rem;
-    line-height: 1.5rem;
-    white-space: pre-wrap;
-    word-break: break-word;
+  color: var(--SmartThemeBodyColor, #dcddde);
+  opacity: 0.95;
+  font-size: 0.95rem;
+  line-height: 1.5rem;
+  white-space: pre-wrap;
+  word-break: break-word;
 }
 
 .discord_content em {
-    color: var(--SmartThemeQuoteColor);
-    font-style: italic;
+  color: var(--SmartThemeQuoteColor);
+  font-style: italic;
 }
 
 .discord_content strong {
-    color: inherit;
-    font-weight: bold;
+  color: inherit;
+  font-weight: bold;
 }
 
 .discord_content code {
-    background-color: rgba(0, 0, 0, 0.3);
-    padding: 0 4px;
-    border-radius: 3px;
-    font-family: monospace;
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 0 4px;
+  border-radius: 3px;
+  font-family: monospace;
 }
 
 /* --- Status Messages --- */
 .discord_status {
-    text-align: center;
-    padding: 20px;
-    color: var(--ec-text);
-    opacity: 0.7;
-    font-style: italic;
+  text-align: center;
+  padding: 20px;
+  color: var(--ec-text);
+  opacity: 0.7;
+  font-style: italic;
 }
 
 /* Cancelled state - uses theme accent color */
 .discord_status.ec_cancelled {
-    color: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
-    opacity: 1;
-    font-style: normal;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    animation: ec_fade_in 0.3s ease-out;
-    transition: opacity 0.5s ease-out;
+  color: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
+  opacity: 1;
+  font-style: normal;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  animation: ec_fade_in 0.3s ease-out;
+  transition: opacity 0.5s ease-out;
 }
 
 .discord_status.ec_cancelled.fade-out {
-    opacity: 0;
+  opacity: 0;
 }
 
 .discord_status.ec_cancelled i {
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
 
 /* Error state - uses theme colors */
 .discord_status.ec_error {
-    color: var(--SmartThemeEmColor, #f04747);
-    opacity: 0.9;
-    font-style: normal;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
+  color: var(--SmartThemeEmColor, #f04747);
+  opacity: 0.9;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .discord_status.ec_error i {
-    font-size: 1.1em;
+  font-size: 1.1em;
 }
 
 @keyframes ec_fade_in {
-    from {
-        opacity: 0;
-        transform: translateY(-5px);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ========================================= */
@@ -1441,367 +1461,372 @@ font-size: 0.9em;
 /* ========================================= */
 
 .ec_modal_overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
-    z-index: var(--ec-editor-layer);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.2s, visibility 0.2s;
-    padding: 20px;
-    overflow-y: auto;
-    /* Ensure modal is always positioned relative to viewport, not parent */
-    transform: none !important;
-    margin: 0 !important;
-    width: 100vw;
-    height: 100vh;
-    /* Explicit dynamic height also works when ST's transformed root is empty. */
-    height: 100dvh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: var(--ec-editor-layer);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.2s,
+    visibility 0.2s;
+  padding: 20px;
+  overflow-y: auto;
+  /* Ensure modal is always positioned relative to viewport, not parent */
+  transform: none !important;
+  margin: 0 !important;
+  width: 100vw;
+  height: 100vh;
+  /* Explicit dynamic height also works when ST's transformed root is empty. */
+  height: 100dvh;
 }
 
 /* New Style remains above its parent editor even when both reuse their DOM. */
 #ec_template_creator_modal {
-    z-index: var(--ec-creator-layer);
+  z-index: var(--ec-creator-layer);
 }
 
 .ec_modal_overlay.active {
-    opacity: 1;
-    visibility: visible;
+  opacity: 1;
+  visibility: visible;
 }
 
 .ec_modal_content {
-    background: var(--SmartThemeBlurTintColor, #1a1a2e);
-    border: 1px solid var(--SmartThemeBorderColor, #333);
-    border-radius: 12px;
-    width: 90%;
-    max-width: 900px;
-    max-height: min(85vh, calc(var(--ec-viewport-height, 100dvh) - 40px));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    transform: translateY(20px);
-    transition: transform 0.2s;
-    margin: auto;
-    position: relative;
+  background: var(--SmartThemeBlurTintColor, #1a1a2e);
+  border: 1px solid var(--SmartThemeBorderColor, #333);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 900px;
+  max-height: min(85vh, calc(var(--ec-viewport-height, 100dvh) - 40px));
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  transform: translateY(20px);
+  transition: transform 0.2s;
+  margin: auto;
+  position: relative;
 }
 
 .ec_modal_overlay.active .ec_modal_content {
-    transform: translateY(0);
+  transform: translateY(0);
 }
 
 .ec_modal_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
+  flex-shrink: 0;
 }
 
 .ec_modal_header h3 {
-    margin: 0;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--SmartThemeBodyColor, #eee);
-    font-size: 1.1em;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--SmartThemeBodyColor, #eee);
+  font-size: 1.1em;
 }
 
 .ec_modal_close {
-    background: none;
-    border: none;
-    color: var(--SmartThemeBodyColor, #eee);
-    font-size: 1.5em;
-    cursor: pointer;
-    opacity: 0.7;
-    transition: opacity 0.2s;
-    padding: 4px 8px;
+  background: none;
+  border: none;
+  color: var(--SmartThemeBodyColor, #eee);
+  font-size: 1.5em;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  padding: 4px 8px;
 }
 
 .ec_modal_close:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .ec_modal_body {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-    min-height: 400px;
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 400px;
 }
 
 .ec_style_sidebar {
-    width: 220px;
-    border-right: 1px solid var(--SmartThemeBorderColor, #333);
-    display: flex;
-    flex-direction: column;
-    flex-shrink: 0;
+  width: 220px;
+  border-right: 1px solid var(--SmartThemeBorderColor, #333);
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
 }
 
 .ec_style_sidebar_header {
-    padding: 12px;
-    border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
-    display: flex;
-    gap: 8px;
+  padding: 12px;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
+  display: flex;
+  gap: 8px;
 }
 
 .ec_style_sidebar_header button {
-    flex: 1;
-    padding: 8px;
-    font-size: 0.85em;
+  flex: 1;
+  padding: 8px;
+  font-size: 0.85em;
 }
 
 /* Keep the style list independently scrollable inside the flex sidebar. */
 .ec_style_list {
-    flex: 1;
-    overflow-y: auto;
-    padding: 8px;
-    min-height: 0;
-    overflow-x: hidden;
-    touch-action: pan-y;
-    overscroll-behavior: contain;
-    scrollbar-width: thin;
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+  min-height: 0;
+  overflow-x: hidden;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
 }
 
 .ec_style_order_hint {
-    padding: 6px 12px;
-    font-size: 0.72em;
-    opacity: 0.45;
-    color: var(--SmartThemeBodyColor, #aaa);
-    border-top: 1px solid rgba(255, 255, 255, 0.07);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
+  padding: 6px 12px;
+  font-size: 0.72em;
+  opacity: 0.45;
+  color: var(--SmartThemeBodyColor, #aaa);
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .ec_style_item {
-    padding: 8px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: var(--SmartThemeBodyColor, #ddd);
-    transition: background 0.2s, opacity 0.15s, box-shadow 0.15s;
-    margin-bottom: 4px;
-    font-size: 0.9em;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--SmartThemeBodyColor, #ddd);
+  transition:
+    background 0.2s,
+    opacity 0.15s,
+    box-shadow 0.15s;
+  margin-bottom: 4px;
+  font-size: 0.9em;
 }
 
 .ec_style_item:hover {
-    background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .ec_style_item.active {
-    background: rgba(255, 255, 255, 0.12);
-    border-left: 3px solid var(--SmartThemeQuoteColor, #4a9);
-    color: var(--SmartThemeBodyColor, #eee);
+  background: rgba(255, 255, 255, 0.12);
+  border-left: 3px solid var(--SmartThemeQuoteColor, #4a9);
+  color: var(--SmartThemeBodyColor, #eee);
 }
 
 /* Drag handle grip icon */
 .ec_drag_handle {
-    /* Only the grip reserves gestures for touch/pen reordering. */
-    touch-action: none;
-    cursor: grab;
-    opacity: 0.35;
-    transition: opacity 0.15s;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    padding: 0 2px;
-    color: var(--SmartThemeBodyColor, #aaa);
+  /* Only the grip reserves gestures for touch/pen reordering. */
+  touch-action: none;
+  cursor: grab;
+  opacity: 0.35;
+  transition: opacity 0.15s;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  color: var(--SmartThemeBodyColor, #aaa);
 }
 
 .ec_style_item:hover .ec_drag_handle {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .ec_drag_handle:active {
-    cursor: grabbing;
-    opacity: 1;
+  cursor: grabbing;
+  opacity: 1;
 }
 
 /* Type icon (cube / user) — scoped so drag handle grip is not tinted */
 .ec_style_item.builtin .ec_style_type_icon {
-    color: var(--SmartThemeQuoteColor, #4a9);
+  color: var(--SmartThemeQuoteColor, #4a9);
 }
 
 .ec_style_item.custom .ec_style_type_icon {
-    color: #f9a825;
+  color: #f9a825;
 }
 
 .ec_style_item.active .ec_style_type_icon {
-    color: inherit;
+  color: inherit;
 }
 
 /* Item being dragged */
 .ec_style_item.ec_dragging {
-    opacity: 0.4;
-    background: rgba(255, 255, 255, 0.06);
+  opacity: 0.4;
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* Drop target highlight */
 .ec_style_item.ec_drag_over {
-    background: rgba(255, 255, 255, 0.14);
-    box-shadow: inset 0 2px 0 var(--SmartThemeQuoteColor, #4a9);
-    border-radius: 6px;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 2px 0 var(--SmartThemeQuoteColor, #4a9);
+  border-radius: 6px;
 }
 
 /* Mobile browsing gives the full dialog body to the style list. */
 .ec_mobile_editor .ec_modal_content {
-    height: min(720px, calc(var(--ec-viewport-height, 100dvh) - 40px));
+  height: min(720px, calc(var(--ec-viewport-height, 100dvh) - 40px));
 }
 
 /* Allow small screens to allocate their actual remaining body height. */
 .ec_mobile_editor .ec_modal_body {
-    flex-direction: column;
-    min-height: 0;
-    overflow-y: auto;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
 }
 
 /* Remove the old 150px cap that left only one style row visible. */
 .ec_mobile_editor .ec_style_sidebar {
-    width: 100%;
-    max-height: none;
-    min-height: 0;
-    flex: 1;
-    border-right: none;
-    border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
+  width: 100%;
+  max-height: none;
+  min-height: 0;
+  flex: 1;
+  border-right: none;
+  border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
 }
 
 /* Share the body with the prompt editor when a style is expanded. */
 .ec_mobile_editor:not(.ec_prompt_collapsed) .ec_style_sidebar {
-    flex: 0 0 45%;
-    min-height: 130px;
+  flex: 0 0 45%;
+  min-height: 130px;
 }
 
 /* Collapsing preserves the prompt fields in DOM, including unsaved edits. */
 .ec_mobile_editor.ec_prompt_collapsed #ec_style_main {
-    display: none;
+  display: none;
 }
 
 /* The prompt pane can scroll rather than clipping fields on short screens. */
 .ec_mobile_editor #ec_style_main {
-    min-height: 160px;
-    overflow-y: auto;
+  min-height: 160px;
+  overflow-y: auto;
 }
 
 /* Keep a usable prompt field even while the outer pane is constrained. */
 .ec_mobile_editor .ec_style_textarea {
-    min-height: 80px;
+  min-height: 80px;
 }
 
 .ec_style_main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    overflow: hidden;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow: hidden;
 }
 
 .ec_style_name_row {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 12px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+  align-items: center;
 }
 
 .ec_style_name_input {
-    flex: 1;
-    padding: 10px 14px;
-    font-size: 1em;
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    border-radius: 6px;
-    background: rgba(0, 0, 0, 0.2);
-    color: var(--SmartThemeBodyColor, #eee);
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 1em;
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-radius: 6px;
+  background: rgba(0, 0, 0, 0.2);
+  color: var(--SmartThemeBodyColor, #eee);
 }
 
 .ec_style_textarea {
-    flex: 1;
-    width: 100%;
-    padding: 14px;
-    font-family: 'Consolas', 'Monaco', monospace;
-    font-size: 0.9em;
-    line-height: 1.5;
-    border: 1px solid var(--SmartThemeBorderColor, #444);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.3);
-    color: var(--SmartThemeBodyColor, #eee);
-    resize: none;
+  flex: 1;
+  width: 100%;
+  padding: 14px;
+  font-family: "Consolas", "Monaco", monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+  border: 1px solid var(--SmartThemeBorderColor, #444);
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--SmartThemeBodyColor, #eee);
+  resize: none;
 }
 
 .ec_style_textarea:focus {
-    outline: none;
-    border-color: var(--SmartThemeQuoteColor, #4a9);
+  outline: none;
+  border-color: var(--SmartThemeQuoteColor, #4a9);
 }
 
 .ec_modal_footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 20px;
-    border-top: 1px solid var(--SmartThemeBorderColor, #333);
-    flex-shrink: 0;
-    gap: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-top: 1px solid var(--SmartThemeBorderColor, #333);
+  flex-shrink: 0;
+  gap: 10px;
 }
 
 .ec_modal_footer_left {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .ec_modal_footer_right {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 /* Button icon spacing */
 .ec_modal_footer button i {
-    margin-right: 6px;
+  margin-right: 6px;
 }
 
 .ec_btn_danger {
-    background: #c0392b !important;
-    border-color: #a93226 !important;
+  background: #c0392b !important;
+  border-color: #a93226 !important;
 }
 
 .ec_btn_danger:hover {
-    background: #e74c3c !important;
+  background: #e74c3c !important;
 }
 
 .ec_btn_primary {
-    background: var(--SmartThemeBlurTintColor) !important;
-    border-color: var(--SmartThemeBorderColor) !important;
-    color: var(--SmartThemeBodyColor) !important;
-    font-weight: 600;
+  background: var(--SmartThemeBlurTintColor) !important;
+  border-color: var(--SmartThemeBorderColor) !important;
+  color: var(--SmartThemeBodyColor) !important;
+  font-weight: 600;
 }
 
 .ec_btn_primary:hover {
-    background: var(--SmartThemeQuoteColor) !important;
-    filter: brightness(1.2);
+  background: var(--SmartThemeQuoteColor) !important;
+  filter: brightness(1.2);
 }
 
 .ec_empty_state {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    color: var(--SmartThemeBodyColor, #888);
-    opacity: 0.6;
-    text-align: center;
-    padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--SmartThemeBodyColor, #888);
+  opacity: 0.6;
+  text-align: center;
+  padding: 40px;
 }
 
 .ec_empty_state i {
-    font-size: 3em;
-    margin-bottom: 10px;
+  font-size: 3em;
+  margin-bottom: 10px;
 }
 
 /* ============================================================
@@ -1809,183 +1834,183 @@ font-size: 0.9em;
    ============================================================ */
 
 .ec_template_creator {
-    max-width: 650px !important;
-    width: 90vw !important;
+  max-width: 650px !important;
+  width: 90vw !important;
 }
 
 .ec_template_tabs {
-    display: flex;
-    border-bottom: 1px solid var(--ec-border);
-    padding: 0 10px;
-    background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  border-bottom: 1px solid var(--ec-border);
+  padding: 0 10px;
+  background: rgba(0, 0, 0, 0.2);
 }
 
 .ec_tab_btn {
-    background: none;
-    border: none;
-    color: var(--SmartThemeBodyColor, #ccc);
-    padding: 12px 20px;
-    cursor: pointer;
-    font-size: 0.9em;
-    border-bottom: 2px solid transparent;
-    transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  background: none;
+  border: none;
+  color: var(--SmartThemeBodyColor, #ccc);
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 0.9em;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .ec_tab_btn:hover {
-    color: var(--ec-accent);
-    background: rgba(255, 255, 255, 0.05);
+  color: var(--ec-accent);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 .ec_tab_btn.active {
-    color: var(--ec-accent);
-    border-bottom-color: var(--ec-accent);
+  color: var(--ec-accent);
+  border-bottom-color: var(--ec-accent);
 }
 
 .ec_template_body {
-    padding: 15px 20px !important;
-    overflow-y: auto;
-    max-height: 60vh;
+  padding: 15px 20px !important;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
 .ec_tab_content {
-    display: none;
+  display: none;
 }
 
 .ec_tab_content.active {
-    display: block;
+  display: block;
 }
 
 .ec_form_group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .ec_form_group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: var(--SmartThemeBodyColor, #ddd);
-    font-size: 0.9em;
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: var(--SmartThemeBodyColor, #ddd);
+  font-size: 0.9em;
 }
 
 .ec_form_group input[type="text"],
 .ec_form_group select,
 .ec_form_group textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--ec-border);
-    border-radius: 6px;
-    color: var(--SmartThemeBodyColor, #fff);
-    font-size: 0.95em;
-    box-sizing: border-box;
+  width: 100%;
+  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--ec-border);
+  border-radius: 6px;
+  color: var(--SmartThemeBodyColor, #fff);
+  font-size: 0.95em;
+  box-sizing: border-box;
 }
 
 .ec_form_group input[type="text"]:focus,
 .ec_form_group select:focus,
 .ec_form_group textarea:focus {
-    outline: none;
-    border-color: var(--ec-accent);
+  outline: none;
+  border-color: var(--ec-accent);
 }
 
 .ec_form_group textarea {
-    resize: vertical;
-    min-height: 60px;
+  resize: vertical;
+  min-height: 60px;
 }
 
 .ec_form_group small {
-    display: block;
-    margin-top: 4px;
-    color: var(--SmartThemeBodyColor, #888);
-    opacity: 0.7;
-    font-size: 0.8em;
+  display: block;
+  margin-top: 4px;
+  color: var(--SmartThemeBodyColor, #888);
+  opacity: 0.7;
+  font-size: 0.8em;
 }
 
 .ec_form_row {
-    display: flex;
-    gap: 15px;
+  display: flex;
+  gap: 15px;
 }
 
 .ec_form_row .ec_form_group {
-    flex: 1;
+  flex: 1;
 }
 
 .ec_checkbox_row {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .ec_checkbox_row label {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-weight: normal;
-    cursor: pointer;
-    font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: normal;
+  cursor: pointer;
+  font-size: 0.9em;
 }
 
 .ec_checkbox_row input[type="checkbox"] {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--ec-accent);
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ec-accent);
 }
 
 .ec_full_height textarea {
-    min-height: 250px;
+  min-height: 250px;
 }
 
 /* Advanced tab - full height layout (only when active) */
 .ec_tab_content[data-tab="advanced"].active {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
 .ec_tab_content[data-tab="advanced"] .ec_full_height {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .ec_tab_content[data-tab="advanced"] .ec_full_height textarea {
-    flex: 1;
-    min-height: 300px;
-    resize: vertical;
+  flex: 1;
+  min-height: 300px;
+  resize: vertical;
 }
 
 /* Label row with action buttons */
 .ec_label_row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
 }
 
 .ec_label_row label {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .ec_prompt_actions {
-    display: flex;
-    gap: 6px;
+  display: flex;
+  gap: 6px;
 }
 
 .ec_small_btn {
-    padding: 4px 10px !important;
-    font-size: 0.8em !important;
+  padding: 4px 10px !important;
+  font-size: 0.8em !important;
 }
 
 .ec_small_btn i {
-    margin-right: 4px;
+  margin-right: 4px;
 }
 
 /* Custom tone input hidden by default */
 #ec_tpl_custom_tone {
-    display: none;
+  display: none;
 }
 
 /* ========================================= */
@@ -1993,20 +2018,20 @@ font-size: 0.9em;
 /* ========================================= */
 
 .ec_template_creator {
-    width: 90%;
-    max-width: 700px;
+  width: 90%;
+  max-width: 700px;
 }
 
 .ec_template_creator .ec_template_body {
-    padding: 20px !important;
+  padding: 20px !important;
 }
 
 .ec_template_creator .ec_tab_content {
-    width: 100%;
+  width: 100%;
 }
 
 .ec_template_creator .ec_form_group {
-    width: 100%;
+  width: 100%;
 }
 
 /* ========================================= */
@@ -2015,20 +2040,20 @@ font-size: 0.9em;
 
 /* Top panel collapsed - snug against ST menu */
 #discordBar.ec_top.ec_collapsed {
-    top: 38px;
+  top: 38px;
 }
 
 #discordBar.ec_top.ec_collapsed #discordQuickSettings {
-    height: 28px !important;
-    min-height: 28px !important;
-    border-radius: 0 0 8px 8px;
+  height: 28px !important;
+  min-height: 28px !important;
+  border-radius: 0 0 8px 8px;
 }
 
 /* Bottom panel collapsed - minimal height */
 #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
-    height: 26px !important;
-    min-height: 20px !important;
-    padding: 0 8px !important;
+  height: 26px !important;
+  min-height: 20px !important;
+  padding: 0 8px !important;
 }
 
 /* ========================================= */
@@ -2038,61 +2063,61 @@ font-size: 0.9em;
 /* Common styles for both collapsed side panels */
 #discordBar.ec_left.ec_collapsed,
 #discordBar.ec_right.ec_collapsed {
-    position: fixed !important;
-    top: 39px;
-    bottom: 0 !important;
-    width: 36px !important;
-    min-width: 36px !important;
-    max-width: 36px !important;
-    height: 69px !important;
-    padding: 0px 9px !important;
-    flex-direction: column !important;
-    border-bottom-left-radius: 15px !important;
-    border-bottom-right-radius: 15px !important;
-    z-index: 2005 !important;
+  position: fixed !important;
+  top: 39px;
+  bottom: 0 !important;
+  width: 36px !important;
+  min-width: 36px !important;
+  max-width: 36px !important;
+  height: 69px !important;
+  padding: 0px 9px !important;
+  flex-direction: column !important;
+  border-bottom-left-radius: 15px !important;
+  border-bottom-right-radius: 15px !important;
+  z-index: 2005 !important;
 }
 
 /* LEFT panel collapsed - dock to LEFT edge */
 #discordBar.ec_left.ec_collapsed {
-    left: 0 !important;
-    right: auto !important;
-    border-left: none !important;
-    border-right: 1px solid var(--ec-border) !important;
+  left: 0 !important;
+  right: auto !important;
+  border-left: none !important;
+  border-right: 1px solid var(--ec-border) !important;
 }
 
 /* RIGHT panel collapsed - dock to RIGHT edge */
 #discordBar.ec_right.ec_collapsed {
-    left: auto !important;
-    right: 0 !important;
-    border-right: none !important;
-    border-left: 1px solid var(--ec-border) !important;
+  left: auto !important;
+  right: 0 !important;
+  border-right: none !important;
+  border-left: 1px solid var(--ec-border) !important;
 }
 
 /* Header becomes vertical column at top of the slim bar */
 #discordBar.ec_left.ec_collapsed #discordQuickSettings,
 #discordBar.ec_right.ec_collapsed #discordQuickSettings {
-    width: 100% !important;
-    height: auto !important;
-    min-height: auto !important;
-    flex-direction: column !important;
-    padding: 6px 4px !important;
-    border-bottom: none !important;
-    align-items: center !important;
-    justify-content: flex-start !important;
-    gap: 4px !important;
+  width: 100% !important;
+  height: auto !important;
+  min-height: auto !important;
+  flex-direction: column !important;
+  padding: 6px 4px !important;
+  border-bottom: none !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 4px !important;
 }
 
 /* In collapsed side panels, only show the power and collapse buttons */
 #discordBar.ec_left.ec_collapsed .ec_header_left,
 #discordBar.ec_right.ec_collapsed .ec_header_left {
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
 
 #discordBar.ec_left.ec_collapsed .ec_header_right,
 #discordBar.ec_right.ec_collapsed .ec_header_right {
-    display: none !important;
+  display: none !important;
 }
 
 /* Make buttons slightly larger for touch on collapsed state */
@@ -2102,8 +2127,8 @@ font-size: 0.9em;
 #discordBar.ec_right.ec_collapsed .ec_collapse_btn,
 #discordBar.ec_left.ec_collapsed .ec_toggle_btn,
 #discordBar.ec_right.ec_collapsed .ec_toggle_btn {
-    width: 28px !important;
-    height: 28px !important;
+  width: 28px !important;
+  height: 28px !important;
 }
 
 /* ========================================= */
@@ -2116,276 +2141,278 @@ font-size: 0.9em;
 
 /* Tablet and smaller desktop (769px to 1200px) */
 @media (max-width: 1200px) and (min-width: 769px) {
+  #discordBar.ec_left,
+  #discordBar.ec_right {
+    min-width: 250px !important;
+  }
 
-    #discordBar.ec_left,
-    #discordBar.ec_right {
-        min-width: 250px !important;
-    }
+  #discordBar.ec_top,
+  #discordBar.ec_bottom {
+    width: 100% !important;
+  }
 
-    #discordBar.ec_top,
-    #discordBar.ec_bottom {
-        width: 100% !important;
-    }
+  /* Remove spacing from collapsed bottom panel */
+  #discordBar.ec_bottom.ec_collapsed {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding: 0 !important;
+    border-top: none !important;
+  }
 
-    /* Remove spacing from collapsed bottom panel */
-    #discordBar.ec_bottom.ec_collapsed {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        padding: 0 !important;
-        border-top: none !important;
-    }
+  #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
 
-    #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        border-top: none !important;
-    }
+  /* When expanded (not collapsed), overlay above with z-index */
+  #discordBar.ec_bottom:not(.ec_collapsed) {
+    z-index: 3000 !important;
+    max-height: 60vh !important;
+  }
 
-    /* When expanded (not collapsed), overlay above with z-index */
-    #discordBar.ec_bottom:not(.ec_collapsed) {
-        z-index: 3000 !important;
-        max-height: 60vh !important;
-    }
-
-    #discordBar.ec_bottom:not(.ec_collapsed) #discordContent {
-        max-height: calc(60vh - 36px) !important;
-    }
+  #discordBar.ec_bottom:not(.ec_collapsed) #discordContent {
+    max-height: calc(60vh - 36px) !important;
+  }
 }
 
 @media (max-width: 768px) {
+  /* Bottom and Top panels - full width */
+  #discordBar.ec_bottom,
+  #discordBar.ec_top {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
 
-    /* Bottom and Top panels - full width */
-    #discordBar.ec_bottom,
-    #discordBar.ec_top {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
+  /* Bottom panel - relative positioning, sits above send_form on mobile */
+  #discordBar.ec_bottom {
+    position: relative !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    border-radius: 0 !important;
+    border-top-left-radius: var(--ec-radius) !important;
+    border-top-right-radius: var(--ec-radius) !important;
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
 
-    /* Bottom panel - relative positioning, sits above send_form on mobile */
-    #discordBar.ec_bottom {
-        position: relative !important;
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-        border-radius: 0 !important;
-        border-top-left-radius: var(--ec-radius) !important;
-        border-top-right-radius: var(--ec-radius) !important;
-        border-bottom-left-radius: 0 !important;
-        border-bottom-right-radius: 0 !important;
-    }
+  /* When expanded (not collapsed), overlay above with z-index */
+  #discordBar.ec_bottom:not(.ec_collapsed) {
+    z-index: 3000 !important;
+    max-height: 60vh !important;
+  }
 
-    /* When expanded (not collapsed), overlay above with z-index */
-    #discordBar.ec_bottom:not(.ec_collapsed) {
-        z-index: 3000 !important;
-        max-height: 60vh !important;
-    }
+  #discordBar.ec_bottom #discordContent {
+    max-height: 200px !important;
+    overflow-y: auto !important;
+  }
 
-    #discordBar.ec_bottom #discordContent {
-        max-height: 200px !important;
-        overflow-y: auto !important;
-    }
+  #discordBar.ec_bottom:not(.ec_collapsed) #discordContent {
+    max-height: calc(60vh - 36px) !important;
+  }
 
-    #discordBar.ec_bottom:not(.ec_collapsed) #discordContent {
-        max-height: calc(60vh - 36px) !important;
-    }
+  /* When collapsed, minimal height */
+  #discordBar.ec_bottom.ec_collapsed {
+    height: auto !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    padding: 0 !important;
+    border-top: none !important;
+  }
 
-    /* When collapsed, minimal height */
-    #discordBar.ec_bottom.ec_collapsed {
-        height: auto !important;
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        padding: 0 !important;
-        border-top: none !important;
-    }
+  #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    border-top: none !important;
+  }
 
-    #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
-        margin-top: 0 !important;
-        padding-top: 0 !important;
-        border-top: none !important;
-    }
+  #discordBar.ec_top {
+    top: var(--topBarHeight, 38px);
+  }
 
-    #discordBar.ec_top {
-        top: var(--topBarHeight, 38px);
-    }
+  /* Side panels stay as sidebars on mobile, scaling to full viewport width when expanded */
+  #discordBar.ec_left,
+  #discordBar.ec_right {
+    position: fixed !important;
+    top: var(--topBarBlockSize) !important;
+    bottom: 0 !important;
+    height: calc(100vh - var(--topBarBlockSize)) !important;
+    border-top: none !important;
+    border-radius: 0 !important;
+    transition:
+      width 0.3s ease,
+      transform 0.3s ease !important;
+  }
 
-    /* Side panels stay as sidebars on mobile, scaling to full viewport width when expanded */
-    #discordBar.ec_left,
-    #discordBar.ec_right {
-        position: fixed !important;
-        top: var(--topBarBlockSize) !important;
-        bottom: 0 !important;
-        height: calc(100vh - var(--topBarBlockSize)) !important;
-        border-top: none !important;
-        border-radius: 0 !important;
-        transition: width 0.3s ease, transform 0.3s ease !important;
-    }
+  /* Left panel on mobile */
+  #discordBar.ec_left {
+    left: 0 !important;
+    right: auto !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-right: 1px solid var(--ec-border) !important;
+    border-left: none !important;
+  }
 
-    /* Left panel on mobile */
-    #discordBar.ec_left {
-        left: 0 !important;
-        right: auto !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        border-right: 1px solid var(--ec-border) !important;
-        border-left: none !important;
-    }
+  /* Right panel on mobile */
+  #discordBar.ec_right {
+    right: 0 !important;
+    left: auto !important;
+    width: 100vw !important;
+    max-width: 100vw !important;
+    border-left: 1px solid var(--ec-border) !important;
+    border-right: none !important;
+  }
 
-    /* Right panel on mobile */
-    #discordBar.ec_right {
-        right: 0 !important;
-        left: auto !important;
-        width: 100vw !important;
-        max-width: 100vw !important;
-        border-left: 1px solid var(--ec-border) !important;
-        border-right: none !important;
-    }
+  /* When collapsed on mobile, show as thin bar on side */
+  #discordBar.ec_left.ec_collapsed,
+  #discordBar.ec_right.ec_collapsed {
+    width: 36px !important;
+    min-width: 36px !important;
+    max-width: 36px !important;
+    height: 69px !important;
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
+  }
 
-    /* When collapsed on mobile, show as thin bar on side */
-    #discordBar.ec_left.ec_collapsed,
-    #discordBar.ec_right.ec_collapsed {
-        width: 36px !important;
-        min-width: 36px !important;
-        max-width: 36px !important;
-        height: 69px !important;
-        border-bottom-left-radius: 15px !important;
-        border-bottom-right-radius: 15px !important;
-    }
+  #discordBar.ec_left #discordContent,
+  #discordBar.ec_right #discordContent {
+    flex-grow: 1 !important;
+  }
 
-    #discordBar.ec_left #discordContent,
-    #discordBar.ec_right #discordContent {
-        flex-grow: 1 !important;
-    }
+  /* Adjust header for mobile */
+  #discordQuickSettings {
+    padding: 0 6px;
+    height: 36px;
+  }
 
-    /* Adjust header for mobile */
-    #discordQuickSettings {
-        padding: 0 6px;
-        height: 36px;
-    }
+  .ec_btn,
+  .ec_toggle_btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1em;
+  }
 
-    .ec_btn,
-    .ec_toggle_btn {
-        width: 32px;
-        height: 32px;
-        font-size: 1em;
-    }
+  /* Make style indicator text smaller on mobile */
+  .ec_style_indicator {
+    font-size: 0.7em;
+    padding: 4px 8px;
+  }
 
-    /* Make style indicator text smaller on mobile */
-    .ec_style_indicator {
-        font-size: 0.7em;
-        padding: 4px 8px;
-    }
+  /* Modals take full screen on mobile */
+  .ec_modal_content {
+    width: 95% !important;
+    max-width: 95% !important;
+    max-height: min(
+      95dvh,
+      calc(var(--ec-viewport-height, 100dvh) - 40px)
+    ) !important;
+    border-radius: 8px;
+  }
 
-    /* Modals take full screen on mobile */
-    .ec_modal_content {
-        width: 95% !important;
-        max-width: 95% !important;
-        max-height: min(95dvh, calc(var(--ec-viewport-height, 100dvh) - 40px)) !important;
-        border-radius: 8px;
-    }
+  /* Modal body adjustments */
+  .ec_modal_body {
+    min-height: 300px;
+  }
 
-    /* Modal body adjustments */
-    .ec_modal_body {
-        min-height: 300px;
-    }
+  /* Style editor sidebar stacks on top */
+  .ec_style_sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
+    max-height: 150px;
+  }
 
-    /* Style editor sidebar stacks on top */
-    .ec_style_sidebar {
-        width: 100%;
-        border-right: none;
-        border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
-        max-height: 150px;
-    }
+  .ec_modal_body {
+    flex-direction: column;
+  }
 
-    .ec_modal_body {
-        flex-direction: column;
-    }
+  /* Template creator adjustments */
+  .ec_template_creator {
+    width: 95% !important;
+    max-width: 95% !important;
+  }
 
-    /* Template creator adjustments */
-    .ec_template_creator {
-        width: 95% !important;
-        max-width: 95% !important;
-    }
+  .ec_template_body {
+    max-height: 70vh !important;
+  }
 
-    .ec_template_body {
-        max-height: 70vh !important;
-    }
+  /* Form rows stack on mobile */
+  .ec_form_row {
+    flex-direction: column;
+    gap: 10px;
+  }
 
-    /* Form rows stack on mobile */
-    .ec_form_row {
-        flex-direction: column;
-        gap: 10px;
-    }
+  /* Smaller fonts in messages for mobile */
+  .discord_message {
+    padding: 4px 8px;
+  }
 
-    /* Smaller fonts in messages for mobile */
-    .discord_message {
-        padding: 4px 8px;
-    }
+  .discord_avatar {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+    margin-right: 8px;
+  }
 
-    .discord_avatar {
-        width: 28px;
-        height: 28px;
-        font-size: 12px;
-        margin-right: 8px;
-    }
+  .discord_username {
+    font-size: 0.85em;
+  }
 
-    .discord_username {
-        font-size: 0.85em;
-    }
+  .discord_content {
+    font-size: 0.85em;
+  }
 
-    .discord_content {
-        font-size: 0.85em;
-    }
-
-    /* Settings panel adjustments */
-    .discord_settings .inline-drawer-content {
-        padding: 8px;
-    }
+  /* Settings panel adjustments */
+  .discord_settings .inline-drawer-content {
+    padding: 8px;
+  }
 }
 
 @media (max-width: 480px) {
+  /* Extra small screens - even more compact */
+  .ec_header_right {
+    gap: 1px;
+  }
 
-    /* Extra small screens - even more compact */
-    .ec_header_right {
-        gap: 1px;
-    }
+  .ec_btn,
+  .ec_toggle_btn {
+    width: 28px;
+    height: 28px;
+    font-size: 0.9em;
+  }
 
-    .ec_btn,
-    .ec_toggle_btn {
-        width: 28px;
-        height: 28px;
-        font-size: 0.9em;
-    }
+  .ec_style_indicator {
+    font-size: 0.65em;
+    padding: 3px 6px;
+  }
 
-    .ec_style_indicator {
-        font-size: 0.65em;
-        padding: 3px 6px;
-    }
+  .discord_avatar {
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
+  }
 
-    .discord_avatar {
-        width: 24px;
-        height: 24px;
-        font-size: 11px;
-    }
+  /* Hide timestamps on very small screens */
+  .discord_timestamp {
+    display: none;
+  }
 
-    /* Hide timestamps on very small screens */
-    .discord_timestamp {
-        display: none;
-    }
+  /* Modal footer buttons stack */
+  .ec_modal_footer {
+    flex-direction: column;
+    gap: 8px;
+  }
 
-    /* Modal footer buttons stack */
-    .ec_modal_footer {
-        flex-direction: column;
-        gap: 8px;
-    }
+  .ec_modal_footer_left,
+  .ec_modal_footer_right {
+    width: 100%;
+    flex-direction: column;
+  }
 
-    .ec_modal_footer_left,
-    .ec_modal_footer_right {
-        width: 100%;
-        flex-direction: column;
-    }
-
-    .ec_modal_footer button {
-        width: 100%;
-    }
+  .ec_modal_footer button {
+    width: 100%;
+  }
 }
 
 /* ========================================= */
@@ -2394,13 +2421,13 @@ font-size: 0.9em;
 .discord_settings #discord_open_style_editor,
 .discord_settings #discord_import_btn,
 .discord_settings #discord_export_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    padding: 10px;
-    font-size: 0.85em;
-    margin: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  font-size: 0.85em;
+  margin: 0 !important;
 }
 
 /* ========================================= */
@@ -2408,616 +2435,632 @@ font-size: 0.9em;
 /* ========================================= */
 
 #ec_settings_modal {
-    position: fixed;
-    inset: 0;
-    z-index: var(--ec-settings-layer);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 16px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.25s ease;
+  position: fixed;
+  inset: 0;
+  z-index: var(--ec-settings-layer);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
 }
 
 #ec_settings_modal.ecm_visible {
-    opacity: 1;
-    pointer-events: all;
+  opacity: 1;
+  pointer-events: all;
 }
 
 .ecm_backdrop {
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.72);
-    backdrop-filter: blur(3px);
-    -webkit-backdrop-filter: blur(3px);
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
 }
 
 .ecm_card {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 580px;
-    max-height: min(90vh, calc(var(--ec-viewport-height, 100dvh) - 16px));
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(160deg, rgba(18, 19, 24, 0.98) 0%, rgba(22, 23, 30, 0.98) 100%);
-    border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
-    border-radius: 12px;
-    box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(255, 255, 255, 0.04) inset;
-    transform: translateY(10px) scale(0.98);
-    transition: transform 0.25s ease;
-    overflow: hidden;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 580px;
+  max-height: min(90vh, calc(var(--ec-viewport-height, 100dvh) - 16px));
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    160deg,
+    rgba(18, 19, 24, 0.98) 0%,
+    rgba(22, 23, 30, 0.98) 100%
+  );
+  border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
+  border-radius: 12px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+  transform: translateY(10px) scale(0.98);
+  transition: transform 0.25s ease;
+  overflow: hidden;
 }
 
 #ec_settings_modal.ecm_visible .ecm_card {
-    transform: translateY(0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 /* ---- Header ---- */
 .ecm_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 14px 18px;
-    border-bottom: 1px solid var(--ec-border, rgba(255, 255, 255, 0.12));
-    background: rgba(0, 0, 0, 0.3);
-    flex-shrink: 0;
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--ec-border, rgba(255, 255, 255, 0.12));
+  background: rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  font-size: 0.9em;
 }
 
 .ecm_header_title {
-    font-size: 1em;
-    font-weight: 700;
-    color: var(--ec-accent, #43b581);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    letter-spacing: 0.3px;
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--ec-accent, #43b581);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  letter-spacing: 0.3px;
 }
 
 .ecm_header_title i {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
 
 .ecm_close_btn {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 6px;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 1.1em;
-    transition: background 0.15s, color 0.15s;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 1.1em;
+  transition:
+    background 0.15s,
+    color 0.15s;
 }
 
 .ecm_close_btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* ---- Body ---- */
 .ecm_body {
-    overflow-y: auto;
-    padding: 12px 16px 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+  overflow-y: auto;
+  padding: 12px 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
 }
 
 .ecm_body::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .ecm_body::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
 }
 
 /* ---- Section Card ---- */
 .ecm_section {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 8px;
-    padding: 4px 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 12px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+  padding: 4px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 
 #ecm-sect-general {
-margin-top: 10px;
+  margin-top: 10px;
 }
 
 .ecm_section_title {
-    font-size: 0.72em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--ec-accent, #43b581);
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    margin-bottom: 2px;
+  font-size: 0.72em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--ec-accent, #43b581);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 2px;
 }
 
 /* ---- Rows ---- */
 .ecm_row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    min-height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 32px;
 }
 
 .ecm_toggle_row {
-    cursor: pointer;
-    padding: 4px 0;
-    border-radius: 4px;
-    transition: background 0.15s;
+  cursor: pointer;
+  padding: 4px 0;
+  border-radius: 4px;
+  transition: background 0.15s;
 }
 
 .ecm_toggle_row:hover {
-    background: rgba(255, 255, 255, 0.04);
-    padding: 4px 6px;
-    margin: 0 -6px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 4px 6px;
+  margin: 0 -6px;
 }
 
 .ecm_radio_row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    background: rgba(255, 255, 255, 0.03);
-    font-size: 0.88em;
-    color: var(--ec-text, #dcddde);
-    transition: background 0.15s, border-color 0.15s;
-    user-select: none;
-    width: 100%;
-    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  font-size: 0.88em;
+  color: var(--ec-text, #dcddde);
+  transition:
+    background 0.15s,
+    border-color 0.15s;
+  user-select: none;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ecm_radio_row:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
 }
 
 .ecm_radio_row input[type="radio"] {
-    flex-shrink: 0;
-    width: 15px;
-    height: 15px;
-    accent-color: var(--ec-accent, #7c9fd4);
-    cursor: pointer;
-    margin: 0;
+  flex-shrink: 0;
+  width: 15px;
+  height: 15px;
+  accent-color: var(--ec-accent, #7c9fd4);
+  cursor: pointer;
+  margin: 0;
 }
 
 .ecm_radio_row:has(input[type="radio"]:checked) {
-    background: rgba(124, 159, 212, 0.12);
-    border-color: rgba(124, 159, 212, 0.45);
-    color: var(--ec-text, #dcddde);
+  background: rgba(124, 159, 212, 0.12);
+  border-color: rgba(124, 159, 212, 0.45);
+  color: var(--ec-text, #dcddde);
 }
 
 .ecm_subrow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 4px 0 4px 20px;
-    opacity: 0.85;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0 4px 20px;
+  opacity: 0.85;
 }
 
 /* ---- Labels ---- */
 .ecm_label {
-    font-size: 0.88em;
-    color: var(--ec-text, #dcddde);
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    user-select: none;
+  font-size: 0.88em;
+  color: var(--ec-text, #dcddde);
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  user-select: none;
 }
 
 /* ---- Toggle (checkbox styled as pill) ---- */
 .ecm_toggle {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 40px;
-    height: 22px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 11px;
-    cursor: pointer;
-    position: relative;
-    flex-shrink: 0;
-    transition: background 0.2s;
-    border: none;
-    outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 40px;
+  height: 22px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 11px;
+  cursor: pointer;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.2s;
+  border: none;
+  outline: none;
 }
 
 .ecm_toggle::after {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: transparent;
-    border-radius: 50%;
-    top: 3px;
-    left: 3px;
-    transition: transform 0.2s, background 0.2s;
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: transparent;
+  border-radius: 50%;
+  top: 3px;
+  left: 3px;
+  transition:
+    transform 0.2s,
+    background 0.2s;
 }
 
 .ecm_toggle:checked {
-    background: var(--ec-accent, #43b581);
+  background: var(--ec-accent, #43b581);
 }
 
 .ecm_toggle:checked::after {
-    transform: translateX(18px);
-    background: #fff;
+  transform: translateX(18px);
+  background: #fff;
 }
 
 /* ---- Selects ---- */
 .ecm_select {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2));
-    border-radius: 6px;
-    color: var(--ec-text, #dcddde);
-    font-size: 0.85em;
-    padding: 5px 8px;
-    width: 100%;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.15s;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2));
+  border-radius: 6px;
+  color: var(--ec-text, #dcddde);
+  font-size: 0.85em;
+  padding: 5px 8px;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s;
 }
 
 .ecm_select:focus {
-    border-color: var(--ec-accent, #43b581);
+  border-color: var(--ec-accent, #43b581);
 }
 
 /* ---- Text Inputs ---- */
 .ecm_input {
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 6px;
-    color: var(--ec-text, #dcddde);
-    font-size: 0.85em;
-    padding: 6px 9px;
-    width: 100%;
-    outline: none;
-    transition: border-color 0.15s;
-    box-sizing: border-box;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  color: var(--ec-text, #dcddde);
+  font-size: 0.85em;
+  padding: 6px 9px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+  box-sizing: border-box;
 }
 
 .ecm_input:focus {
-    border-color: var(--ec-accent, #43b581);
+  border-color: var(--ec-accent, #43b581);
 }
 
 .ecm_input_sm {
-    width: 72px;
-    flex-shrink: 0;
-    text-align: center;
+  width: 72px;
+  flex-shrink: 0;
+  text-align: center;
 }
 
 /* Color picker in settings modal */
 .ecm_color_input {
-    width: 48px !important;
-    height: 36px;
-    padding: 2px 3px;
-    border-radius: 6px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    background: transparent;
-    cursor: pointer;
-    flex-shrink: 0;
-    -webkit-appearance: none;
-    appearance: none;
+  width: 48px !important;
+  height: 36px;
+  padding: 2px 3px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .ecm_color_input::-webkit-color-swatch-wrapper {
-    padding: 0;
-    border-radius: 4px;
+  padding: 0;
+  border-radius: 4px;
 }
 
 .ecm_color_input::-webkit-color-swatch {
-    border: none;
-    border-radius: 4px;
+  border: none;
+  border-radius: 4px;
 }
 
 .ecm_color_input::-moz-color-swatch {
-    border: none;
-    border-radius: 4px;
+  border: none;
+  border-radius: 4px;
 }
 
 /* ---- Slider ---- */
 .ecm_slider {
-    flex: 1;
-    accent-color: var(--ec-accent, #43b581);
-    cursor: pointer;
-    height: 4px;
+  flex: 1;
+  accent-color: var(--ec-accent, #43b581);
+  cursor: pointer;
+  height: 4px;
 }
 
 /* ---- Sub-panels (provider sub-sections) ---- */
 .ecm_subpanel {
-    border-radius: 6px;
-    padding: 10px 12px;
-    margin-top: 4px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  border-radius: 6px;
+  padding: 10px 12px;
+  margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .ecm_subpanel_green {
-    border-left: 3px solid rgba(0, 255, 0, 0.4);
-    background: rgba(0, 255, 0, 0.03);
+  border-left: 3px solid rgba(0, 255, 0, 0.4);
+  background: rgba(0, 255, 0, 0.03);
 }
 
 .ecm_subpanel_blue {
-    border-left: 3px solid rgba(0, 180, 255, 0.4);
-    background: rgba(0, 180, 255, 0.03);
+  border-left: 3px solid rgba(0, 180, 255, 0.4);
+  background: rgba(0, 180, 255, 0.03);
 }
 
 .ecm_subpanel_purple {
-    border-left: 3px solid rgba(100, 150, 255, 0.4);
-    background: rgba(100, 150, 255, 0.03);
+  border-left: 3px solid rgba(100, 150, 255, 0.4);
+  background: rgba(100, 150, 255, 0.03);
 }
 
 .ecm_subpanel_plain {
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 8px;
-    padding: 10px 12px;
-    margin-top: 6px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 .ecm_subpanel_title {
-    font-size: 0.78em;
-    font-weight: 600;
-    opacity: 0.85;
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+  font-size: 0.78em;
+  font-weight: 600;
+  opacity: 0.85;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
 /* ---- Opacity label span ---- */
 #ecm_opacity_val {
-    font-size: 0.8em;
-    opacity: 0.6;
-    min-width: 34px;
-    text-align: right;
+  font-size: 0.8em;
+  opacity: 0.6;
+  min-width: 34px;
+  text-align: right;
 }
 
 /* ---- Mobile (<= 600px) ---- */
 @media (max-width: 600px) {
-    #ec_settings_modal {
-        padding: 0;
-        align-items: flex-end;
-    }
+  #ec_settings_modal {
+    padding: 0;
+    align-items: flex-end;
+  }
 
-    .ecm_card {
-        max-width: 100%;
-        max-height: 92vh;
-        border-radius: 16px 16px 0 0;
-        border-bottom: none;
-    }
+  .ecm_card {
+    max-width: 100%;
+    max-height: 92vh;
+    border-radius: 16px 16px 0 0;
+    border-bottom: none;
+  }
 
-    .ecm_header {
-        padding: 12px 16px;
-        border-radius: 16px 16px 0 0;
-    }
+  .ecm_header {
+    padding: 12px 16px;
+    border-radius: 16px 16px 0 0;
+  }
 
-    .ecm_row {
-        flex-wrap: wrap;
-    }
+  .ecm_row {
+    flex-wrap: wrap;
+  }
 
-    .ecm_row .ecm_select,
-    .ecm_row .ecm_input:not(.ecm_input_sm) {
-        width: 100%;
-    }
+  .ecm_row .ecm_select,
+  .ecm_row .ecm_input:not(.ecm_input_sm) {
+    width: 100%;
+  }
 
-    .ecm_toggle_row {
-        flex-wrap: nowrap;
-    }
+  .ecm_toggle_row {
+    flex-wrap: nowrap;
+  }
 
-    .ecm_footer {
-        flex-wrap: wrap;
-        gap: 6px;
-    }
+  .ecm_footer {
+    flex-wrap: wrap;
+    gap: 6px;
+  }
 
-    .ecm_footer_left {
-        flex-wrap: wrap;
-        gap: 4px;
-    }
+  .ecm_footer_left {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
 
-    .ecm_footer_btn {
-        font-size: 0.82em;
-        padding: 7px 10px;
-    }
+  .ecm_footer_btn {
+    font-size: 0.82em;
+    padding: 7px 10px;
+  }
 }
 
 /* ---- Accordion ---- */
 .ecm_acc_header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: none;
-    border: none;
-    padding: 8px 0;
-    cursor: pointer;
-    color: var(--ec-text, #dcddde);
-    font-size: 0.9em;
-    font-weight: 600;
-    text-align: left;
-    transition: color 0.15s;
-    outline: none;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: none;
+  border: none;
+  padding: 8px 0;
+  cursor: pointer;
+  color: var(--ec-text, #dcddde);
+  font-size: 0.9em;
+  font-weight: 600;
+  text-align: left;
+  transition: color 0.15s;
+  outline: none;
 }
 
 .ecm_acc_header:hover {
-    color: var(--ec-accent, #43b581);
+  color: var(--ec-accent, #43b581);
 }
 
 .ecm_acc_header:focus-visible {
-    outline: 2px solid var(--ec-accent, #43b581);
-    outline-offset: 2px;
-    border-radius: 4px;
+  outline: 2px solid var(--ec-accent, #43b581);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
 .ecm_acc_title {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-size: 0.72em;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    color: var(--ec-accent, #43b581);
-    user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.72em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--ec-accent, #43b581);
+  user-select: none;
 }
 
 .ecm_acc_chevron {
-    font-size: 0.75em;
-    opacity: 0.5;
-    transition: transform 0.2s ease, opacity 0.2s;
-    flex-shrink: 0;
+  font-size: 0.75em;
+  opacity: 0.5;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s;
+  flex-shrink: 0;
 }
 
 .ecm_acc_header[aria-expanded="true"] .ecm_acc_chevron {
-    transform: rotate(180deg);
-    opacity: 1;
+  transform: rotate(180deg);
+  opacity: 1;
 }
 
 .ecm_acc_body {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 4px 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0 8px;
 }
 
 .ecm_acc_body[hidden] {
-    display: none;
+  display: none;
 }
 
 /* Divider between section title row and body */
 .ecm_acc .ecm_acc_header {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    margin-bottom: 0;
-    padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  margin-bottom: 0;
+  padding-bottom: 8px;
 }
 
 .ecm_acc_header[aria-expanded="true"] {
-    border-bottom-color: rgba(255, 255, 255, 0.1);
+  border-bottom-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ---- Touch-target upgrade for toggle rows ---- */
 .ecm_toggle_row {
-    min-height: 44px;
+  min-height: 44px;
 }
 
 /* ---- Footer ---- */
 .ecm_footer {
-    padding: 10px 16px 14px;
-    border-top: 1px solid var(--ec-border, rgba(255, 255, 255, 0.1));
-    flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  padding: 10px 16px 14px;
+  border-top: 1px solid var(--ec-border, rgba(255, 255, 255, 0.1));
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .ecm_footer_left {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
 }
 
 .ecm_footer_right {
-    flex: 1;
-    min-width: 0;
+  flex: 1;
+  min-width: 0;
 }
 
 .ecm_footer_btn {
-    padding: 8px 12px;
-    background: var(--SmartThemeBlurTintColor, #2a2c31);
-    color: var(--SmartThemeBodyColor, #ccc);
-    border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
-    border-radius: 7px;
-    font-size: 0.9em;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    transition: filter 0.15s, transform 0.1s;
-    white-space: nowrap;
-    text-shadow: none;
+  padding: 8px 12px;
+  background: var(--SmartThemeBlurTintColor, #2a2c31);
+  color: var(--SmartThemeBodyColor, #ccc);
+  border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
+  border-radius: 7px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    filter 0.15s,
+    transform 0.1s;
+  white-space: nowrap;
+  text-shadow: none;
 }
 
 .ecm_footer_btn:hover {
-    filter: brightness(1.18);
+  filter: brightness(1.18);
 }
 
 .ecm_footer_btn:active {
-    transform: scale(0.97);
+  transform: scale(0.97);
 }
 
 .ecm_done_btn {
-    width: 100%;
-    padding: 8px 0;
-    background: var(--SmartThemeBlurTintColor, #2a2c31);
-    color: var(--SmartThemeBodyColor, #ccc);
-    border: 1px solid var(--SmartThemeQuoteColor, #43b581);
-    border-radius: 7px;
-    font-size: 0.9em;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    transition: filter 0.15s, transform 0.1s;
-    text-shadow: none;
+  width: 100%;
+  padding: 8px 0;
+  background: var(--SmartThemeBlurTintColor, #2a2c31);
+  color: var(--SmartThemeBodyColor, #ccc);
+  border: 1px solid var(--SmartThemeQuoteColor, #43b581);
+  border-radius: 7px;
+  font-size: 0.9em;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  transition:
+    filter 0.15s,
+    transform 0.1s;
+  text-shadow: none;
 }
 
 .ecm_done_btn:hover {
-    filter: brightness(1.12);
+  filter: brightness(1.12);
 }
 
 /* ---- Utility helpers ---- */
 .ecm_hint {
-    font-size: 0.75em;
-    opacity: 0.6;
-    margin-top: 5px;
+  font-size: 0.75em;
+  opacity: 0.6;
+  margin-top: 5px;
 }
 
 .ecm_input_gap {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .ecm_icon {
-    width: 14px;
-    text-align: center;
-    flex-shrink: 0;
+  width: 14px;
+  text-align: center;
+  flex-shrink: 0;
 }
-
-
 
 /* ========================================= */
 /* SETTINGS MODAL — TWO-PANE LAYOUT          */
@@ -3025,261 +3068,266 @@ margin-top: 10px;
 
 /* Card flex plumbing */
 .ecm_card {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .ecm_layout {
-    display: flex;
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* ---- Left Sidebar ---- */
 .ecm_sidebar {
-    width: 175px;
-    min-width: 155px;
-    flex-shrink: 0;
-    padding: 14px 8px;
-    border-right: 1px solid var(--ec-border, rgba(255, 255, 255, 0.1));
-    overflow-y: auto;
-    background: rgba(0, 0, 0, 0.18);
-    scrollbar-width: none;
+  width: 175px;
+  min-width: 155px;
+  flex-shrink: 0;
+  padding: 14px 8px;
+  border-right: 1px solid var(--ec-border, rgba(255, 255, 255, 0.1));
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.18);
+  scrollbar-width: none;
 }
 
 .ecm_sidebar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .ecm_nav_list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .ecm_nav_item {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    padding: 8px 10px;
-    border-radius: 6px;
-    color: rgba(255, 255, 255, 0.52);
-    text-decoration: none;
-    font-size: 0.79em;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    cursor: pointer;
-    transition: background 0.15s, color 0.15s;
-    user-select: none;
-    background: none;
-    border: none;
-    width: 100%;
-    text-align: left;
-    line-height: 1.3;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  color: rgba(255, 255, 255, 0.52);
+  text-decoration: none;
+  font-size: 0.79em;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  transition:
+    background 0.15s,
+    color 0.15s;
+  user-select: none;
+  background: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+  line-height: 1.3;
 }
 
 .ecm_nav_item i {
-    width: 13px;
-    text-align: center;
-    font-size: 0.82em;
-    flex-shrink: 0;
-    opacity: 0.75;
-    transition: opacity 0.15s;
+  width: 13px;
+  text-align: center;
+  font-size: 0.82em;
+  flex-shrink: 0;
+  opacity: 0.75;
+  transition: opacity 0.15s;
 }
 
 .ecm_nav_item:hover {
-    background: rgba(255, 255, 255, 0.07);
-    color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .ecm_nav_item:hover i {
-    opacity: 1;
+  opacity: 1;
 }
 
 .ecm_nav_item.ecm_nav_active {
-    background: rgba(67, 181, 129, 0.14);
-    color: var(--ec-accent, #43b581);
+  background: rgba(67, 181, 129, 0.14);
+  color: var(--ec-accent, #43b581);
 }
 
 .ecm_nav_item.ecm_nav_active i {
-    color: var(--ec-accent, #43b581);
-    opacity: 1;
+  color: var(--ec-accent, #43b581);
+  opacity: 1;
 }
 
 /* ---- Right Content Pane ---- */
 .ecm_content {
-    flex: 1;
-    overflow-y: auto;
-    padding: 14px 18px 24px;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
-    padding-bottom: 70vh;
-    /* Scroll padding to allow last items to reach top */
+  flex: 1;
+  overflow-y: auto;
+  padding: 14px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.14) transparent;
+  padding-bottom: 70vh;
+  /* Scroll padding to allow last items to reach top */
 }
 
 .ecm_content::-webkit-scrollbar {
-    width: 5px;
+  width: 5px;
 }
 
 .ecm_content::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.14);
-    border-radius: 3px;
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 3px;
 }
 
 /* ---- Reverted Row Flexbox ---- */
 .ecm_row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 4px 0;
-    width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 4px 0;
+  width: 100%;
 }
 
-.ecm_row>select,
-.ecm_row>input:not([type="checkbox"]):not([type="radio"]) {
-    flex-shrink: 0;
-    width: 150px;
-    max-width: 50%;
+.ecm_row > select,
+.ecm_row > input:not([type="checkbox"]):not([type="radio"]) {
+  flex-shrink: 0;
+  width: 150px;
+  max-width: 50%;
 }
 
 .ecm_toggle_row {
-    justify-content: flex-start;
-    padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 0 0 4px 0;
+  justify-content: flex-start;
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 0 4px 0;
 }
 
 .ecm_toggle_row:hover {
-    background: rgba(255, 255, 255, 0.06);
-    padding: 8px 12px;
-    margin: 0 0 4px 0;
+  background: rgba(255, 255, 255, 0.06);
+  padding: 8px 12px;
+  margin: 0 0 4px 0;
 }
 
 .ecm_toggle_row .ecm_label {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 /* ---- Desktop: all sections expanded, headers become headings ---- */
 @media (min-width: 769px) {
-    .ecm_card {
-        max-width: 620px;
-        max-height: 68vh;
-    }
+  .ecm_card {
+    max-width: 620px;
+    max-height: 68vh;
+  }
 
-    .ecm_layout {
-        max-height: calc(68vh - 120px);
-        /* 120px accounts for header (~50px) + footer (~70px) */
-    }
+  .ecm_layout {
+    max-height: calc(68vh - 120px);
+    /* 120px accounts for header (~50px) + footer (~70px) */
+  }
 
-    .ecm_acc_body {
-        display: flex !important;
-        flex-direction: column;
-        gap: 6px;
-        padding: 8px 0 12px;
-    }
+  .ecm_acc_body {
+    display: flex !important;
+    flex-direction: column;
+    gap: 6px;
+    padding: 8px 0 12px;
+  }
 
-    .ecm_acc_header {
-        cursor: default;
-        pointer-events: none;
-        padding: 10px 14px;
-        margin-top: 14px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 6px;
-        border-bottom: none;
-        border-left: 4px solid var(--ec-accent, #43b581);
-        font-size: 1.1em;
-        font-weight: 700;
-        letter-spacing: 0.8px;
-        color: var(--ec-accent, #43b581);
-    }
+  .ecm_acc_header {
+    cursor: default;
+    pointer-events: none;
+    padding: 10px 14px;
+    margin-top: 14px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    border-bottom: none;
+    border-left: 4px solid var(--ec-accent, #43b581);
+    font-size: 1.1em;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: var(--ec-accent, #43b581);
+  }
 
-    .ecm_acc_chevron {
-        display: none;
-    }
+  .ecm_acc_chevron {
+    display: none;
+  }
 
-    .ecm_section:not(:last-child) {
-        border-bottom: 1px solid rgba(255, 255, 255, 0.07);
-        padding-bottom: 14px;
-        margin-bottom: 6px;
-    }
+  .ecm_section:not(:last-child) {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding-bottom: 14px;
+    margin-bottom: 6px;
+  }
 }
 
 /* ---- Mobile: sidebar hidden, accordion restored ---- */
 @media (max-width: 768px) {
-    #ec_settings_modal {
-        z-index: var(--ec-settings-layer);
-        padding: 8px !important;
-        position: fixed !important;
-    }
+  #ec_settings_modal {
+    z-index: var(--ec-settings-layer);
+    padding: 8px !important;
+    position: fixed !important;
+  }
 
-    #ec_settings_modal.ecm_visible {
-        display: flex !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-        pointer-events: all !important;
-    }
+  #ec_settings_modal.ecm_visible {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: all !important;
+  }
 
-    .ecm_card {
-        max-width: 100% !important;
-        width: 100% !important;
-        max-height: min(90dvh, calc(var(--ec-viewport-height, 100dvh) - 16px)) !important;
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        transform: none !important;
-    }
+  .ecm_card {
+    max-width: 100% !important;
+    width: 100% !important;
+    max-height: min(
+      90dvh,
+      calc(var(--ec-viewport-height, 100dvh) - 16px)
+    ) !important;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+  }
 
-    .ecm_backdrop {
-        /* Fill the explicitly sized overlay rather than ST's empty root. */
-        position: absolute !important;
-        inset: 0 !important;
-    }
+  .ecm_backdrop {
+    /* Fill the explicitly sized overlay rather than ST's empty root. */
+    position: absolute !important;
+    inset: 0 !important;
+  }
 
-    .ecm_sidebar {
-        display: none;
-    }
+  .ecm_sidebar {
+    display: none;
+  }
 
-    .ecm_layout {
-        flex-direction: column;
-        overflow-y: auto;
-        overflow-x: hidden;
-        max-height: calc(min(90dvh, var(--ec-viewport-height, 100dvh)) - 50px);
-    }
+  .ecm_layout {
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: calc(min(90dvh, var(--ec-viewport-height, 100dvh)) - 50px);
+  }
 
-    .ecm_content {
-        overflow-y: auto;
-        padding: 10px 14px 60px;
-        gap: 0;
-    }
+  .ecm_content {
+    overflow-y: auto;
+    padding: 10px 14px 60px;
+    gap: 0;
+  }
 
-    .ecm_acc_body[hidden] {
-        display: none !important;
-    }
+  .ecm_acc_body[hidden] {
+    display: none !important;
+  }
 
-    .ecm_footer {
-        position: sticky;
-        bottom: 0;
-        z-index: 10;
-        background: var(--SmartThemeBlurTintColor, #2a2c31);
-        border-top: 1px solid var(--ec-border, rgba(255, 255, 255, 0.1));
-        margin-top: -1px;
-    }
+  .ecm_footer {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background: var(--SmartThemeBlurTintColor, #2a2c31);
+    border-top: 1px solid var(--ec-border, rgba(255, 255, 255, 0.1));
+    margin-top: -1px;
+  }
 
-    /* Ensure settings button is visible and has proper touch target on mobile */
-    #discordQuickSettings .ec_btn {
-        min-width: 36px;
-        min-height: 36px;
-    }
+  /* Ensure settings button is visible and has proper touch target on mobile */
+  #discordQuickSettings .ec_btn {
+    min-width: 36px;
+    min-height: 36px;
+  }
 }
 
 /* ========================================= */
@@ -3289,499 +3337,507 @@ margin-top: 10px;
 /* CSS variables specific to the settings panel */
 
 .discord_settings {
-    --ec-s-bg: rgba(0, 0, 0, 0.12);
-    --ec-s-bg-hover: rgba(255, 255, 255, 0.04);
-    --ec-s-border: var(--ec-border, rgba(255, 255, 255, 0.12));
-    --ec-s-accent: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
-    --ec-s-text: var(--SmartThemeBodyColor, var(--ec-text, #dcddde));
-    --ec-s-radius: 6px;
-    --ec-s-row-min: 44px;
-    --ec-s-gap: 8px;
-    --ec-s-font-sm: 0.8em;
-    --ec-s-font-xs: 0.75em;
-    --ec-s-opacity-dim: 0.65;
+  --ec-s-bg: rgba(0, 0, 0, 0.12);
+  --ec-s-bg-hover: rgba(255, 255, 255, 0.04);
+  --ec-s-border: var(--ec-border, rgba(255, 255, 255, 0.12));
+  --ec-s-accent: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
+  --ec-s-text: var(--SmartThemeBodyColor, var(--ec-text, #dcddde));
+  --ec-s-radius: 6px;
+  --ec-s-row-min: 44px;
+  --ec-s-gap: 8px;
+  --ec-s-font-sm: 0.8em;
+  --ec-s-font-xs: 0.75em;
+  --ec-s-opacity-dim: 0.65;
 }
 
 /* Root panel wrapper */
 .ec-s-panel {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-    padding-bottom: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  padding-bottom: 4px;
 }
 
 /* === Description blurb === */
 .ec-s-description {
-    margin-bottom: 12px;
-    padding: 8px 12px;
-    border-left: 3px solid var(--ec-s-accent);
-    background: var(--ec-s-bg);
-    border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
-    font-size: var(--ec-s-font-sm);
-    opacity: 0.85;
-    line-height: 1.5;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  border-left: 3px solid var(--ec-s-accent);
+  background: var(--ec-s-bg);
+  border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
+  font-size: var(--ec-s-font-sm);
+  opacity: 0.85;
+  line-height: 1.5;
 }
 
 /* === Global enable row === */
 .ec-s-global-enable {
-    margin-bottom: 12px;
-    padding: 6px 4px;
-    border-radius: var(--ec-s-radius);
-    transition: background 0.15s;
+  margin-bottom: 12px;
+  padding: 6px 4px;
+  border-radius: var(--ec-s-radius);
+  transition: background 0.15s;
 }
 
 .ec-s-global-enable:hover {
-    background: var(--ec-s-bg-hover);
+  background: var(--ec-s-bg-hover);
 }
 
 /* === Accordion Section === */
 .ec-s-section {
-    border: 1px solid var(--ec-s-border);
-    border-radius: var(--ec-s-radius);
-    margin-bottom: 8px;
-    overflow: hidden;
+  border: 1px solid var(--ec-s-border);
+  border-radius: var(--ec-s-radius);
+  margin-bottom: 8px;
+  overflow: hidden;
 }
 
 .ec-s-section-header {
-    /* Reset button defaults */
-    appearance: none;
-    -webkit-appearance: none;
-    background: var(--ec-s-bg);
-    border: none;
-    border-radius: 0;
-    outline: none;
-    cursor: pointer;
+  /* Reset button defaults */
+  appearance: none;
+  -webkit-appearance: none;
+  background: var(--ec-s-bg);
+  border: none;
+  border-radius: 0;
+  outline: none;
+  cursor: pointer;
 
-    /* Layout */
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    min-height: var(--ec-s-row-min);
-    padding: 10px 12px;
-    gap: var(--ec-s-gap);
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: var(--ec-s-row-min);
+  padding: 10px 12px;
+  gap: var(--ec-s-gap);
 
-    /* Typography */
-    color: var(--ec-s-accent);
-    font-size: var(--ec-s-font-sm);
-    font-family: inherit;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-weight: 600;
+  /* Typography */
+  color: var(--ec-s-accent);
+  font-size: var(--ec-s-font-sm);
+  font-family: inherit;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
 
-    transition: background 0.15s;
+  transition: background 0.15s;
 }
 
 .ec-s-section-header:hover {
-    background: var(--ec-s-bg-hover);
+  background: var(--ec-s-bg-hover);
 }
 
 .ec-s-section-header:focus-visible {
-    outline: 2px solid var(--ec-s-accent);
-    outline-offset: -2px;
+  outline: 2px solid var(--ec-s-accent);
+  outline-offset: -2px;
 }
 
 .ec-s-section-title {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-    text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  text-align: left;
 }
 
 /* Chevron rotates when open */
 .ec-s-chevron {
-    font-size: 0.9em;
-    opacity: var(--ec-s-opacity-dim);
-    transition: transform 0.25s ease, opacity 0.2s;
-    flex-shrink: 0;
+  font-size: 0.9em;
+  opacity: var(--ec-s-opacity-dim);
+  transition:
+    transform 0.25s ease,
+    opacity 0.2s;
+  flex-shrink: 0;
 }
 
 .ec-s-section-header[aria-expanded="true"] .ec-s-chevron {
-    transform: rotate(180deg);
-    opacity: 1;
+  transform: rotate(180deg);
+  opacity: 1;
 }
 
 /* Accordion body */
 .ec-s-section-body {
-    padding: 10px 12px 12px;
-    border-top: 1px solid var(--ec-s-border);
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--ec-s-border);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 /* Smooth open/close via max-height animation (JS toggles hidden attr) */
 .ec-s-section-body[hidden] {
-    display: none;
+  display: none;
 }
 
 /* === Toggle Row (checkbox / radio) === */
 .ec-s-toggle-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-height: var(--ec-s-row-min);
-    padding: 6px 8px;
-    border-radius: var(--ec-s-radius);
-    cursor: pointer;
-    font-size: 0.9em;
-    color: var(--ec-s-text);
-    transition: background 0.15s;
-    /* Ensure checkbox/radio is always tap-accessible */
-    -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--ec-s-row-min);
+  padding: 6px 8px;
+  border-radius: var(--ec-s-radius);
+  cursor: pointer;
+  font-size: 0.9em;
+  color: var(--ec-s-text);
+  transition: background 0.15s;
+  /* Ensure checkbox/radio is always tap-accessible */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ec-s-toggle-row:hover {
-    background: var(--ec-s-bg-hover);
+  background: var(--ec-s-bg-hover);
 }
 
 /* Radio rows are slightly shorter as they're often stacked */
 .ec-s-radio-row {
-    min-height: 36px;
-    padding: 4px 8px;
+  min-height: 36px;
+  padding: 4px 8px;
 }
 
 /* Ensure the checkbox/radio itself is at least 20×20 */
 .ec-s-toggle-row .checkbox,
 .ec-s-toggle-row .radio {
-    flex-shrink: 0;
-    width: 18px;
-    height: 18px;
-    cursor: pointer;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
 }
 
 .ec-s-label-text {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    flex: 1;
-    min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
 }
 
 .ec-s-label-bold {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 /* === Field Group (label above input) === */
 .ec-s-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ec-s-gap, 8px);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ec-s-gap, 8px);
 }
 
 .ec-s-grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--ec-s-gap, 8px);
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--ec-s-gap, 8px);
 }
 
 @media (max-width: 600px) {
-
-    .ec-s-grid-2,
-    .ec-s-grid-3 {
-        grid-template-columns: 1fr;
-    }
+  .ec-s-grid-2,
+  .ec-s-grid-3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 .ec-s-field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .ec-s-field-label {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: var(--ec-s-font-sm);
-    opacity: var(--ec-s-opacity-dim);
-    user-select: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: var(--ec-s-font-sm);
+  opacity: var(--ec-s-opacity-dim);
+  user-select: none;
 }
 
 /* Full-width text/select inputs — use high-specificity selectors to override text_pole */
 .discord_settings .ec-s-select,
 .discord_settings .ec-s-input {
-    width: 100%;
-    box-sizing: border-box;
-    font-size: 0.9em;
-    min-height: 36px;
-    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2)) !important;
-    transition: border-color 0.2s, box-shadow 0.2s !important;
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 0.9em;
+  min-height: 36px;
+  border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2)) !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
 }
 
 .discord_settings .ec-s-select:hover,
 .discord_settings .ec-s-input:hover {
-    border-color: var(--SmartThemeQuoteColor, #43b581) !important;
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 20%, transparent) !important;
+  border-color: var(--SmartThemeQuoteColor, #43b581) !important;
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 20%, transparent) !important;
 }
 
 .discord_settings .ec-s-select:focus,
 .discord_settings .ec-s-input:focus {
-    border-color: var(--SmartThemeQuoteColor, #43b581) !important;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 30%, transparent) !important;
-    outline: none !important;
+  border-color: var(--SmartThemeQuoteColor, #43b581) !important;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 30%, transparent) !important;
+  outline: none !important;
 }
 
 /* Compact number inputs */
 .discord_settings .ec-s-input-num {
-    width: 80px;
-    min-height: 36px;
-    font-size: 0.9em;
-    box-sizing: border-box;
-    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2)) !important;
-    transition: border-color 0.2s, box-shadow 0.2s !important;
+  width: 80px;
+  min-height: 36px;
+  font-size: 0.9em;
+  box-sizing: border-box;
+  border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.2)) !important;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s !important;
 }
 
 .discord_settings .ec-s-input-num:hover {
-    border-color: var(--SmartThemeQuoteColor, #43b581) !important;
-    box-shadow: 0 0 0 2px color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 20%, transparent) !important;
+  border-color: var(--SmartThemeQuoteColor, #43b581) !important;
+  box-shadow: 0 0 0 2px
+    color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 20%, transparent) !important;
 }
 
 .discord_settings .ec-s-input-num:focus {
-    border-color: var(--SmartThemeQuoteColor, #43b581) !important;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 30%, transparent) !important;
-    outline: none !important;
+  border-color: var(--SmartThemeQuoteColor, #43b581) !important;
+  box-shadow: 0 0 0 3px
+    color-mix(in srgb, var(--SmartThemeQuoteColor, #43b581) 30%, transparent) !important;
+  outline: none !important;
 }
 
 /* Slider + value display */
 .ec-s-slider-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .ec-s-slider {
-    flex: 1;
-    min-width: 0;
-    cursor: pointer;
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
 }
 
 .ec-s-slider-val {
-    font-size: var(--ec-s-font-sm);
-    opacity: var(--ec-s-opacity-dim);
-    min-width: 36px;
-    text-align: right;
-    white-space: nowrap;
+  font-size: var(--ec-s-font-sm);
+  opacity: var(--ec-s-opacity-dim);
+  min-width: 36px;
+  text-align: right;
+  white-space: nowrap;
 }
 
 /* === 2-column and 3-column grids === */
 .ec-s-grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--ec-s-gap);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--ec-s-gap);
 }
 
 .ec-s-grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1.5fr;
-    gap: var(--ec-s-gap);
-    align-items: end;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1.5fr;
+  gap: var(--ec-s-gap);
+  align-items: end;
 }
 
 /* === Provider Sub-panels === */
 .ec-s-sub-panel {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    padding: 10px 12px;
-    border-left: 3px solid rgba(255, 255, 255, 0.2);
-    background: rgba(0, 0, 0, 0.08);
-    border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
-    margin-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-left: 3px solid rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.08);
+  border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
+  margin-top: 4px;
 }
 
 .ec-s-sub-panel--ollama {
-    border-left-color: rgba(0, 255, 0, 0.35);
+  border-left-color: rgba(0, 255, 0, 0.35);
 }
 
 .ec-s-sub-panel--openai {
-    border-left-color: rgba(0, 180, 255, 0.35);
+  border-left-color: rgba(0, 180, 255, 0.35);
 }
 
 .ec-s-sub-panel--profile {
-    border-left-color: rgba(100, 150, 255, 0.35);
+  border-left-color: rgba(100, 150, 255, 0.35);
 }
 
 .ec-s-sub-panel[hidden] {
-    display: none;
+  display: none;
 }
 
 .ec-s-sub-panel-title {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: var(--ec-s-font-sm);
-    font-weight: bold;
-    opacity: 0.9;
-    margin-bottom: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--ec-s-font-sm);
+  font-weight: bold;
+  opacity: 0.9;
+  margin-bottom: 2px;
 }
 
 /* === Context sub-group ("Include in Context") === */
 .ec-s-context-sub {
-    margin-top: 4px;
-    padding: 10px;
-    border-left: 2px solid var(--ec-s-border);
-    background: var(--ec-s-bg);
-    border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
+  margin-top: 4px;
+  padding: 10px;
+  border-left: 2px solid var(--ec-s-border);
+  background: var(--ec-s-bg);
+  border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
 
 .ec-s-context-sub-title {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: var(--ec-s-font-sm);
-    font-weight: bold;
-    opacity: 0.9;
-    margin-bottom: 4px;
-    padding-bottom: 6px;
-    border-bottom: 1px solid var(--ec-s-border);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--ec-s-font-sm);
+  font-weight: bold;
+  opacity: 0.9;
+  margin-bottom: 4px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--ec-s-border);
 }
 
 /* === Sub-field (conditionally shown nested area) === */
 .ec-s-sub-field {
-    padding: 8px 8px 4px 12px;
-    border-left: 2px solid var(--ec-s-border);
-    margin-left: 8px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
+  padding: 8px 8px 4px 12px;
+  border-left: 2px solid var(--ec-s-border);
+  margin-left: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .ec-s-sub-field[hidden] {
-    display: none;
+  display: none;
 }
 
 /* === Hint / note text === */
 .ec-s-hint {
-    font-size: var(--ec-s-font-xs);
-    opacity: var(--ec-s-opacity-dim);
-    line-height: 1.4;
+  font-size: var(--ec-s-font-xs);
+  opacity: var(--ec-s-opacity-dim);
+  line-height: 1.4;
 }
 
 .ec-s-hint--indent {
-    padding-left: 12px;
+  padding-left: 12px;
 }
 
 /* Status note (Ollama connection status) */
 .ec-s-status-note {
-    font-size: var(--ec-s-font-xs);
-    opacity: var(--ec-s-opacity-dim);
-    min-height: 14px;
+  font-size: var(--ec-s-font-xs);
+  opacity: var(--ec-s-opacity-dim);
+  min-height: 14px;
 }
 
 /* === Inline pair (value + hint beside each other) === */
 .ec-s-inline-pair {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 /* === Button row (Style Manager) === */
 .ec-s-btn-row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .ec-s-btn-row .menu_button {
-    flex: 1;
-    min-width: 100px;
-    justify-content: center;
+  flex: 1;
+  min-width: 100px;
+  justify-content: center;
 }
 
 /* Version string */
 .ec-s-version {
-    text-align: center;
-    font-size: var(--ec-s-font-xs);
-    opacity: 0.45;
-    font-family: monospace;
-    margin-top: 4px;
+  text-align: center;
+  font-size: var(--ec-s-font-xs);
+  opacity: 0.45;
+  font-family: monospace;
+  margin-top: 4px;
 }
 
 /* Color picker row */
 .ec-s-color-row {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
 /* Color input swatch */
 .ec-s-color-input {
-    width: 48px;
-    height: 36px;
-    padding: 2px 3px;
-    border-radius: 6px;
-    border: 1px solid var(--ec-s-border);
-    background: transparent;
-    cursor: pointer;
-    flex-shrink: 0;
-    -webkit-appearance: none;
-    appearance: none;
+  width: 48px;
+  height: 36px;
+  padding: 2px 3px;
+  border-radius: 6px;
+  border: 1px solid var(--ec-s-border);
+  background: transparent;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
 }
 
 .ec-s-color-input::-webkit-color-swatch-wrapper {
-    padding: 0;
-    border-radius: 4px;
+  padding: 0;
+  border-radius: 4px;
 }
 
 .ec-s-color-input::-webkit-color-swatch {
-    border: none;
-    border-radius: 4px;
+  border: none;
+  border-radius: 4px;
 }
 
 .ec-s-color-input::-moz-color-swatch {
-    border: none;
-    border-radius: 4px;
+  border: none;
+  border-radius: 4px;
 }
 
 /* ═══ MOBILE BREAKPOINTS ═══ */
 /* Stack grids to single column on narrow viewports */
 @media (max-width: 480px) {
-    .discord_settings {
-        --ec-s-gap: 6px;
-    }
+  .discord_settings {
+    --ec-s-gap: 6px;
+  }
 
-    /* Stack 2-col and 3-col grids */
-    .ec-s-grid-2,
-    .ec-s-grid-3 {
-        grid-template-columns: 1fr;
-    }
+  /* Stack 2-col and 3-col grids */
+  .ec-s-grid-2,
+  .ec-s-grid-3 {
+    grid-template-columns: 1fr;
+  }
 
-    /* Wider number inputs on mobile so they're easier to tap */
-    .ec-s-input-num {
-        width: 100%;
-    }
+  /* Wider number inputs on mobile so they're easier to tap */
+  .ec-s-input-num {
+    width: 100%;
+  }
 
-    /* Tighten section body padding on small screens */
-    .ec-s-section-body {
-        padding: 8px 8px 10px;
-    }
+  /* Tighten section body padding on small screens */
+  .ec-s-section-body {
+    padding: 8px 8px 10px;
+  }
 
-    /* Give slider the full row on mobile */
-    .ec-s-slider-row {
-        flex-wrap: wrap;
-    }
+  /* Give slider the full row on mobile */
+  .ec-s-slider-row {
+    flex-wrap: wrap;
+  }
 
-    .ec-s-slider {
-        min-width: 120px;
-    }
+  .ec-s-slider {
+    min-width: 120px;
+  }
 }
 
 /* Extra-small - tighten sub-panel indent */
 @media (max-width: 360px) {
-
-    .ec-s-context-sub,
-    .ec-s-sub-field {
-        padding-left: 8px;
-        margin-left: 4px;
-    }
+  .ec-s-context-sub,
+  .ec-s-sub-field {
+    padding-left: 8px;
+    margin-left: 4px;
+  }
 }
 
 /* ============================================================ */
@@ -3789,461 +3845,495 @@ margin-top: 10px;
 /* ============================================================ */
 
 #ec_floating_panel {
-    position: fixed;
-    z-index: 9000;
-    display: flex;
-    flex-direction: column;
-    min-width: 300px;
-    min-height: 200px;
-    border: 1px solid var(--ec-border);
-    border-radius: var(--ec-radius);
-    background: var(--ec-bg);
-    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.65), 0 2px 8px rgba(0, 0, 0, 0.4);
-    overflow: hidden;
-    animation: ecFloatIn 0.18s ease-out;
+  position: fixed;
+  z-index: 9000;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  min-height: 200px;
+  border: 1px solid var(--ec-border);
+  border-radius: var(--ec-radius);
+  background: var(--ec-bg);
+  box-shadow:
+    0 8px 40px rgba(0, 0, 0, 0.65),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: ecFloatIn 0.18s ease-out;
 }
 
 @keyframes ecFloatIn {
-    from {
-        opacity: 0;
-        transform: scale(0.96) translateY(6px);
-    }
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(6px);
+  }
 
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* ---- Row 1: Drag header ---- */
 .ec_float_header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    padding: 4px 8px 4px 12px;
-    min-height: 36px;
-    flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.30);
-    border-bottom: 1px solid var(--ec-border);
-    cursor: grab;
-    user-select: none;
-    overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 8px 4px 12px;
+  min-height: 36px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-bottom: 1px solid var(--ec-border);
+  cursor: grab;
+  user-select: none;
+  overflow: visible;
 }
 
 .ec_float_header:active {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
 .ec_float_header_left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow: visible;
-    min-width: 0;
-    flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  overflow: visible;
+  min-width: 0;
+  flex: 1;
 }
 
 .ec_float_header_right {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
 }
 
 .ec_float_title {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ec-text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    min-width: 0;
-    letter-spacing: 0.02em;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ec-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  letter-spacing: 0.02em;
 }
 
 /* ---- Row 2: Action toolbar — style menu and icon buttons ---- */
 .ec_float_toolbar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: center;
-    gap: 4px;
-    padding: 4px 8px;
-    flex-shrink: 0;
-    background: rgba(0, 0, 0, 0.16);
-    border-bottom: 1px solid var(--ec-border);
-    overflow: visible;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+  flex-shrink: 0;
+  background: rgba(0, 0, 0, 0.16);
+  border-bottom: 1px solid var(--ec-border);
+  overflow: visible;
 }
 
 .ec_float_toolbar_left {
-    display: flex;
-    align-items: center;
-    min-width: 0;
-    overflow: visible;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  overflow: visible;
+  width: 100%;
 }
 
 .ec_float_toolbar_right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2px;
 }
 
 /* ec_btn inside the float toolbar: compact square icons (NOT the style button) */
 .ec_float_toolbar .ec_btn:not(.ec_float_style_btn) {
-    position: relative;
-    width: 28px;
-    height: 26px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 2010;
+  position: relative;
+  width: 28px;
+  height: 26px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2010;
 }
 
 /* Popup menus spawned from toolbar buttons open downward */
 .ec_float_toolbar .ec_popup_menu {
-    top: 100%;
-    bottom: auto;
-    left: 0;
-    min-width: 110px;
-    max-height: 260px;
-    overflow-y: auto;
+  top: 100%;
+  bottom: auto;
+  left: 0;
+  min-width: 110px;
+  max-height: 260px;
+  overflow-y: auto;
 }
 
 /* Style indicator — stretches to fill its grid column container */
 .ec_float_style_btn {
-    position: relative;
-    z-index: 2010;
-    width: 100%;
-    height: 26px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 6px;
-    padding: 0 8px;
-    font-size: 12px;
-    border-radius: 4px;
-    opacity: 1;
-    /* always full opacity, not a faded icon button */
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--ec-border);
-    transition: border-color 0.15s, background 0.15s;
-    cursor: pointer;
-    overflow: visible;
-    /* allow popup to overflow */
-    white-space: nowrap;
+  position: relative;
+  z-index: 2010;
+  width: 100%;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 6px;
+  padding: 0 8px;
+  font-size: 12px;
+  border-radius: 4px;
+  opacity: 1;
+  /* always full opacity, not a faded icon button */
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--ec-border);
+  transition:
+    border-color 0.15s,
+    background 0.15s;
+  cursor: pointer;
+  overflow: visible;
+  /* allow popup to overflow */
+  white-space: nowrap;
 }
-
 
 .ec_float_style_btn:hover,
 .ec_float_style_btn.open {
-    border-color: var(--ec-accent);
-    background: rgba(255, 255, 255, 0.08);
+  border-color: var(--ec-accent);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* Caret arrow pushed to the right edge */
 .ec_float_style_btn .ec_dropdown_arrow {
-    margin-left: auto;
-    opacity: 0.6;
+  margin-left: auto;
+  opacity: 0.6;
 }
 
 /* Style popup opens downward and spans full button width */
 .ec_float_style_btn .ec_popup_menu {
-    top: 100%;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    min-width: 100%;
-    max-height: 300px;
-    overflow-y: auto;
+  top: 100%;
+  bottom: auto;
+  left: 0;
+  right: 0;
+  min-width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 /* ---- Generic floating icon button (dock button in header) ---- */
 .ec_float_btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 26px;
-    height: 26px;
-    border-radius: 4px;
-    color: var(--ec-text);
-    opacity: 0.55;
-    cursor: pointer;
-    flex-shrink: 0;
-    transition: opacity 0.15s, background 0.15s, color 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 4px;
+  color: var(--ec-text);
+  opacity: 0.55;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition:
+    opacity 0.15s,
+    background 0.15s,
+    color 0.15s;
 }
 
 .ec_float_btn:hover {
-    opacity: 1;
-    background: rgba(255, 255, 255, 0.12);
-    color: var(--ec-accent);
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--ec-accent);
 }
 
 /* ---- Chat content area ---- */
 .ec_float_content {
-    flex: 1 1 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 6px 4px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581)) rgba(0, 0, 0, 0.15);
+  flex: 1 1 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 6px 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581))
+    rgba(0, 0, 0, 0.15);
 }
 
 .ec_float_content::-webkit-scrollbar {
-    width: 6px;
+  width: 6px;
 }
 
 .ec_float_content::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0.15);
-    border-radius: 3px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
 }
 
 .ec_float_content::-webkit-scrollbar-thumb {
-    background: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
-    border-radius: 3px;
+  background: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
+  border-radius: 3px;
 }
 
 .ec_float_content::-webkit-scrollbar-thumb:hover {
-    background: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
-    filter: brightness(1.25);
+  background: var(--SmartThemeQuoteColor, var(--ec-accent, #43b581));
+  filter: brightness(1.25);
 }
 
 /* ---- Reply bar ---- */
 .ec_float_reply_bar {
-    flex-shrink: 0;
-    border-radius: 0 !important;
-    border-top: 1px solid var(--ec-border);
-    padding: 8px;
+  flex-shrink: 0;
+  border-radius: 0 !important;
+  border-top: 1px solid var(--ec-border);
+  padding: 8px;
 }
 
 /* Base Reply Container */
 .ec_reply_container {
-    display: flex;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid var(--ec-border);
-    padding: 10px;
-    gap: 8px;
-    flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid var(--ec-border);
+  padding: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 /* Modern Input Box */
 .ec_reply_input {
-    flex: 1;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.12));
-    border-radius: 20px;
-    padding: 8px 40px 8px 15px;
-    color: var(--ec-text);
-    font-size: 0.75em;
-    outline: none;
-    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
+  flex: 1;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.12));
+  border-radius: 20px;
+  padding: 8px 40px 8px 15px;
+  color: var(--ec-text);
+  font-size: 0.75em;
+  outline: none;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .ec_reply_input:focus {
-    background: rgba(0, 0, 0, 0.4);
-    border-color: var(--ec-accent);
-    box-shadow: 0 0 0 2px rgba(67, 181, 129, 0.2);
+  background: rgba(0, 0, 0, 0.4);
+  border-color: var(--ec-accent);
+  box-shadow: 0 0 0 2px rgba(67, 181, 129, 0.2);
 }
 
 .ec_reply_input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.35);
 }
 
 /* Wrapper to overlay the send button inside the input */
 .ec_reply_wrapper {
-    position: relative;
-    flex: 1;
-    display: flex;
-    align-items: center;
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
 }
 
 .ec_reply_wrapper .ec_reply_input {
-    width: 100%;
-    box-sizing: border-box;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Seamless Send/Stop Button inside the input box */
 .ec_reply_send {
-    position: absolute;
-    right: 4px;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
-    color: rgba(255, 255, 255, 0.5);
-    background: transparent;
-    transition: color 0.15s, background 0.15s, transform 0.1s;
-    font-size: 11px;
+  position: absolute;
+  right: 4px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  background: transparent;
+  transition:
+    color 0.15s,
+    background 0.15s,
+    transform 0.1s;
+  font-size: 11px;
 }
 
 .ec_reply_send:hover {
-    color: var(--ec-accent, #43b581);
-    background: rgba(255, 255, 255, 0.08);
+  color: var(--ec-accent, #43b581);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .ec_reply_send:active {
-    transform: scale(0.9);
+  transform: scale(0.9);
 }
 
 /* Active input mode - highlights send button slightly */
-.ec_reply_input:focus+.ec_reply_send {
-    color: var(--ec-accent, #43b581);
+.ec_reply_input:focus + .ec_reply_send {
+  color: var(--ec-accent, #43b581);
 }
 
 /* Stop state styling */
 .ec_reply_stop {
-    color: #ff6b6b !important;
-    background: rgba(255, 107, 107, 0.25) !important;
-    border-radius: 50%;
-    width: 28px !important;
-    height: 28px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    animation: pulseStop 1s ease-in-out infinite;
-    box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+  color: #ff6b6b !important;
+  background: rgba(255, 107, 107, 0.25) !important;
+  border-radius: 50%;
+  width: 28px !important;
+  height: 28px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  animation: pulseStop 1s ease-in-out infinite;
+  box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
 }
 
 @keyframes pulseStop {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
+  }
 
-    0%,
-    100% {
-        transform: scale(1);
-        box-shadow: 0 0 8px rgba(255, 107, 107, 0.4);
-    }
-
-    50% {
-        transform: scale(1.08);
-        box-shadow: 0 0 12px rgba(255, 107, 107, 0.6);
-    }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 12px rgba(255, 107, 107, 0.6);
+  }
 }
 
 .ec_reply_stop:hover {
-    background: rgba(255, 107, 107, 0.35) !important;
+  background: rgba(255, 107, 107, 0.35) !important;
 }
 
 .ec_reply_stop .fa-hourglass {
-    animation: fa-spin 2s linear infinite;
-    opacity: 1 !important;
-    font-size: 14px;
+  animation: fa-spin 2s linear infinite;
+  opacity: 1 !important;
+  font-size: 14px;
 }
 
 @media (max-width: 768px) {
+  /* Hide Pop Out option in position dropdown on mobile/tablet */
+  #discord_position option[value="popout"] {
+    display: none;
+  }
 
-    /* Hide Pop Out option in position dropdown on mobile/tablet */
-    #discord_position option[value="popout"] {
-        display: none;
-    }
-
-    /* Hide Pop Out menu item in toolbar menus */
-    .ec_layout_menu .ec_menu_item[data-val="popout"],
-    .ec_of_pos_chip[data-val="popout"] {
-        display: none !important;
-    }
+  /* Hide Pop Out menu item in toolbar menus */
+  .ec_layout_menu .ec_menu_item[data-val="popout"],
+  .ec_of_pos_chip[data-val="popout"] {
+    display: none !important;
+  }
 }
 
 /* Also hide for very small screens */
 @media (max-width: 480px) {
-
-    #discord_position option[value="popout"],
-    .ec_layout_menu .ec_menu_item[data-val="popout"],
-    .ec_of_pos_chip[data-val="popout"] {
-        display: none !important;
-    }
+  #discord_position option[value="popout"],
+  .ec_layout_menu .ec_menu_item[data-val="popout"],
+  .ec_of_pos_chip[data-val="popout"] {
+    display: none !important;
+  }
 }
 
 .ec_float_resize_handle {
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    z-index: 10;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  z-index: 10;
 }
 
 .ec_float_resize_handle[data-corner="se"] {
-    bottom: 0;
-    right: 0;
-    cursor: se-resize;
-    border-bottom-right-radius: var(--ec-radius);
-    background-image: linear-gradient(135deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.20) 30%, rgba(255, 255, 255, 0.20) 40%,
-            transparent 40%, transparent 55%,
-            rgba(255, 255, 255, 0.20) 55%, rgba(255, 255, 255, 0.20) 65%,
-            transparent 65%, transparent 80%,
-            rgba(255, 255, 255, 0.20) 80%);
+  bottom: 0;
+  right: 0;
+  cursor: se-resize;
+  border-bottom-right-radius: var(--ec-radius);
+  background-image: linear-gradient(
+    135deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 40%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0.2) 65%,
+    transparent 65%,
+    transparent 80%,
+    rgba(255, 255, 255, 0.2) 80%
+  );
 }
 
 .ec_float_resize_handle[data-corner="sw"] {
-    bottom: 0;
-    left: 0;
-    cursor: sw-resize;
-    border-bottom-left-radius: var(--ec-radius);
-    background-image: linear-gradient(225deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.20) 30%, rgba(255, 255, 255, 0.20) 40%,
-            transparent 40%, transparent 55%,
-            rgba(255, 255, 255, 0.20) 55%, rgba(255, 255, 255, 0.20) 65%,
-            transparent 65%, transparent 80%,
-            rgba(255, 255, 255, 0.20) 80%);
+  bottom: 0;
+  left: 0;
+  cursor: sw-resize;
+  border-bottom-left-radius: var(--ec-radius);
+  background-image: linear-gradient(
+    225deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 40%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0.2) 65%,
+    transparent 65%,
+    transparent 80%,
+    rgba(255, 255, 255, 0.2) 80%
+  );
 }
 
 .ec_float_resize_handle[data-corner="ne"] {
-    top: 0;
-    right: 0;
-    cursor: ne-resize;
-    border-top-right-radius: var(--ec-radius);
-    background-image: linear-gradient(45deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.20) 30%, rgba(255, 255, 255, 0.20) 40%,
-            transparent 40%, transparent 55%,
-            rgba(255, 255, 255, 0.20) 55%, rgba(255, 255, 255, 0.20) 65%,
-            transparent 65%, transparent 80%,
-            rgba(255, 255, 255, 0.20) 80%);
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+  border-top-right-radius: var(--ec-radius);
+  background-image: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 40%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0.2) 65%,
+    transparent 65%,
+    transparent 80%,
+    rgba(255, 255, 255, 0.2) 80%
+  );
 }
 
 .ec_float_resize_handle[data-corner="nw"] {
-    top: 0;
-    left: 0;
-    cursor: nw-resize;
-    border-top-left-radius: var(--ec-radius);
-    background-image: linear-gradient(315deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.20) 30%, rgba(255, 255, 255, 0.20) 40%,
-            transparent 40%, transparent 55%,
-            rgba(255, 255, 255, 0.20) 55%, rgba(255, 255, 255, 0.20) 65%,
-            transparent 65%, transparent 80%,
-            rgba(255, 255, 255, 0.20) 80%);
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+  border-top-left-radius: var(--ec-radius);
+  background-image: linear-gradient(
+    315deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.2) 30%,
+    rgba(255, 255, 255, 0.2) 40%,
+    transparent 40%,
+    transparent 55%,
+    rgba(255, 255, 255, 0.2) 55%,
+    rgba(255, 255, 255, 0.2) 65%,
+    transparent 65%,
+    transparent 80%,
+    rgba(255, 255, 255, 0.2) 80%
+  );
 }
 
 /* Elevated z-index when dragging */
 #ec_floating_panel.ec_float_dragging {
-    z-index: 10000;
-    box-shadow: 0 16px 60px rgba(0, 0, 0, 0.8);
+  z-index: 10000;
+  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.8);
 }
 
 /* ---- Live indicator in floating panel inherits main ec_live_indicator styles ---- */
 
 /* ---- Style label text inside the float style button ---- */
 .ec_float_style_label {
-    flex: 1;
-    min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    color: var(--ec-text);
-    font-size: 12px;
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--ec-text);
+  font-size: 12px;
 }
 
 /* Float style menu: absolute positioning (not fixed), full-width dropdown */
 .ec_float_style_menu {
-    z-index: 10001;
-    min-width: 160px;
+  z-index: 10001;
+  min-width: 160px;
 }
 
 /* ============================================================ */
@@ -4251,144 +4341,153 @@ margin-top: 10px;
 /* ============================================================ */
 
 .ec_confirm_modal_overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    inset: 0;
-    z-index: var(--ec-confirm-layer);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.55);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    padding: 20px;
-    padding-top: max(20px, env(safe-area-inset-top));
-    padding-bottom: max(20px, env(safe-area-inset-bottom));
-    box-sizing: border-box;
-    opacity: 0;
-    transition: opacity 0.18s ease;
-    /* Inset alone would collapse this overlay under ST's mobile root layout. */
-    width: 100%;
-    height: 100vh;
-    height: 100dvh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  inset: 0;
+  z-index: var(--ec-confirm-layer);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 20px;
+  padding-top: max(20px, env(safe-area-inset-top));
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
+  box-sizing: border-box;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  /* Inset alone would collapse this overlay under ST's mobile root layout. */
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
 }
 
 .ec_confirm_modal_overlay.ec_confirm_visible {
-    opacity: 1;
+  opacity: 1;
 }
 
 .ec_confirm_modal_card {
-    position: relative;
-    background: linear-gradient(145deg,
-            rgba(var(--SmartThemeBlurTintColor-rgb, 18, 19, 26), 0.92) 0%,
-            rgba(10, 11, 16, 0.96) 100%);
-    background: linear-gradient(145deg, rgba(22, 23, 30, 0.96) 0%, rgba(14, 15, 20, 0.98) 100%);
-    border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.14));
-    border-radius: 14px;
-    box-shadow:
-        0 24px 60px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(255, 255, 255, 0.05) inset,
-        0 1px 0 rgba(255, 255, 255, 0.08) inset;
-    padding: 32px 28px 24px;
-    width: 100%;
-    max-width: 360px;
-    /* Tall content scrolls inside the card while keeping it in the viewport. */
-    max-height: calc(var(--ec-viewport-height, 100dvh) - 40px);
-    overflow-y: auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    transform: translateY(12px) scale(0.97);
-    transition: transform 0.18s ease;
+  position: relative;
+  background: linear-gradient(
+    145deg,
+    rgba(var(--SmartThemeBlurTintColor-rgb, 18, 19, 26), 0.92) 0%,
+    rgba(10, 11, 16, 0.96) 100%
+  );
+  background: linear-gradient(
+    145deg,
+    rgba(22, 23, 30, 0.96) 0%,
+    rgba(14, 15, 20, 0.98) 100%
+  );
+  border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.14));
+  border-radius: 14px;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset,
+    0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  padding: 32px 28px 24px;
+  width: 100%;
+  max-width: 360px;
+  /* Tall content scrolls inside the card while keeping it in the viewport. */
+  max-height: calc(var(--ec-viewport-height, 100dvh) - 40px);
+  overflow-y: auto;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  transform: translateY(12px) scale(0.97);
+  transition: transform 0.18s ease;
 }
 
 .ec_confirm_modal_overlay.ec_confirm_visible .ec_confirm_modal_card {
-    transform: translateY(0) scale(1);
+  transform: translateY(0) scale(1);
 }
 
 .ec_confirm_modal_icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: rgba(240, 100, 60, 0.12);
-    border: 1px solid rgba(240, 100, 60, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 17px;
-    color: #f06430;
-    box-shadow: 0 0 20px rgba(240, 100, 60, 0.2);
-    flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(240, 100, 60, 0.12);
+  border: 1px solid rgba(240, 100, 60, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: #f06430;
+  box-shadow: 0 0 20px rgba(240, 100, 60, 0.2);
+  flex-shrink: 0;
 }
 
 .ec_confirm_modal_message {
-    font-size: 0.92em;
-    color: var(--SmartThemeBodyColor, #dcddde);
-    text-align: center;
-    line-height: 1.5;
-    opacity: 0.9;
-    padding: 0 4px;
+  font-size: 0.92em;
+  color: var(--SmartThemeBodyColor, #dcddde);
+  text-align: center;
+  line-height: 1.5;
+  opacity: 0.9;
+  padding: 0 4px;
 }
 
 .ec_confirm_modal_actions {
-    display: flex;
-    gap: 20px;
-    width: 50%;
-    margin-top: 4px;
+  display: flex;
+  gap: 20px;
+  width: 50%;
+  margin-top: 4px;
 }
 
 .ec_confirm_modal_btn {
-    flex: 1;
-    padding: 5px 0px;
-    border-radius: 8px;
-    font-size: 0.9em;
-    font-weight: 600;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: filter 0.15s, transform 0.1s, box-shadow 0.15s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    letter-spacing: 0.02em;
-    outline: none;
+  flex: 1;
+  padding: 5px 0px;
+  border-radius: 8px;
+  font-size: 0.9em;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition:
+    filter 0.15s,
+    transform 0.1s,
+    box-shadow 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: 0.02em;
+  outline: none;
 }
 
 .ec_confirm_modal_btn:active {
-    transform: scale(0.97);
+  transform: scale(0.97);
 }
 
 /* Cancel - subtle, muted */
 .ec_confirm_cancel {
-    background: rgba(255, 255, 255, 0.06);
-    color: var(--SmartThemeBodyColor, rgba(255, 255, 255, 0.65));
-    border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--SmartThemeBodyColor, rgba(255, 255, 255, 0.65));
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
 .ec_confirm_cancel:hover {
-    background: rgba(255, 255, 255, 0.10);
-    color: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 /* Confirm - danger color, prominent */
 .ec_confirm_ok {
-    background: rgba(220, 60, 40, 0.18);
-    color: #ff6b5b;
-    border-color: rgba(220, 60, 40, 0.5);
-    box-shadow: 0 0 12px rgba(220, 60, 40, 0.15);
+  background: rgba(220, 60, 40, 0.18);
+  color: #ff6b5b;
+  border-color: rgba(220, 60, 40, 0.5);
+  box-shadow: 0 0 12px rgba(220, 60, 40, 0.15);
 }
 
 .ec_confirm_ok:hover {
-    background: rgba(220, 60, 40, 0.28);
-    border-color: rgba(220, 60, 40, 0.7);
-    color: #ff8a7a;
-    filter: brightness(1.1);
-    box-shadow: 0 0 18px rgba(220, 60, 40, 0.3);
+  background: rgba(220, 60, 40, 0.28);
+  border-color: rgba(220, 60, 40, 0.7);
+  color: #ff8a7a;
+  filter: brightness(1.1);
+  box-shadow: 0 0 18px rgba(220, 60, 40, 0.3);
 }
 
 /* ========================================= */
@@ -4397,122 +4496,148 @@ margin-top: 10px;
 
 /* + New button — distinct, accent-colored */
 .ec_btn_new_style {
-    background: rgba(67, 181, 129, 0.12) !important;
-    border: 1px solid rgba(67, 181, 129, 0.4) !important;
-    color: var(--SmartThemeQuoteColor, #43b581) !important;
-    font-weight: 600 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 8px 14px !important;
-    border-radius: 6px !important;
-    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.1s !important;
-    white-space: nowrap !important;
+  background: rgba(67, 181, 129, 0.12) !important;
+  border: 1px solid rgba(67, 181, 129, 0.4) !important;
+  color: var(--SmartThemeQuoteColor, #43b581) !important;
+  font-weight: 600 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 14px !important;
+  border-radius: 6px !important;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s !important;
+  white-space: nowrap !important;
 }
 
 .ec_btn_new_style:hover {
-    background: rgba(67, 181, 129, 0.22) !important;
-    border-color: rgba(67, 181, 129, 0.7) !important;
-    box-shadow: 0 0 10px rgba(67, 181, 129, 0.2) !important;
-    filter: none !important;
+  background: rgba(67, 181, 129, 0.22) !important;
+  border-color: rgba(67, 181, 129, 0.7) !important;
+  box-shadow: 0 0 10px rgba(67, 181, 129, 0.2) !important;
+  filter: none !important;
 }
 
 .ec_btn_new_style:active {
-    transform: scale(0.97) !important;
+  transform: scale(0.97) !important;
 }
 
 /* Export button — subtle blue accent */
 .ec_btn_export {
-    background: rgba(100, 160, 255, 0.1) !important;
-    border: 1px solid rgba(100, 160, 255, 0.35) !important;
-    color: rgba(140, 190, 255, 0.9) !important;
-    font-weight: 500 !important;
-    display: flex;
-    align-items: center !important;
-    gap: 6px !important;
-    transition: background 0.2s, border-color 0.2s, transform 0.1s !important;
+  background: rgba(100, 160, 255, 0.1) !important;
+  border: 1px solid rgba(100, 160, 255, 0.35) !important;
+  color: rgba(140, 190, 255, 0.9) !important;
+  font-weight: 500 !important;
+  display: flex;
+  align-items: center !important;
+  gap: 6px !important;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    transform 0.1s !important;
 }
 
 .ec_btn_export:hover {
-    background: rgba(100, 160, 255, 0.2) !important;
-    border-color: rgba(100, 160, 255, 0.6) !important;
-    filter: none !important;
+  background: rgba(100, 160, 255, 0.2) !important;
+  border-color: rgba(100, 160, 255, 0.6) !important;
+  filter: none !important;
 }
 
 .ec_btn_export:active {
-    transform: scale(0.97) !important;
+  transform: scale(0.97) !important;
 }
 
 /* Cancel button — muted, clearly secondary */
 .ec_btn_cancel {
-    background: rgba(255, 255, 255, 0.05) !important;
-    border: 1px solid rgba(255, 255, 255, 0.15) !important;
-    color: rgba(255, 255, 255, 0.6) !important;
-    font-weight: 500 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    transition: background 0.2s, color 0.2s, transform 0.1s !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  color: rgba(255, 255, 255, 0.6) !important;
+  font-weight: 500 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    transform 0.1s !important;
 }
 
 .ec_btn_cancel:hover {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: rgba(255, 255, 255, 0.85) !important;
-    filter: none !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  filter: none !important;
 }
 
 .ec_btn_cancel:active {
-    transform: scale(0.97) !important;
+  transform: scale(0.97) !important;
 }
 
 /* Save button — prominent, accent-colored */
 .ec_btn_save {
-    background: rgba(67, 181, 129, 0.18) !important;
-    border: 1px solid rgba(67, 181, 129, 0.5) !important;
-    color: var(--SmartThemeQuoteColor, #43b581) !important;
-    font-weight: 700 !important;
-    display: flex;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 8px 18px !important;
-    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.1s !important;
-    box-shadow: 0 0 8px rgba(67, 181, 129, 0.15) !important;
+  background: rgba(67, 181, 129, 0.18) !important;
+  border: 1px solid rgba(67, 181, 129, 0.5) !important;
+  color: var(--SmartThemeQuoteColor, #43b581) !important;
+  font-weight: 700 !important;
+  display: flex;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 18px !important;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s !important;
+  box-shadow: 0 0 8px rgba(67, 181, 129, 0.15) !important;
 }
 
 .ec_btn_save:hover {
-    background: rgba(67, 181, 129, 0.3) !important;
-    border-color: rgba(67, 181, 129, 0.8) !important;
-    box-shadow: 0 0 14px rgba(67, 181, 129, 0.3) !important;
-    filter: none !important;
+  background: rgba(67, 181, 129, 0.3) !important;
+  border-color: rgba(67, 181, 129, 0.8) !important;
+  box-shadow: 0 0 14px rgba(67, 181, 129, 0.3) !important;
+  filter: none !important;
 }
 
 .ec_btn_save:active {
-    transform: scale(0.97) !important;
+  transform: scale(0.97) !important;
 }
 
 /* Create button — vibrant, action-oriented */
 .ec_btn_create {
-    background: linear-gradient(135deg, rgba(67, 181, 129, 0.2), rgba(100, 160, 255, 0.15)) !important;
-    border: 1px solid rgba(67, 181, 129, 0.5) !important;
-    color: var(--SmartThemeQuoteColor, #43b581) !important;
-    font-weight: 700 !important;
-    display: flex !important;
-    align-items: center !important;
-    gap: 6px !important;
-    padding: 8px 20px !important;
-    transition: background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.1s !important;
-    box-shadow: 0 0 10px rgba(67, 181, 129, 0.15) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(67, 181, 129, 0.2),
+    rgba(100, 160, 255, 0.15)
+  ) !important;
+  border: 1px solid rgba(67, 181, 129, 0.5) !important;
+  color: var(--SmartThemeQuoteColor, #43b581) !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 8px 20px !important;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    transform 0.1s !important;
+  box-shadow: 0 0 10px rgba(67, 181, 129, 0.15) !important;
 }
 
 .ec_btn_create:hover {
-    background: linear-gradient(135deg, rgba(67, 181, 129, 0.32), rgba(100, 160, 255, 0.25)) !important;
-    border-color: rgba(67, 181, 129, 0.8) !important;
-    box-shadow: 0 0 16px rgba(67, 181, 129, 0.3) !important;
-    filter: none !important;
+  background: linear-gradient(
+    135deg,
+    rgba(67, 181, 129, 0.32),
+    rgba(100, 160, 255, 0.25)
+  ) !important;
+  border-color: rgba(67, 181, 129, 0.8) !important;
+  box-shadow: 0 0 16px rgba(67, 181, 129, 0.3) !important;
+  filter: none !important;
 }
 
 .ec_btn_create:active {
-    transform: scale(0.97) !important;
+  transform: scale(0.97) !important;
 }
 
 /* ========================================= */
@@ -4521,21 +4646,21 @@ margin-top: 10px;
 .popup,
 #dialogue_popup,
 #shadow_popup {
-    z-index: 200005 !important;
+  z-index: 200005 !important;
 }
 /* Color of the power button if the extension is enabled or disabled (for the floating panel) */
 
 [title="Toggle On/Off (Currently ON)"] {
-color: rgba(99, 253, 126, 0.5) !important;
+  color: rgba(99, 253, 126, 0.5) !important;
 }
 
 [title="Toggle On/Off (Currently OFF)"] {
-color: rgba(255, 68, 68, 0.5) !important;
+  color: rgba(255, 68, 68, 0.5) !important;
 }
 
 @media screen and (max-width: 1000px) {
-#discordBar.ec_left .ec_reply_container,
-#discordBar.ec_right .ec_reply_container {
+  #discordBar.ec_left .ec_reply_container,
+  #discordBar.ec_right .ec_reply_container {
     transform: translateY(-55px);
-}
+  }
 }

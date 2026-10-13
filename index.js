@@ -119,12 +119,14 @@
 
     // ST's transformed html can be zero-height on mobile. Explicit dimensions
     // keep fixed overlays tied to the visible viewport, including the keyboard.
-    function trackModalViewport(modal, onResize = () => {}) {
+    function trackModalViewport(modal, onResize = () => { }) {
         const update = () => {
             const viewport = getVisibleViewport();
             const origin = getFixedPositionOrigin();
-            modal.css({ top: viewport.top - origin.top, left: viewport.left - origin.left, right: 'auto', bottom: 'auto',
-                width: viewport.width, height: viewport.height, '--ec-viewport-height': viewport.height + 'px' });
+            modal.css({
+                top: viewport.top - origin.top, left: viewport.left - origin.left, right: 'auto', bottom: 'auto',
+                width: viewport.width, height: viewport.height, '--ec-viewport-height': viewport.height + 'px'
+            });
             onResize();
         };
         update();
@@ -164,8 +166,10 @@
                 : Math.min(viewport.bottom, panelBottom) - rect.bottom - 8;
             const width = Math.min(Math.max(rect.width, 200), viewport.width - 16);
             const left = Math.max(viewport.left + 8, Math.min(rect.left, viewport.right - width - 8));
-            menu.css({ position: 'fixed', top: rect.bottom - origin.top, bottom: 'auto', left: left - origin.left, right: 'auto', width,
-                display: 'block', marginTop: 0, maxHeight: Math.max(0, Math.min(300, available)), overflowY: 'auto' });
+            menu.css({
+                position: 'fixed', top: rect.bottom - origin.top, bottom: 'auto', left: left - origin.left, right: 'auto', width,
+                display: 'block', marginTop: 0, maxHeight: Math.max(0, Math.min(300, available)), overflowY: 'auto'
+            });
             if (upward) menu.css('top', rect.top - menu.outerHeight() - origin.top);
         };
         window.addEventListener('resize', update);
@@ -533,16 +537,16 @@
      */
     function updatePopoutVisibility() {
         const isMobile = window.innerWidth <= 768;
-        
+
         // Hide in settings dropdown
         const positionSelect = jQuery('#discord_position');
         if (positionSelect.length) {
             positionSelect.find('option[value="popout"]').prop('hidden', isMobile).toggleClass('mobile-hidden', isMobile);
         }
-        
+
         // Hide in toolbar layout menu
         jQuery('.ec_layout_menu .ec_menu_item[data-val="popout"]').toggle(!isMobile);
-        
+
         // Hide in overflow menu
         jQuery('.ec_of_pos_chip[data-val="popout"]').toggle(!isMobile);
     }
@@ -1128,7 +1132,7 @@
             document.removeEventListener('mouseup', onMouseUp);
             // Persist final position so it can be restored on next open / reload
             settings.floatLeft = parseInt(element.css('left')) || 0;
-            settings.floatTop  = parseInt(element.css('top'))  || 0;
+            settings.floatTop = parseInt(element.css('top')) || 0;
             saveSettings();
         }
     }
@@ -1198,10 +1202,10 @@
                 document.removeEventListener('mousemove', onMove);
                 document.removeEventListener('mouseup', onUp);
                 // Persist final size and position so they can be restored on next open / reload
-                settings.floatLeft   = parseInt(panel.css('left'))   || 0;
-                settings.floatTop    = parseInt(panel.css('top'))     || 0;
-                settings.floatWidth  = parseInt(panel.css('width'))   || 420;
-                settings.floatHeight = parseInt(panel.css('height'))  || 620;
+                settings.floatLeft = parseInt(panel.css('left')) || 0;
+                settings.floatTop = parseInt(panel.css('top')) || 0;
+                settings.floatWidth = parseInt(panel.css('width')) || 420;
+                settings.floatHeight = parseInt(panel.css('height')) || 620;
                 saveSettings();
             }
         });
@@ -1296,15 +1300,15 @@
         const panel = jQuery('#ec_floating_panel');
 
         // Position and size panel — restore saved values, or fall back to defaults
-        const panelW = settings.floatWidth  || 420;
+        const panelW = settings.floatWidth || 420;
         const panelH = settings.floatHeight || 620;
         const defaultLeft = Math.max(20, window.innerWidth - panelW - 24);
-        const defaultTop  = 60;
+        const defaultTop = 60;
         // Clamp restored position so the panel stays fully on-screen even after a viewport resize
         const restoredLeft = settings.floatLeft != null ? settings.floatLeft : defaultLeft;
-        const restoredTop  = settings.floatTop  != null ? settings.floatTop  : defaultTop;
-        const startLeft = Math.max(0, Math.min(window.innerWidth  - panelW, restoredLeft));
-        const startTop  = Math.max(0, Math.min(window.innerHeight - 40,     restoredTop));
+        const restoredTop = settings.floatTop != null ? settings.floatTop : defaultTop;
+        const startLeft = Math.max(0, Math.min(window.innerWidth - panelW, restoredLeft));
+        const startTop = Math.max(0, Math.min(window.innerHeight - 40, restoredTop));
         panel.css({ left: startLeft + 'px', top: startTop + 'px', width: panelW + 'px', height: panelH + 'px' });
 
         // Register as the sync target for setDiscordText / displayNextLivestreamMessage
@@ -3024,8 +3028,10 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
             const handle = e.target.closest('.ec_drag_handle');
             if (!handle || !['touch', 'pen'].includes(e.pointerType) || !e.isPrimary || drag) return;
             e.preventDefault();
-            drag = { handle, item: handle.closest('.ec_style_item'), pointerId: e.pointerId,
-                startY: e.clientY, y: e.clientY, active: false, order: Array.from(list.children), scrollTop: list.scrollTop };
+            drag = {
+                handle, item: handle.closest('.ec_style_item'), pointerId: e.pointerId,
+                startY: e.clientY, y: e.clientY, active: false, order: Array.from(list.children), scrollTop: list.scrollTop
+            };
             // Capture on the stationary list: moving a captured row/grip in DOM
             // would release capture and cancel an otherwise valid reorder.
             list.setPointerCapture(e.pointerId);
@@ -5349,8 +5355,8 @@ username: message
                     chip.closest('.ec_of_acc_body').find('.ec_of_chip[data-action="position"]').removeClass('ec_of_selected');
                     chip.addClass('ec_of_selected');
                 }
-            jQuery('.ec_btn').removeClass('open active');
-            jQuery('.ec_popup_menu').hide().css({ top: '', bottom: '', left: '', right: '', position: '' });
+                jQuery('.ec_btn').removeClass('open active');
+                jQuery('.ec_popup_menu').hide().css({ top: '', bottom: '', left: '', right: '', position: '' });
             } else if (action === 'users') {
                 settings.userCount = parseInt(val);
                 saveSettings();
@@ -5812,7 +5818,7 @@ username: message
                 // Skip panel-visibility guards when nav panels are pinned open — pinned panels
                 // remain rendered by design and should not suppress generation during an active chat.
                 const rightNavPinned = document.querySelector('#right-nav-panel')?.classList.contains('pinnedOpen') ?? false;
-                const leftNavPinned  = document.querySelector('#left-nav-panel')?.classList.contains('pinnedOpen')  ?? false;
+                const leftNavPinned = document.querySelector('#left-nav-panel')?.classList.contains('pinnedOpen') ?? false;
 
                 // Don't auto-generate if character editor is open (editing character cards)
                 const characterEditor = document.querySelector('#character_popup');
@@ -5939,7 +5945,7 @@ username: message
 
         // Update Pop Out visibility based on screen size
         updatePopoutVisibility();
-        
+
         // Update on window resize
         jQuery(window).on('resize', debounce(() => {
             updatePopoutVisibility();
