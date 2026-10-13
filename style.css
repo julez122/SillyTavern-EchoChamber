@@ -10,6 +10,11 @@
     --ec-radius: 8px;
     --ec-header-height: 40px;
     --ec-selection-bg: rgba(255, 255, 255, 0.15);
+    /* Dialogs sit above the panel's existing popup-menu layers. */
+    --ec-settings-layer: 300500;
+    --ec-editor-layer: 300510;
+    --ec-creator-layer: 300520;
+    --ec-confirm-layer: 300530;
 }
 
 /* --- Livestream Animation --- */
@@ -791,6 +796,11 @@
     border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
     pointer-events: auto;
+    /* Finger swipes scroll the options without moving the surrounding chat. */
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+    overflow-x: hidden;
+    scrollbar-width: thin;
 }
 
 /* Cancel button with subtle glow animation */
@@ -1436,7 +1446,7 @@
     bottom: 0;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(4px);
-    z-index: 200010;
+    z-index: var(--ec-editor-layer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1450,6 +1460,13 @@
     margin: 0 !important;
     width: 100vw;
     height: 100vh;
+    /* Explicit dynamic height also works when ST's transformed root is empty. */
+    height: 100dvh;
+}
+
+/* New Style remains above its parent editor even when both reuse their DOM. */
+#ec_template_creator_modal {
+    z-index: var(--ec-creator-layer);
 }
 
 .ec_modal_overlay.active {
@@ -1463,7 +1480,7 @@
     border-radius: 12px;
     width: 90%;
     max-width: 900px;
-    max-height: 85vh;
+    max-height: min(85vh, calc(var(--ec-viewport-height, 100dvh) - 40px));
     display: flex;
     flex-direction: column;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
@@ -1538,10 +1555,16 @@
     font-size: 0.85em;
 }
 
+/* Keep the style list independently scrollable inside the flex sidebar. */
 .ec_style_list {
     flex: 1;
     overflow-y: auto;
     padding: 8px;
+    min-height: 0;
+    overflow-x: hidden;
+    touch-action: pan-y;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
 }
 
 .ec_style_order_hint {
@@ -1581,6 +1604,8 @@
 
 /* Drag handle grip icon */
 .ec_drag_handle {
+    /* Only the grip reserves gestures for touch/pen reordering. */
+    touch-action: none;
     cursor: grab;
     opacity: 0.35;
     transition: opacity 0.15s;
@@ -1624,6 +1649,50 @@
     background: rgba(255, 255, 255, 0.14);
     box-shadow: inset 0 2px 0 var(--SmartThemeQuoteColor, #4a9);
     border-radius: 6px;
+}
+
+/* Mobile browsing gives the full dialog body to the style list. */
+.ec_mobile_editor .ec_modal_content {
+    height: min(720px, calc(var(--ec-viewport-height, 100dvh) - 40px));
+}
+
+/* Allow small screens to allocate their actual remaining body height. */
+.ec_mobile_editor .ec_modal_body {
+    flex-direction: column;
+    min-height: 0;
+    overflow-y: auto;
+}
+
+/* Remove the old 150px cap that left only one style row visible. */
+.ec_mobile_editor .ec_style_sidebar {
+    width: 100%;
+    max-height: none;
+    min-height: 0;
+    flex: 1;
+    border-right: none;
+    border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
+}
+
+/* Share the body with the prompt editor when a style is expanded. */
+.ec_mobile_editor:not(.ec_prompt_collapsed) .ec_style_sidebar {
+    flex: 0 0 45%;
+    min-height: 130px;
+}
+
+/* Collapsing preserves the prompt fields in DOM, including unsaved edits. */
+.ec_mobile_editor.ec_prompt_collapsed #ec_style_main {
+    display: none;
+}
+
+/* The prompt pane can scroll rather than clipping fields on short screens. */
+.ec_mobile_editor #ec_style_main {
+    min-height: 160px;
+    overflow-y: auto;
+}
+
+/* Keep a usable prompt field even while the outer pane is constrained. */
+.ec_mobile_editor .ec_style_textarea {
+    min-height: 80px;
 }
 
 .ec_style_main {
@@ -2203,7 +2272,7 @@
     .ec_modal_content {
         width: 95% !important;
         max-width: 95% !important;
-        max-height: 95vh !important;
+        max-height: min(95dvh, calc(var(--ec-viewport-height, 100dvh) - 40px)) !important;
         border-radius: 8px;
     }
 
@@ -2335,7 +2404,7 @@
 #ec_settings_modal {
     position: fixed;
     inset: 0;
-    z-index: 200011;
+    z-index: var(--ec-settings-layer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2363,7 +2432,7 @@
     z-index: 1;
     width: 100%;
     max-width: 580px;
-    max-height: 90vh;
+    max-height: min(90vh, calc(var(--ec-viewport-height, 100dvh) - 16px));
     display: flex;
     flex-direction: column;
     background: linear-gradient(160deg, rgba(18, 19, 24, 0.98) 0%, rgba(22, 23, 30, 0.98) 100%);
@@ -3140,10 +3209,9 @@
 /* ---- Mobile: sidebar hidden, accordion restored ---- */
 @media (max-width: 768px) {
     #ec_settings_modal {
-        z-index: 200000 !important;
+        z-index: var(--ec-settings-layer);
         padding: 8px !important;
         position: fixed !important;
-        inset: 0 !important;
     }
 
     #ec_settings_modal.ecm_visible {
@@ -3156,7 +3224,7 @@
     .ecm_card {
         max-width: 100% !important;
         width: 100% !important;
-        max-height: 90dvh !important;
+        max-height: min(90dvh, calc(var(--ec-viewport-height, 100dvh) - 16px)) !important;
         position: relative !important;
         top: auto !important;
         left: auto !important;
@@ -3164,7 +3232,8 @@
     }
 
     .ecm_backdrop {
-        position: fixed !important;
+        /* Fill the explicitly sized overlay rather than ST's empty root. */
+        position: absolute !important;
         inset: 0 !important;
     }
 
@@ -3176,7 +3245,7 @@
         flex-direction: column;
         overflow-y: auto;
         overflow-x: hidden;
-        max-height: calc(90dvh - 50px);
+        max-height: calc(min(90dvh, var(--ec-viewport-height, 100dvh)) - 50px);
     }
 
     .ecm_content {
@@ -4180,7 +4249,7 @@
     bottom: 0;
     left: 0;
     inset: 0;
-    z-index: 100020;
+    z-index: var(--ec-confirm-layer);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -4193,6 +4262,10 @@
     box-sizing: border-box;
     opacity: 0;
     transition: opacity 0.18s ease;
+    /* Inset alone would collapse this overlay under ST's mobile root layout. */
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
 }
 
 .ec_confirm_modal_overlay.ec_confirm_visible {
@@ -4214,6 +4287,10 @@
     padding: 32px 28px 24px;
     width: 100%;
     max-width: 360px;
+    /* Tall content scrolls inside the card while keeping it in the viewport. */
+    max-height: calc(var(--ec-viewport-height, 100dvh) - 40px);
+    overflow-y: auto;
+    min-height: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -4342,7 +4419,7 @@
     border: 1px solid rgba(100, 160, 255, 0.35) !important;
     color: rgba(140, 190, 255, 0.9) !important;
     font-weight: 500 !important;
-    display: flex !important;
+    display: flex;
     align-items: center !important;
     gap: 6px !important;
     transition: background 0.2s, border-color 0.2s, transform 0.1s !important;
@@ -4386,7 +4463,7 @@
     border: 1px solid rgba(67, 181, 129, 0.5) !important;
     color: var(--SmartThemeQuoteColor, #43b581) !important;
     font-weight: 700 !important;
-    display: flex !important;
+    display: flex;
     align-items: center !important;
     gap: 6px !important;
     padding: 8px 18px !important;

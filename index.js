@@ -89,6 +89,102 @@
     let floatingPanelOpen = false;   // Whether the in-page floating panel is visible
     let popoutDiscordContent = null; // Points to #ec_float_content when panel is open
 
+    function isMobileLayout() {
+        return window.innerWidth <= 768 || Boolean(SillyTavern.getContext().isMobile?.());
+    }
+
+    function getVisibleViewport() {
+        const viewport = window.visualViewport;
+        const left = viewport?.offsetLeft || 0;
+        const top = viewport?.offsetTop || 0;
+        const width = viewport?.width || window.innerWidth;
+        const height = viewport?.height || window.innerHeight;
+        return { left, top, width, height, right: left + width, bottom: top + height };
+    }
+
+    function getFixedPositionOrigin() {
+        const root = document.documentElement;
+        // A transformed root is the containing block for these body portals,
+        // and can itself scroll when ST leaves its fixed-body mobile layout.
+        if (getComputedStyle(root).transform !== 'none') {
+            const rect = root.getBoundingClientRect();
+            return { left: rect.left, top: rect.top };
+        }
+        return { left: 0, top: 0 };
+    }
+
+    function resetModalViewport(modal) {
+        modal?.css({ top: '', left: '', right: '', bottom: '', width: '', height: '', '--ec-viewport-height': '' });
+    }
+
+    // ST's transformed html can be zero-height on mobile. Explicit dimensions
+    // keep fixed overlays tied to the visible viewport, including the keyboard.
+    function trackModalViewport(modal, onResize = () => {}) {
+        const update = () => {
+            const viewport = getVisibleViewport();
+            const origin = getFixedPositionOrigin();
+            modal.css({ top: viewport.top - origin.top, left: viewport.left - origin.left, right: 'auto', bottom: 'auto',
+                width: viewport.width, height: viewport.height, '--ec-viewport-height': viewport.height + 'px' });
+            onResize();
+        };
+        update();
+        window.addEventListener('resize', update);
+        window.addEventListener('scroll', update);
+        window.visualViewport?.addEventListener('resize', update);
+        window.visualViewport?.addEventListener('scroll', update);
+        return () => {
+            window.removeEventListener('resize', update);
+            window.removeEventListener('scroll', update);
+            window.visualViewport?.removeEventListener('resize', update);
+            window.visualViewport?.removeEventListener('scroll', update);
+        };
+    }
+
+    let stopStyleMenuTracking = null;
+
+    function closeStyleIndicatorMenu() {
+        stopStyleMenuTracking?.();
+        stopStyleMenuTracking = null;
+        jQuery('#ec_style_menu_body').hide();
+        jQuery('.ec_style_dropdown_trigger').removeClass('active');
+    }
+
+    function openStyleIndicatorMenu(trigger, menu) {
+        const update = () => {
+            if (!trigger[0].isConnected || !trigger.hasClass('active') || settings.collapsed || !settings.enabled) {
+                closeStyleIndicatorMenu();
+                return;
+            }
+            const viewport = getVisibleViewport();
+            const origin = getFixedPositionOrigin();
+            const rect = trigger[0].getBoundingClientRect();
+            const panelBottom = discordBar[0].getBoundingClientRect().bottom;
+            const upward = !isMobileLayout() && settings.position === 'bottom';
+            const available = upward ? rect.top - viewport.top - 8
+                : Math.min(viewport.bottom, panelBottom) - rect.bottom - 8;
+            const width = Math.min(Math.max(rect.width, 200), viewport.width - 16);
+            const left = Math.max(viewport.left + 8, Math.min(rect.left, viewport.right - width - 8));
+            menu.css({ position: 'fixed', top: rect.bottom - origin.top, bottom: 'auto', left: left - origin.left, right: 'auto', width,
+                display: 'block', marginTop: 0, maxHeight: Math.max(0, Math.min(300, available)), overflowY: 'auto' });
+            if (upward) menu.css('top', rect.top - menu.outerHeight() - origin.top);
+        };
+        window.addEventListener('resize', update);
+        window.addEventListener('scroll', update, true);
+        window.visualViewport?.addEventListener('resize', update);
+        window.visualViewport?.addEventListener('scroll', update);
+        const observer = new ResizeObserver(update);
+        observer.observe(discordBar[0]);
+        observer.observe(trigger[0]);
+        stopStyleMenuTracking = () => {
+            observer.disconnect();
+            window.removeEventListener('resize', update);
+            window.removeEventListener('scroll', update, true);
+            window.visualViewport?.removeEventListener('resize', update);
+            window.visualViewport?.removeEventListener('scroll', update);
+        };
+        update();
+    }
+
     // ============================================================
     // CONFIRMATION MODAL (replaces native browser confirm())
     // ============================================================
@@ -97,13 +193,16 @@
      * Shows a custom glassmorphism confirmation modal.
      * Returns a Promise<boolean> — resolves true on Confirm, false on Cancel.
      */
+    let cancelConfirmModal = null;
+
     function showConfirmModal(message) {
         return new Promise((resolve) => {
             // Remove any existing modal
+            cancelConfirmModal?.();
             jQuery('#ec_confirm_modal').remove();
 
             const modalHtml = `
-            <div id="ec_confirm_modal" class="ec_confirm_modal_overlay">
+            <div id="ec_confirm_modal" class="ec_confirm_modal_overlay" role="dialog" aria-modal="true" aria-label="Clear EchoChamber messages">
                 <div class="ec_confirm_modal_card">
                     <div class="ec_confirm_modal_icon">
                         <i class="fa-solid fa-triangle-exclamation"></i>
@@ -117,14 +216,21 @@
             </div>`;
 
             jQuery('body').append(modalHtml);
+            const overlay = jQuery('#ec_confirm_modal');
+            const stopViewport = trackModalViewport(overlay);
+            let settled = false;
 
             // Animate in
             requestAnimationFrame(() => {
-                jQuery('#ec_confirm_modal').addClass('ec_confirm_visible');
+                if (!settled) overlay.addClass('ec_confirm_visible');
             });
 
             const cleanup = (result) => {
-                const overlay = jQuery('#ec_confirm_modal');
+                if (settled) return;
+                settled = true;
+                document.removeEventListener('keydown', onKey);
+                stopViewport();
+                cancelConfirmModal = null;
                 overlay.removeClass('ec_confirm_visible');
                 setTimeout(() => overlay.remove(), 200);
                 resolve(result);
@@ -138,9 +244,10 @@
             });
             // ESC key to cancel
             const onKey = (e) => {
-                if (e.key === 'Escape') { document.removeEventListener('keydown', onKey); cleanup(false); }
-                if (e.key === 'Enter') { document.removeEventListener('keydown', onKey); cleanup(true); }
+                if (e.key === 'Escape') cleanup(false);
+                if (e.key === 'Enter') cleanup(true);
             };
+            cancelConfirmModal = () => cleanup(false);
             document.addEventListener('keydown', onKey);
         });
     }
@@ -2834,6 +2941,104 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
 
     let styleEditorModal = null;
     let currentEditingStyle = null;
+    let stopStyleEditorViewport = null;
+    let cancelStyleTouchDrag = null;
+
+    function setStyleEditorCollapsed(collapsed) {
+        styleEditorModal.toggleClass('ec_prompt_collapsed', collapsed);
+        const showActions = Boolean(currentEditingStyle) && (!isMobileLayout() || !collapsed);
+        jQuery('#ec_style_save, #ec_style_export').toggle(showActions);
+        jQuery('#ec_style_delete').toggle(showActions && Boolean(settings.custom_styles?.[currentEditingStyle]));
+        styleEditorModal.find('.ec_style_item').each(function () {
+            this.setAttribute('aria-expanded', String(this.dataset.id === currentEditingStyle && !collapsed));
+        });
+    }
+
+    function revealSelectedStyle() {
+        const list = document.getElementById('ec_style_list');
+        const item = Array.from(list.children).find(el => el.dataset.id === currentEditingStyle);
+        if (!item) return;
+        const bounds = list.getBoundingClientRect();
+        const rect = item.getBoundingClientRect();
+        if (rect.top < bounds.top) list.scrollTop += rect.top - bounds.top;
+        else if (rect.bottom > bounds.bottom) list.scrollTop += rect.bottom - bounds.bottom;
+    }
+
+    // Keep native mouse dragging; touch/pen grips use pointer capture so normal
+    // vertical swipes on the labels still scroll the list.
+    function bindStyleTouchReorder(list) {
+        let drag = null;
+        let frame = 0;
+        const moveRow = () => {
+            const target = Array.from(list.children).find(item => item !== drag.item &&
+                drag.y < item.getBoundingClientRect().top + item.getBoundingClientRect().height / 2);
+            list.insertBefore(drag.item, target || null);
+        };
+        const tick = () => {
+            const rect = list.getBoundingClientRect();
+            const step = drag.y < rect.top + 32 ? -Math.min(12, (rect.top + 32 - drag.y) / 3)
+                : drag.y > rect.bottom - 32 ? Math.min(12, (drag.y - rect.bottom + 32) / 3) : 0;
+            list.scrollTop += step;
+            moveRow();
+            frame = requestAnimationFrame(tick);
+        };
+        const finish = (cancelled) => {
+            if (!drag) return;
+            const completed = drag;
+            drag = null;
+            cancelAnimationFrame(frame);
+            document.removeEventListener('pointermove', onMove);
+            document.removeEventListener('pointerup', onUp);
+            document.removeEventListener('pointercancel', onCancel);
+            list.removeEventListener('lostpointercapture', onCancel);
+            if (list.hasPointerCapture(completed.pointerId)) list.releasePointerCapture(completed.pointerId);
+            completed.item.classList.remove('ec_dragging');
+            if (cancelled) {
+                completed.order.forEach(item => list.appendChild(item));
+                list.scrollTop = completed.scrollTop;
+            } else if (completed.active && completed.order.some((item, index) => list.children[index] !== item)) {
+                saveStyleOrder();
+                updateAllDropdowns();
+            }
+        };
+        const onMove = (e) => {
+            if (!drag || e.pointerId !== drag.pointerId) return;
+            e.preventDefault();
+            drag.y = e.clientY;
+            if (!drag.active && Math.abs(drag.y - drag.startY) < 8) return;
+            if (!drag.active) {
+                drag.active = true;
+                drag.item.classList.add('ec_dragging');
+                frame = requestAnimationFrame(tick);
+            }
+            moveRow();
+        };
+        const onUp = (e) => {
+            if (drag && e.pointerId === drag.pointerId) { e.preventDefault(); finish(false); }
+        };
+        const onCancel = (e) => {
+            if (drag && e.pointerId === drag.pointerId) finish(true);
+        };
+        cancelStyleTouchDrag = () => finish(true);
+        list.addEventListener('pointerdown', (e) => {
+            const handle = e.target.closest('.ec_drag_handle');
+            if (!handle || !['touch', 'pen'].includes(e.pointerType) || !e.isPrimary || drag) return;
+            e.preventDefault();
+            drag = { handle, item: handle.closest('.ec_style_item'), pointerId: e.pointerId,
+                startY: e.clientY, y: e.clientY, active: false, order: Array.from(list.children), scrollTop: list.scrollTop };
+            // Capture on the stationary list: moving a captured row/grip in DOM
+            // would release capture and cancel an otherwise valid reorder.
+            list.setPointerCapture(e.pointerId);
+            list.addEventListener('lostpointercapture', onCancel);
+            document.addEventListener('pointermove', onMove, { passive: false });
+            document.addEventListener('pointerup', onUp);
+            document.addEventListener('pointercancel', onCancel);
+        });
+        list.addEventListener('dragstart', (e) => { if (drag) e.preventDefault(); });
+        list.addEventListener('click', (e) => {
+            if (e.target.closest('.ec_drag_handle')) { e.preventDefault(); e.stopPropagation(); }
+        }, true);
+    }
 
     function createStyleEditorModal() {
         if (jQuery('#ec_style_editor_modal').length) return;
@@ -2885,6 +3090,7 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
 
         jQuery('body').append(modalHtml);
         styleEditorModal = jQuery('#ec_style_editor_modal');
+        bindStyleTouchReorder(document.getElementById('ec_style_list'));
 
         // Bind events
         jQuery('#ec_style_editor_close, #ec_style_cancel').on('click', closeStyleEditor);
@@ -2904,10 +3110,21 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
         populateStyleList();
         currentEditingStyle = null;
         showEmptyState();
+        stopStyleEditorViewport?.();
+        stopStyleEditorViewport = trackModalViewport(styleEditorModal, () => {
+            styleEditorModal.toggleClass('ec_mobile_editor', isMobileLayout());
+            setStyleEditorCollapsed(styleEditorModal.hasClass('ec_prompt_collapsed'));
+        });
+        setStyleEditorCollapsed(true);
         styleEditorModal.addClass('active');
     }
 
     function closeStyleEditor() {
+        cancelStyleTouchDrag?.();
+        stopStyleEditorViewport?.();
+        stopStyleEditorViewport = null;
+        resetModalViewport(styleEditorModal);
+        closeTemplateCreator();
         if (styleEditorModal) {
             styleEditorModal.removeClass('active');
         }
@@ -2917,6 +3134,8 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
 
     function populateStyleList() {
         const list = jQuery('#ec_style_list');
+        cancelStyleTouchDrag?.();
+        const scrollTop = list.scrollTop();
         list.empty();
 
         const styles = getAllStyles();
@@ -2942,12 +3161,18 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
             // Click on the item (but not the drag handle) selects it
             item.on('click', function (e) {
                 if (!jQuery(e.target).closest('.ec_drag_handle').length) {
-                    selectStyleInEditor(style.val);
+                    if (isMobileLayout() && currentEditingStyle === style.val) {
+                        setStyleEditorCollapsed(!styleEditorModal.hasClass('ec_prompt_collapsed'));
+                        revealSelectedStyle();
+                    } else {
+                        selectStyleInEditor(style.val);
+                    }
                 }
             });
 
             list.append(item);
         });
+        list.scrollTop(scrollTop);
 
         // --- Drag-and-drop reordering ---
         let dragSrc = null;
@@ -3047,6 +3272,9 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
             }
         }
 
+        // A slow built-in prompt fetch must not replace a newer selection.
+        if (currentEditingStyle !== styleId) return;
+
         // Resolve macro preview values for the hint bar
         const ctx = SillyTavern.getContext();
         const previewUser = ctx.name1 || 'User';
@@ -3076,8 +3304,8 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
         jQuery('#ec_style_content').val(content);
 
         // Show appropriate buttons
-        jQuery('#ec_style_save, #ec_style_export').show();
-        jQuery('#ec_style_delete').toggle(!!isCustom);
+        setStyleEditorCollapsed(false);
+        revealSelectedStyle();
     }
 
     // ============================================================
@@ -3085,6 +3313,7 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
     // ============================================================
 
     let templateCreatorModal = null;
+    let stopTemplateViewport = null;
 
     const defaultAdvancedTemplate = `You will be acting as a chat feed audience. Your goal is to simulate messages reacting to the unfolding events.
 
@@ -3331,9 +3560,14 @@ username: message
         templateCreatorModal.find('.ec_tab_content').removeClass('active').first().addClass('active');
 
         templateCreatorModal.addClass('active');
+        stopTemplateViewport?.();
+        stopTemplateViewport = trackModalViewport(templateCreatorModal);
     }
 
     function closeTemplateCreator() {
+        stopTemplateViewport?.();
+        stopTemplateViewport = null;
+        resetModalViewport(templateCreatorModal);
         if (templateCreatorModal) templateCreatorModal.removeClass('active');
     }
 
@@ -3482,6 +3716,7 @@ username: message
         // Refresh style list and select new style
         populateStyleList();
         selectStyleInEditor(id);
+        updateAllDropdowns();
 
         // Sanitize style name for display
         const { DOMPurify } = SillyTavern.libs;
@@ -3535,6 +3770,9 @@ username: message
         const { DOMPurify } = SillyTavern.libs;
         const safeId = DOMPurify.sanitize(currentEditingStyle, { ALLOWED_TAGS: [] });
         jQuery(`.ec_style_item[data-id="${safeId}"]`).addClass('active');
+        setStyleEditorCollapsed(false);
+        revealSelectedStyle();
+        updateAllDropdowns();
 
         const safeName = DOMPurify.sanitize(name, { ALLOWED_TAGS: [] });
         if (typeof toastr !== 'undefined') toastr.success(`Style "${safeName}" saved!`);
@@ -3588,6 +3826,7 @@ username: message
 
     function openSettingsModal() {
         // Remove any existing modal
+        jQuery('#ec_settings_modal').trigger('ecm:close');
         jQuery('#ec_settings_modal').remove();
 
         // Hide floating panel on mobile when opening settings modal
@@ -3901,6 +4140,8 @@ username: message
 </div>`);
 
         jQuery('body').append(modal);
+        const stopViewport = trackModalViewport(modal);
+        modal.one('ecm:close', stopViewport);
 
 
         // Populate Ollama model select from existing settings panel
@@ -3930,9 +4171,6 @@ username: message
                 const cardEl = modal.find('.ecm_card')[0];
                 const layoutEl = modal.find('.ecm_layout')[0];
                 if (modalEl) {
-                    modalEl.style.height = '100dvh';
-                    modalEl.style.width = '100%';
-                    modalEl.style.inset = '0';
                     modalEl.style.display = 'flex';
                     modalEl.style.alignItems = 'center';
                     modalEl.style.justifyContent = 'center';
@@ -4550,6 +4788,7 @@ username: message
 
     function updateApplyLayout() {
         if (!discordBar) return;
+        closeStyleIndicatorMenu();
 
         // If fully disabled (via settings checkbox), hide the panel entirely
         if (!settings.enabled) {
@@ -4975,6 +5214,7 @@ username: message
             if (e.type === 'touchend') e.preventDefault();
             const btn = jQuery(this);
             const wasActive = btn.hasClass('active');
+            closeStyleIndicatorMenu();
 
             jQuery('.ec_btn').removeClass('open active');
             jQuery('.ec_popup_menu').hide().css({ top: '', bottom: '', left: '', right: '', position: '' });
@@ -5145,45 +5385,17 @@ username: message
             jQuery('.ec_popup_menu').not('#ec_style_menu_body').hide().css({ top: '', bottom: '', left: '', right: '', position: '' });
 
             if (!wasActive) {
+                closeStyleIndicatorMenu();
                 trigger.addClass('active');
-                // Position menu - check if panel is at bottom position
-                const rect = trigger[0].getBoundingClientRect();
-                const isBottomPosition = settings.position === 'bottom';
-                const menuHeight = menu.outerHeight() || 300; // Estimate if not visible
-
-                if (isBottomPosition) {
-                    // Open upward when panel is at bottom
-                    menu.css({
-                        position: 'fixed',
-                        bottom: (window.innerHeight - rect.top) + 'px',
-                        top: 'auto',
-                        left: rect.left + 'px',
-                        width: Math.max(rect.width, 200) + 'px',
-                        display: 'block',
-                        maxHeight: (rect.top - 20) + 'px',
-                        overflowY: 'auto'
-                    });
-                } else {
-                    // Open downward for other positions
-                    menu.css({
-                        position: 'fixed',
-                        top: rect.bottom + 'px',
-                        bottom: 'auto',
-                        left: rect.left + 'px',
-                        width: Math.max(rect.width, 200) + 'px',
-                        display: 'block',
-                        maxHeight: (window.innerHeight - rect.bottom - 20) + 'px',
-                        overflowY: 'auto'
-                    });
-                }
+                openStyleIndicatorMenu(trigger, menu);
             } else {
-                trigger.removeClass('active');
-                menu.hide();
+                closeStyleIndicatorMenu();
             }
             e.stopPropagation();
         });
 
         jQuery(document).on('click', function () {
+            closeStyleIndicatorMenu();
             jQuery('.ec_btn').removeClass('open active');
             jQuery('.ec_popup_menu').hide().css({ top: '', bottom: '', left: '', right: '', position: '' });
             jQuery('#ec_style_menu_body').hide();
@@ -5264,6 +5476,7 @@ username: message
             }
 
             // Close all menus and reset all active states
+            closeStyleIndicatorMenu();
             jQuery('.ec_btn').removeClass('open active');
             jQuery('.ec_popup_menu').hide().css({ top: '', bottom: '', left: '', right: '', position: '' });
             jQuery('#ec_style_menu_body').hide();
