@@ -1,6 +1,20 @@
 
 # 🗣️ EchoChamber for SillyTavern
 
+## `custom-features` Branch Changes
+
+This fork includes focused mobile UI fixes maintained by Julia and Codex. The original EchoChamber extension is by [mattjaybe](https://github.com/mattjaybe/SillyTavern-EchoChamber).
+
+- **Branch: main:** 
+  * The in-panel Style dropdown opens downward on mobile and scrolls internally when space is limited. It remains a custom UI dropdown.
+  * Settings, Style Editor, New Style, and Clear confirmations appear above the EchoChamber panel in a consistent order. Dialog sizing follows the visible viewport, including keyboard changes.
+  * The mobile Style Manager starts with a scrollable list of styles. Tap a style to edit it; tap the same row again to collapse or reopen its prompt. Collapsing keeps unsaved text until the editor is closed or a different style is selected.
+  * Drag the existing grip to reorder styles with touch or pen. Swiping a label scrolls the list. Mouse dragging remains available on desktop.
+  * Create stores a new custom style; Save commits edits. New or saved styles are revealed in the list and immediately reflected in the style menus. Storage remains in SillyTavern's existing EchoChamber settings.
+- **Branch: custom-features:** Changed the general mobile sizing of the extension, including removal of background colors for buttons, resizing the font, making the extension panel shorter and giving the power button different colors when the extension is toggled on or off. More information in my commit.
+
+# Original README
+
 > **Bring your stories and conversations to life with a dynamic, AI-powered audience.**
 
 ## 🆕 What's New
@@ -156,7 +170,7 @@ EchoChamber adapts to your preferred layout. Position the reaction panel anywher
 2. Select **Install Extension**
 3. Paste this URL:
    ```
-   https://github.com/mattjaybe/SillyTavern-EchoChamber
+   https://github.com/julez122/SillyTavern-EchoChamber
    ```
 4. Click **Install** and refresh SillyTavern
 
@@ -360,7 +374,7 @@ The reactions in the screenshots are based on this original character card. Use 
 ## 🤝 Contributing
 
 Contributions are welcome! Feel free to:
-- Submit bug reports and feature requests via [Issues](https://github.com/mattjaybe/SillyTavern-EchoChamber/issues)
+- Submit bug reports and feature requests via [Issues](https://github.com/julez122/SillyTavern-EchoChamber/issues)
 - Share your custom styles with the community
 - Submit pull requests for improvements
 

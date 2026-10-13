@@ -92,7 +92,7 @@
 /* Position: TOP - Fixed at top of viewport */
 #discordBar.ec_top {
     position: fixed;
-    top: 35px;
+    top: 38px;
     left: 50%;
     transform: translateX(-50%);
     width: var(--sheld-width, var(--sheldWidth, 95%));
@@ -250,7 +250,7 @@
 .ec_header_left {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 3px;
     flex-shrink: 0;
     min-width: 0;
 }
@@ -276,8 +276,14 @@
     border-radius: 4px;
 }
 
-.ec_power_btn:hover {
-    background: var(--ec-hover);
+.ec_power_btn:hover,
+.ec_power_btn:focus-visible,
+.ec_power_btn:active {
+    background: transparent;
+}
+
+.ec_power_btn > i {
+font-size: 0.9em;
 }
 
 /* Collapse Button (Expand/Collapse Panel) */
@@ -296,7 +302,7 @@
 }
 
 .ec_collapse_btn:hover {
-    background: var(--ec-hover);
+    background: rgba(238, 83, 150, 0.05);
     color: var(--ec-accent);
     transform: scale(1.15);
 }
@@ -307,16 +313,10 @@
     opacity: 1 !important;
     background: rgba(67, 181, 129, 0.12);
     border-radius: 4px;
-    width: 28px;
-    height: 28px;
-    font-size: 0.95em;
-    box-shadow: 0 0 0 1px rgba(67, 181, 129, 0.3);
-}
-
-#discordBar.ec_collapsed .ec_collapse_btn:hover {
-    background: rgba(67, 181, 129, 0.25);
-    box-shadow: 0 0 0 1px rgba(67, 181, 129, 0.6);
-    transform: scale(1.15);
+    width: 25px;
+    height: 25px;
+    font-size: 0.90em;
+    background-color: rgba(238, 83, 150,0.05) !important;
 }
 
 /* Legacy toggle button - kept for compatibility */
@@ -1047,11 +1047,13 @@
     align-items: center;
     gap: 8px;
     color: rgba(255, 255, 255, 0.96);
-    font-size: 0.9em;
+    font-size: 0.75em;
     white-space: nowrap;
     transition: background 0.15s, color 0.15s;
     opacity: 1;
     text-shadow: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 0px 10px 10px;
 }
 
 /* Only apply hover highlight on devices that support true hover (mouse/trackpad).
@@ -2013,7 +2015,7 @@
 
 /* Top panel collapsed - snug against ST menu */
 #discordBar.ec_top.ec_collapsed {
-    top: 35px !important;
+    top: 38px;
 }
 
 #discordBar.ec_top.ec_collapsed #discordQuickSettings {
@@ -2024,8 +2026,8 @@
 
 /* Bottom panel collapsed - minimal height */
 #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
-    height: 28px !important;
-    min-height: 28px !important;
+    height: 26px !important;
+    min-height: 20px !important;
     padding: 0 8px !important;
 }
 
@@ -2037,15 +2039,16 @@
 #discordBar.ec_left.ec_collapsed,
 #discordBar.ec_right.ec_collapsed {
     position: fixed !important;
-    top: var(--topBarBlockSize) !important;
+    top: 39px;
     bottom: 0 !important;
     width: 36px !important;
     min-width: 36px !important;
     max-width: 36px !important;
-    height: calc(100vh - var(--topBarBlockSize)) !important;
-    padding: 0 !important;
+    height: 69px !important;
+    padding: 0px 9px !important;
     flex-direction: column !important;
-    border-radius: 0 !important;
+    border-bottom-left-radius: 15px !important;
+    border-bottom-right-radius: 15px !important;
     z-index: 2005 !important;
 }
 
@@ -2201,7 +2204,7 @@
     }
 
     #discordBar.ec_top {
-        top: var(--topBarHeight, 42px);
+        top: var(--topBarHeight, 38px);
     }
 
     /* Side panels stay as sidebars on mobile, scaling to full viewport width when expanded */
@@ -2242,6 +2245,9 @@
         width: 36px !important;
         min-width: 36px !important;
         max-width: 36px !important;
+        height: 69px !important;
+        border-bottom-left-radius: 15px !important;
+        border-bottom-right-radius: 15px !important;
     }
 
     #discordBar.ec_left #discordContent,
@@ -2462,6 +2468,7 @@
     position: sticky;
     top: 0;
     z-index: 5;
+    font-size: 0.9em;
 }
 
 .ecm_header_title {
@@ -2521,10 +2528,15 @@
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.07);
     border-radius: 8px;
-    padding: 12px 14px;
+    padding: 4px 15px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-bottom: 12px;
+}
+
+#ecm-sect-general {
+margin-top: 10px;
 }
 
 .ecm_section_title {
@@ -2641,7 +2653,7 @@
     position: absolute;
     width: 16px;
     height: 16px;
-    background: rgba(255, 255, 255, 0.7);
+    background: transparent;
     border-radius: 50%;
     top: 3px;
     left: 3px;
@@ -2968,12 +2980,12 @@
 
 .ecm_done_btn {
     width: 100%;
-    padding: 12px 0;
+    padding: 8px 0;
     background: var(--SmartThemeBlurTintColor, #2a2c31);
     color: var(--SmartThemeBodyColor, #ccc);
     border: 1px solid var(--SmartThemeQuoteColor, #43b581);
     border-radius: 7px;
-    font-size: 1.05em;
+    font-size: 0.9em;
     font-weight: 700;
     cursor: pointer;
     display: flex;
@@ -2986,10 +2998,6 @@
 
 .ecm_done_btn:hover {
     filter: brightness(1.12);
-}
-
-.ecm_done_btn:active {
-    transform: scale(0.98);
 }
 
 /* ---- Utility helpers ---- */
@@ -4027,9 +4035,9 @@
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid var(--SmartThemeBorderColor, rgba(255, 255, 255, 0.12));
     border-radius: 20px;
-    padding: 8px 40px 8px 16px;
+    padding: 8px 40px 8px 15px;
     color: var(--ec-text);
-    font-size: 0.9em;
+    font-size: 0.75em;
     outline: none;
     transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
@@ -4071,7 +4079,7 @@
     color: rgba(255, 255, 255, 0.5);
     background: transparent;
     transition: color 0.15s, background 0.15s, transform 0.1s;
-    font-size: 13px;
+    font-size: 11px;
 }
 
 .ec_reply_send:hover {
@@ -4304,15 +4312,15 @@
 }
 
 .ec_confirm_modal_icon {
-    width: 52px;
-    height: 52px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     background: rgba(240, 100, 60, 0.12);
     border: 1px solid rgba(240, 100, 60, 0.3);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 17px;
     color: #f06430;
     box-shadow: 0 0 20px rgba(240, 100, 60, 0.2);
     flex-shrink: 0;
@@ -4329,14 +4337,14 @@
 
 .ec_confirm_modal_actions {
     display: flex;
-    gap: 10px;
-    width: 100%;
+    gap: 20px;
+    width: 50%;
     margin-top: 4px;
 }
 
 .ec_confirm_modal_btn {
     flex: 1;
-    padding: 10px 16px;
+    padding: 5px 0px;
     border-radius: 8px;
     font-size: 0.9em;
     font-weight: 600;
@@ -4514,4 +4522,13 @@
 #dialogue_popup,
 #shadow_popup {
     z-index: 200005 !important;
+}
+/* Color of the power button if the extension is enabled or disabled (for the floating panel) */
+
+[title="Toggle On/Off (Currently ON)"] {
+color: rgba(99, 253, 126, 0.5) !important;
+}
+
+[title="Toggle On/Off (Currently OFF)"] {
+color: rgba(255, 68, 68, 0.5) !important;
 }
