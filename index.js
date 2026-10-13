@@ -1228,7 +1228,7 @@
         const chatInputHtml = settings.chatEnabled ? `
             <div class="ec_reply_container ec_float_reply_bar" id="ec_float_reply_bar">
                 <div class="ec_reply_wrapper">
-                    <input type="text" class="ec_reply_input" placeholder="Type a message to participate..." id="ec_float_reply_field">
+                    <input type="search" class="ec_reply_input" placeholder="Type a message to participate..." id="ec_float_reply_field" autocomplete="off">
                     <div class="ec_reply_send" id="ec_float_reply_submit" title="Send message"><i class="fa-solid fa-paper-plane"></i></div>
                 </div>
             </div>` : '';
@@ -4592,7 +4592,7 @@ username: message
         const replyContainer = jQuery(`
         <div class="ec_reply_container" >
             <div class="ec_reply_wrapper">
-                <input type="text" class="ec_reply_input" placeholder="Type a message to participate..." id="ec_reply_field">
+                <input type="search" class="ec_reply_input" placeholder="Type a message to participate..." id="ec_reply_field" autocomplete="off">
                 <div class="ec_reply_send" id="ec_reply_submit" title="Send message"><i class="fa-solid fa-paper-plane"></i></div>
             </div>
         </div>

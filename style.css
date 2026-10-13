@@ -4658,9 +4658,10 @@
   color: rgba(255, 68, 68, 0.5) !important;
 }
 
-@media screen and (max-width: 1000px) {
-#discordBar.ec_left .ec_reply_container,
-#discordBar.ec_right .ec_reply_container {
-    margin-bottom: 55px; /* Adjust this value as needed */
-}
+@media screen and (max-width: 768px) {
+    #discordBar.ec_left,
+    #discordBar.ec_right {
+        height: calc(100dvh - var(--topBarBlockSize)) !important;
+        bottom: auto !important;
+    }
 }
