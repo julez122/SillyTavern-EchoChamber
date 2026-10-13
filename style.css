@@ -4532,3 +4532,10 @@ color: rgba(99, 253, 126, 0.5) !important;
 [title="Toggle On/Off (Currently OFF)"] {
 color: rgba(255, 68, 68, 0.5) !important;
 }
+
+@media screen and (max-width: 1000px) {
+#discordBar.ec_left .ec_reply_container,
+#discordBar.ec_right .ec_reply_container {
+    transform: translateY(-55px);
+}
+}
