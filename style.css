@@ -4665,3 +4665,15 @@
         bottom: auto !important;
     }
 }
+
+/* Offset collapsed EchoChamber when TopInfoBar is present */
+:root:has(#extensionTopBar) #discordBar.ec_top.ec_collapsed,
+:root:has(#extensionTopBar) #discordBar.ec_left.ec_collapsed,
+:root:has(#extensionTopBar) #discordBar.ec_right.ec_collapsed {
+    top: 78px !important;
+}
+
+/* Hide the default "X" clear button in the input field on WebKit browsers */
+.ec_reply_input::-webkit-search-cancel-button {
+  display: none;
+}

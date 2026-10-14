@@ -12,6 +12,7 @@ This fork includes focused mobile UI fixes maintained by Julia and Codex. The or
   * Drag the existing grip to reorder styles with touch or pen. Swiping a label scrolls the list. Mouse dragging remains available on desktop.
   * Create stores a new custom style; Save commits edits. New or saved styles are revealed in the list and immediately reflected in the style menus. Storage remains in SillyTavern's existing EchoChamber settings.
 - **Branch: custom-features:** Changed the general mobile sizing of the extension, including removal of background colors for buttons, resizing the font, making the extension panel shorter and giving the power button different colors when the extension is toggled on or off. More information in my commit.
+  * Added support for the **[TopInfoBar Extension](https://github.com/julez122/Extension-TopInfoBar/tree/custom-features)** so the panel sits below the Top Bar if the aligment of EchoChamber is set to left, right or top.
 
 # Original README
 
