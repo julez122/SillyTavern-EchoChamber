@@ -1522,7 +1522,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 20px;
+  padding: 6px 15px;
   border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
   flex-shrink: 0;
 }
@@ -1533,7 +1533,7 @@
   align-items: center;
   gap: 10px;
   color: var(--SmartThemeBodyColor, #eee);
-  font-size: 1.1em;
+  font-size: 1em;
 }
 
 .ec_modal_close {
@@ -1567,10 +1567,10 @@
 }
 
 .ec_style_sidebar_header {
-  padding: 12px;
-  border-bottom: 1px solid var(--SmartThemeBorderColor, #333);
-  display: flex;
-  gap: 8px;
+  padding: 8px;
+  border-bottom: 2px solid var(--SmartThemeBorderColor, #333);
+  /* display: flex; */
+  /* gap: 8px; */
 }
 
 .ec_style_sidebar_header button {
@@ -1601,11 +1601,13 @@
   align-items: center;
   gap: 6px;
   flex-shrink: 0;
+  border-top: 2px solid var(--SmartThemeBorderColor);
+  margin-top: 2px;
 }
 
 .ec_style_item {
-  padding: 8px 10px;
-  border-radius: 6px;
+  padding: 10px 10px;
+  border-radius: 0px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -1617,6 +1619,7 @@
     box-shadow 0.15s;
   margin-bottom: 4px;
   font-size: 0.9em;
+  border-bottom: 1px solid var(--SmartThemeBorderColor);
 }
 
 .ec_style_item:hover {
@@ -1739,8 +1742,8 @@
 
 .ec_style_name_input {
   flex: 1;
-  padding: 10px 14px;
-  font-size: 1em;
+  padding: 5px 0px 5px 10px;
+  font-size: 12px;
   border: 1px solid var(--SmartThemeBorderColor, #444);
   border-radius: 6px;
   background: rgba(0, 0, 0, 0.2);
@@ -1904,7 +1907,7 @@
   border: 1px solid var(--ec-border);
   border-radius: 6px;
   color: var(--SmartThemeBodyColor, #fff);
-  font-size: 0.95em;
+  font-size: 12px;
   box-sizing: border-box;
 }
 
@@ -1940,7 +1943,8 @@
 .ec_checkbox_row {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
+  gap: 5px;
+  margin-top: 20px;
 }
 
 .ec_checkbox_row label {
@@ -1980,6 +1984,7 @@
   flex: 1;
   min-height: 300px;
   resize: vertical;
+  margin-bottom: inherit;
 }
 
 /* Label row with action buttons */
@@ -1997,6 +2002,7 @@
 .ec_prompt_actions {
   display: flex;
   gap: 6px;
+  margin-bottom: inherit;
 }
 
 .ec_small_btn {
@@ -2401,7 +2407,7 @@
   /* Modal footer buttons stack */
   .ec_modal_footer {
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
 
   .ec_modal_footer_left,
@@ -2411,7 +2417,7 @@
   }
 
   .ec_modal_footer button {
-    width: 100%;
+    width: fit-content;
   }
 }
 
@@ -2425,9 +2431,9 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 10px;
+  padding: 4px;
   font-size: 0.85em;
-  margin: 0 !important;
+  margin: auto !important;
 }
 
 /* ========================================= */
@@ -2474,7 +2480,7 @@
     rgba(22, 23, 30, 0.98) 100%
   );
   border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
-  border-radius: 12px;
+  border-radius: 5px !important;
   box-shadow:
     0 24px 60px rgba(0, 0, 0, 0.7),
     0 0 0 1px rgba(255, 255, 255, 0.04) inset;
@@ -2663,7 +2669,7 @@
   flex: 1;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 10px;
   user-select: none;
 }
 
@@ -2750,8 +2756,8 @@
 
 /* Color picker in settings modal */
 .ecm_color_input {
-  width: 48px !important;
-  height: 36px;
+  width: 20px !important;
+  height: 20px;
   padding: 2px 3px;
   border-radius: 6px;
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -2839,7 +2845,7 @@
   font-size: 0.8em;
   opacity: 0.6;
   min-width: 34px;
-  text-align: right;
+  text-align: left;
 }
 
 /* ---- Mobile (<= 600px) ---- */
@@ -2852,7 +2858,7 @@
   .ecm_card {
     max-width: 100%;
     max-height: 92vh;
-    border-radius: 16px 16px 0 0;
+    border-radius: 5px 5px 0 0;
     border-bottom: none;
   }
 
@@ -2995,7 +3001,7 @@
 }
 
 .ecm_footer_btn {
-  padding: 8px 12px;
+  padding: 4px 8px;
   background: var(--SmartThemeBlurTintColor, #2a2c31);
   color: var(--SmartThemeBodyColor, #ccc);
   border: 1px solid var(--ec-border, rgba(255, 255, 255, 0.15));
@@ -3023,7 +3029,7 @@
 
 .ecm_done_btn {
   width: 100%;
-  padding: 8px 0;
+  padding: 4px 0;
   background: var(--SmartThemeBlurTintColor, #2a2c31);
   color: var(--SmartThemeBodyColor, #ccc);
   border: 1px solid var(--SmartThemeQuoteColor, #43b581);
@@ -3034,7 +3040,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: 6px;
   transition:
     filter 0.15s,
     transform 0.1s;
@@ -3362,13 +3368,14 @@
 /* === Description blurb === */
 .ec-s-description {
   margin-bottom: 12px;
-  padding: 8px 12px;
-  border-left: 3px solid var(--ec-s-accent);
+  padding: 5px 0px 14px;
+  border-bottom: 1px solid var(--ec-s-accent);
   background: var(--ec-s-bg);
-  border-radius: 0 var(--ec-s-radius) var(--ec-s-radius) 0;
+  border-radius: 0;
   font-size: var(--ec-s-font-sm);
   opacity: 0.85;
   line-height: 1.5;
+  text-align: center;
 }
 
 /* === Global enable row === */
@@ -3455,7 +3462,7 @@
 
 /* Accordion body */
 .ec-s-section-body {
-  padding: 10px 12px 12px;
+  padding: 12px 16px 12px;
   border-top: 1px solid var(--ec-s-border);
   display: flex;
   flex-direction: column;
@@ -3471,12 +3478,12 @@
 .ec-s-toggle-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 2px;
   min-height: var(--ec-s-row-min);
-  padding: 6px 8px;
+  padding: 6px 0px;
   border-radius: var(--ec-s-radius);
   cursor: pointer;
-  font-size: 0.9em;
+  font-size: unset;
   color: var(--ec-s-text);
   transition: background 0.15s;
   /* Ensure checkbox/radio is always tap-accessible */
@@ -3505,9 +3512,10 @@
 .ec-s-label-text {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 14px;
   flex: 1;
   min-width: 0;
+  font-size: 13px;
 }
 
 .ec-s-label-bold {
@@ -3718,10 +3726,11 @@
   font-size: var(--ec-s-font-xs);
   opacity: var(--ec-s-opacity-dim);
   line-height: 1.4;
+  margin: auto;
 }
 
 .ec-s-hint--indent {
-  padding-left: 12px;
+  padding-left: 0px;
 }
 
 /* Status note (Ollama connection status) */
@@ -3818,7 +3827,7 @@
 
   /* Tighten section body padding on small screens */
   .ec-s-section-body {
-    padding: 8px 8px 10px;
+    padding: 12px 16px 12px;
   }
 
   /* Give slider the full row on mobile */
@@ -4500,10 +4509,10 @@
   border: 1px solid rgba(67, 181, 129, 0.4) !important;
   color: var(--SmartThemeQuoteColor, #43b581) !important;
   font-weight: 600 !important;
-  display: flex !important;
+  display: block !important;
   align-items: center !important;
   gap: 6px !important;
-  padding: 8px 14px !important;
+  padding: 6px 14px !important;
   border-radius: 6px !important;
   transition:
     background 0.2s,
@@ -4511,6 +4520,11 @@
     box-shadow 0.2s,
     transform 0.1s !important;
   white-space: nowrap !important;
+  width: fit-content;
+  /* min-width: 0; */
+  /* box-shadow: 0 0 8px rgba(67, 181, 129, 0.15) !important; */
+  /* align-self: center; */
+  margin: auto;
 }
 
 .ec_btn_new_style:hover {
@@ -4530,13 +4544,15 @@
   border: 1px solid rgba(100, 160, 255, 0.35) !important;
   color: rgba(140, 190, 255, 0.9) !important;
   font-weight: 500 !important;
-  display: flex;
+  display: block;
   align-items: center !important;
-  gap: 6px !important;
+  /* gap: 6px !important; */
   transition:
     background 0.2s,
     border-color 0.2s,
     transform 0.1s !important;
+  margin: auto;
+  font-size: 12px;
 }
 
 .ec_btn_export:hover {
@@ -4555,13 +4571,15 @@
   border: 1px solid rgba(255, 255, 255, 0.15) !important;
   color: rgba(255, 255, 255, 0.6) !important;
   font-weight: 500 !important;
-  display: flex !important;
+  display: block !important;
   align-items: center !important;
-  gap: 6px !important;
+  /*  gap: 6px !important; */
   transition:
     background 0.2s,
     color 0.2s,
     transform 0.1s !important;
+  margin: auto;
+  font-size: 12px;
 }
 
 .ec_btn_cancel:hover {
@@ -4580,16 +4598,18 @@
   border: 1px solid rgba(67, 181, 129, 0.5) !important;
   color: var(--SmartThemeQuoteColor, #43b581) !important;
   font-weight: 700 !important;
-  display: flex;
-  align-items: center !important;
-  gap: 6px !important;
-  padding: 8px 18px !important;
+  display: block;
+  /* align-items: center !important;
+  gap: 6px !important; */
+  padding: 5px 10px !important;
   transition:
     background 0.2s,
     border-color 0.2s,
     box-shadow 0.2s,
     transform 0.1s !important;
   box-shadow: 0 0 8px rgba(67, 181, 129, 0.15) !important;
+  margin: auto;
+  font-size: 12px;
 }
 
 .ec_btn_save:hover {
@@ -4613,16 +4633,18 @@
   border: 1px solid rgba(67, 181, 129, 0.5) !important;
   color: var(--SmartThemeQuoteColor, #43b581) !important;
   font-weight: 700 !important;
-  display: flex !important;
+  display: block;
   align-items: center !important;
-  gap: 6px !important;
-  padding: 8px 20px !important;
+  /* gap: 6px !important; */
+  padding: 5px 4px !important;
   transition:
     background 0.2s,
     border-color 0.2s,
     box-shadow 0.2s,
     transform 0.1s !important;
   box-shadow: 0 0 10px rgba(67, 181, 129, 0.15) !important;
+  margin: auto;
+  font-size: 12px;
 }
 
 .ec_btn_create:hover {
@@ -4659,21 +4681,26 @@
 }
 
 @media screen and (max-width: 768px) {
-    #discordBar.ec_left,
-    #discordBar.ec_right {
-        height: calc(100dvh - var(--topBarBlockSize)) !important;
-        bottom: auto !important;
-    }
+  #discordBar.ec_left,
+  #discordBar.ec_right {
+    height: calc(100dvh - var(--topBarBlockSize)) !important;
+    bottom: auto !important;
+  }
 }
 
 /* Offset collapsed EchoChamber when TopInfoBar is present */
 :root:has(#extensionTopBar) #discordBar.ec_top.ec_collapsed,
 :root:has(#extensionTopBar) #discordBar.ec_left.ec_collapsed,
 :root:has(#extensionTopBar) #discordBar.ec_right.ec_collapsed {
-    top: 78px !important;
+  top: 78px !important;
 }
 
 /* Hide the default "X" clear button in the input field on WebKit browsers */
 .ec_reply_input::-webkit-search-cancel-button {
   display: none;
+}
+
+/* Style small text in the Style Manager for built-in styles to be extra small */
+#ec_style_main > div.ec_style_name_row > small {
+  font-size: xx-small;
 }
