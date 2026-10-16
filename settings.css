@@ -1,0 +1,10 @@
+/* Keep the disabled drawer description aligned with the existing settings UI. */
+#ec_settings_root:not([data-state="on"]) .ec-s-description { font-size: 0.85em; opacity: 0.7; margin-bottom: 12px; line-height: 1.5; }
+/* Keep the master switch accessible without loading panel styles. */
+#ec_settings_root:not([data-state="on"]) .ec-s-global-enable { display: flex; align-items: center; gap: 10px; padding: 10px 12px; margin-bottom: 12px; cursor: pointer; }
+/* Match the existing emphasis on the master switch label. */
+#ec_settings_root:not([data-state="on"]) .ec-s-label-bold { font-weight: 600; }
+/* Expose real loading/error state in the drawer without covering other drawers. */
+#ec_lifecycle_status { font-size: 0.85em; padding: 0 12px 10px; overflow-wrap: anywhere; }
+/* Empty status text consumes no space. */
+#ec_lifecycle_status:empty { display: none; }

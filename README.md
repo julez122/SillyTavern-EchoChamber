@@ -1,18 +1,22 @@
-
 # 🗣️ EchoChamber for SillyTavern
 
-## `custom-features` Branch Changes
+## `custom-features` fork — 5.4.0
 
-This fork includes focused mobile UI fixes maintained by Julia and Codex. The original EchoChamber extension is by [mattjaybe](https://github.com/mattjaybe/SillyTavern-EchoChamber).
+This fork is maintained by Julia and Codex. The original EchoChamber extension is by [mattjaybe](https://github.com/mattjaybe/SillyTavern-EchoChamber).
 
-- **Branch: main:** 
-  * The in-panel Style dropdown opens downward on mobile and scrolls internally when space is limited. It remains a custom UI dropdown.
-  * Settings, Style Editor, New Style, and Clear confirmations appear above the EchoChamber panel in a consistent order. Dialog sizing follows the visible viewport, including keyboard changes.
-  * The mobile Style Manager starts with a scrollable list of styles. Tap a style to edit it; tap the same row again to collapse or reopen its prompt. Collapsing keeps unsaved text until the editor is closed or a different style is selected.
-  * Drag the existing grip to reorder styles with touch or pen. Swiping a label scrolls the list. Mouse dragging remains available on desktop.
-  * Create stores a new custom style; Save commits edits. New or saved styles are revealed in the list and immediately reflected in the style menus. Storage remains in SillyTavern's existing EchoChamber settings.
-- **Branch: custom-features:** Changed the general mobile sizing of the extension, including removal of background colors for buttons, resizing the font, making the extension panel shorter and giving the power button different colors when the extension is toggled on or off. More information in my commit.
-  * Added support for the **[TopInfoBar Extension](https://github.com/julez122/Extension-TopInfoBar/tree/custom-features)** so the panel sits below the Top Bar if the aligment of EchoChamber is set to left, right or top.
+The **Enable EchoChamber** checkbox is now the master switch. While OFF, a small settings drawer keeps this switch available; panels, generation/replies, chat-event work, livestream playback, timers and observers are inactive. ON shows “Loading EchoChamber…” while loading the existing interface and saved state. You can turn it OFF during loading or generation, and turn it ON again without restarting SillyTavern. Old results cannot appear or save commentary after shutdown, a chat change or a change to the originating message/swipe.
+
+Saved settings, profiles, custom styles and commentary keep their existing storage. Unfinished livestream queues and floating-panel geometry are retained across OFF/ON. Include Chat History, Past Generated EchoChambers, Persona, Author's Note, Character Description(s), Summary and World Info/Lorebook still work. Large saved feeds restore in batches to keep other input responsive. There is no reset or migration step.
+
+### Preserved mobile/custom behavior
+
+- The in-panel custom Style dropdown opens downward on mobile and scrolls internally; desktop Bottom keeps its upward direction.
+- Settings, Style Editor, New Style and Clear confirmations stay above the panel and follow the visible viewport, including keyboard changes.
+- The mobile Style Manager starts with a scrollable list. Tap a style to edit it; tap the same row to collapse/reopen its prompt without losing the current draft.
+- Drag the grip to reorder styles with touch or pen. Swiping a label scrolls the list. Desktop mouse dragging remains.
+- Create stores a custom style; Save commits edits. New/saved styles are revealed and reflected in the menus. Import/export and existing IDs remain.
+- Custom mobile sizing, transparent button backgrounds, panel height and power-button colors remain.
+- [TopInfoBar](https://github.com/julez122/Extension-TopInfoBar/tree/custom-features) positioning support remains for Left, Right and Top.
 
 # Original README
 
