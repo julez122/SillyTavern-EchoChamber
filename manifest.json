@@ -6,7 +6,7 @@
     "js": "index.js",
     "css": "settings.css",
     "author": "Julia and Codex",
-    "version": "5.4.0",
+    "version": "5.4.1",
     "homePage": "https://github.com/julez122/SillyTavern-EchoChamber",
     "auto_update": true
 }

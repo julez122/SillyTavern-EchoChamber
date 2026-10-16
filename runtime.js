@@ -3293,9 +3293,9 @@ STRICTLY follow the format defined in the instruction. ${isNarratorStyle && sett
                       placeholder="Enter the prompt/instructions for this style..."></textarea>
             <div style="font-size:0.75em; opacity:0.65; margin-top:6px; padding:6px 8px; background:rgba(0,0,0,0.15); border-radius:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                 <span><i class="fa-solid fa-code" style="margin-right:4px;"></i><b>Macros:</b></span>
-                <span><code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px;">{{user}}</code> → <em>${previewUser}</em></span>
-                <span><code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px;">{{char}}</code> → <em>${previewChar}</em></span>
-                <span><code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px;">{{characters}}</code> → <em>all active character names</em></span>
+                <span><code style="background:transparent; padding:unset; border-radius:0px; border:none;">{{user}}</code> → <em>${previewUser}</em></span>
+                <span><code style="background:transparent; padding:unset; border-radius:0px; border:none;">{{char}}</code> → <em>${previewChar}</em></span>
+                <span><code style="background:transparent; padding:unset; border-radius:0px; border:none;">{{characters}}</code> → <em>all active character names</em></span>
             </div>
         `);
 
@@ -3453,8 +3453,8 @@ username: message
                             <small>The extension will prepend "Generate X messages" based on user count setting.</small>
                             <div style="font-size:0.75em; opacity:0.65; margin-top:6px; padding:6px 8px; background:rgba(0,0,0,0.15); border-radius:4px; display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
                                 <span><i class="fa-solid fa-code" style="margin-right:4px;"></i><b>Macros:</b></span>
-                                <span><code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px;">{{user}}</code> &rarr; <em id="ec_tpl_adv_user_preview">?</em></span>
-                                <span><code style="background:rgba(255,255,255,0.08); padding:1px 5px; border-radius:3px;">{{char}}</code> &rarr; <em id="ec_tpl_adv_char_preview">?</em></span>
+                                <span><code style="background:transparent; padding:unset; border-radius:0px; border:none;">{{user}}</code> &rarr; <em id="ec_tpl_adv_user_preview">?</em></span>
+                                <span><code style="background:transparent; padding:unset; border-radius:0px; border:none;">{{char}}</code> &rarr; <em id="ec_tpl_adv_char_preview">?</em></span>
                             </div>
                         </div>
                     </div>
