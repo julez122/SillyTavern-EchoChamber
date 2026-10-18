@@ -61,7 +61,7 @@
 #discordBar {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--ec-border);
+  /* border: 1px solid var(--ec-border) */;
   overflow: visible;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   /* z-index must be higher than Pathweaver bar (200000) so that popup menus
@@ -561,7 +561,7 @@
 .ec_reply_container {
   padding: 8px 12px;
   background: rgba(0, 0, 0, 0.2);
-  border-top: 1px solid var(--ec-border);
+  border-top: 1px solid var(--SmartThemeEmColor);
   display: flex;
   gap: 8px;
   align-items: center;
@@ -2057,7 +2057,7 @@
 
 /* Bottom panel collapsed - minimal height */
 #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
-  height: 26px !important;
+  height: 30px !important;
   min-height: 20px !important;
   padding: 0 8px !important;
 }
@@ -2088,15 +2088,17 @@
   left: 0 !important;
   right: auto !important;
   border-left: none !important;
-  border-right: 1px solid var(--ec-border) !important;
+  border-right: transparent !important;
+  border: transparent;
 }
 
 /* RIGHT panel collapsed - dock to RIGHT edge */
 #discordBar.ec_right.ec_collapsed {
   left: auto !important;
   right: 0 !important;
-  border-right: none !important;
-  border-left: 1px solid var(--ec-border) !important;
+  border-right: transparent !important;
+  border-left: transparent !important;
+  border: transparent;
 }
 
 /* Header becomes vertical column at top of the slim bar */
@@ -2163,12 +2165,19 @@
     padding-top: 0 !important;
     padding: 0 !important;
     border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: transparent;
   }
 
   #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
     margin-top: 0 !important;
     padding-top: 0 !important;
+    padding: 0 !important;
     border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: transparent;
   }
 
   /* When expanded (not collapsed), overlay above with z-index */
@@ -2224,6 +2233,9 @@
     padding-top: 0 !important;
     padding: 0 !important;
     border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: transparent;
   }
 
   #discordBar.ec_bottom.ec_collapsed #discordQuickSettings {
@@ -2279,6 +2291,9 @@
     height: 69px !important;
     border-bottom-left-radius: 15px !important;
     border-bottom-right-radius: 15px !important;
+    border-right: transparent !important;
+    border-left: transparent !important;
+    border: transparent;
   }
 
   #discordBar.ec_left #discordContent,
@@ -4095,7 +4110,7 @@
   display: flex;
   align-items: center;
   background: rgba(0, 0, 0, 0.2);
-  border-top: 1px solid var(--ec-border);
+ border-top: 1px solid var(--SmartThemeEmColor);
   padding: 10px;
   gap: 8px;
   flex-shrink: 0;
@@ -4689,10 +4704,13 @@
 }
 
 /* Offset collapsed EchoChamber when TopInfoBar is present */
+@media (max-width: 768px) {
 :root:has(#extensionTopBar) #discordBar.ec_top.ec_collapsed,
 :root:has(#extensionTopBar) #discordBar.ec_left.ec_collapsed,
 :root:has(#extensionTopBar) #discordBar.ec_right.ec_collapsed {
-  top: 78px !important;
+  top: 73.3px !important;
+  border-top: transparent;
+  }
 }
 
 /* Hide the default "X" clear button in the input field on WebKit browsers */
